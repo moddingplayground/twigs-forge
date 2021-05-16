@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "twigs:mossy_bricks",
+    "twigs:cracked_bricks",
+    "twigs:chiseled_bricks",
+    "twigs:mossy_brick_slab",
+    "twigs:mossy_brick_stairs",
+    "twigs:mossy_brick_wall"
+  ]
+}

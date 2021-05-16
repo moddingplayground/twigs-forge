@@ -1,4 +1,9 @@
 {
   "itemGroup.twigs.item_group": "Twigs",
-  "block.twigs.chiseled_bricks": "Chiseled Bricks"
+  "block.twigs.chiseled_bricks": "Chiseled Bricks",
+  "block.twigs.mossy_bricks": "Mossy Bricks",
+  "block.twigs.mossy_brick_stairs": "Mossy Brick Stairs",
+  "block.twigs.mossy_brick_slab": "Mossy Bricks Slab",
+  "block.twigs.mossy_brick_wall": "Mossy Bricks Wall",
+  "block.twigs.cracked_bricks": "Cracked Bricks"
 }
