@@ -14,7 +14,7 @@ import net.minecraft.util.registry.Registry;
 
 @SuppressWarnings("unused")
 public class TwigsBlocks {
-    public static final Block CHISELED_BRICKS = register("chiseled_bricks", new Block(FabricBlockSettings.of(Material.STONE).sounds(BlockSoundGroup.STONE).breakByTool(FabricToolTags.PICKAXES).strength(2.0F, 6.0F)));
+    public static final Block CHISELED_BRICKS = register("chiseled_bricks", new Block(FabricBlockSettings.of(Material.STONE).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES).strength(2.0F, 6.0F)));
 
 
     private static Block register(String id, Block block, boolean registerItem) {
