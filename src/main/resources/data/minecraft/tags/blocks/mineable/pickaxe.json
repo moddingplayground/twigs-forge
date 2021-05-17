@@ -2,10 +2,15 @@
   "replace": false,
   "values": [
     "twigs:mossy_bricks",
+	"twigs:polished_basalt_bricks",
     "twigs:cracked_bricks",
     "twigs:chiseled_bricks",
     "twigs:mossy_brick_slab",
     "twigs:mossy_brick_stairs",
-    "twigs:mossy_brick_wall"
+    "twigs:mossy_brick_wall",
+	"twigs:smooth_basalt_bricks",
+    "twigs:smooth_basalt_brick_slab",
+    "twigs:smooth_basalt_brick_stairs",
+    "twigs:smooth_basalt_brick_wall"
   ]
 }

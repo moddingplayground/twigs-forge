@@ -1,9 +1,14 @@
 {
   "itemGroup.twigs.item_group": "Twigs",
   "block.twigs.chiseled_bricks": "Chiseled Bricks",
+  "block.twigs.polished_basalt_bricks": "Polished Basalt Bricks",
   "block.twigs.mossy_bricks": "Mossy Bricks",
   "block.twigs.mossy_brick_stairs": "Mossy Brick Stairs",
   "block.twigs.mossy_brick_slab": "Mossy Bricks Slab",
   "block.twigs.mossy_brick_wall": "Mossy Bricks Wall",
+  "block.twigs.smooth_basalt_bricks": "Smooth Basalt Bricks",
+  "block.twigs.smooth_basalt_brick_stairs": "Smooth Basalt Brick Stairs",
+  "block.twigs.smooth_basalt_brick_slab": "Smooth Basalt Bricks Slab",
+  "block.twigs.smooth_basalt_brick_wall": "Smooth Basalt Bricks Wall",
   "block.twigs.cracked_bricks": "Cracked Bricks"
 }
