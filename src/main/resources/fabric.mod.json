@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "Twigs",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Twigs is a minecraft mod all about building, it will add new and interesting building materials as well as new renditions of current minecraft blocks.",
   "authors": [
-    "Me!"
+    "Ninni"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "",
+    "sources": "https://github.com/N1nn1/Twigs"
   },
 
   "license": "CC0-1.0",
