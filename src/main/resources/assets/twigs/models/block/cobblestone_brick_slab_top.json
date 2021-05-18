@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "minecraft:block/twigs:block/cobblestone_bricks",
-    "top": "minecraft:block/twigs:block/cobblestone_bricks",
-    "side": "minecraft:block/twigs:block/cobblestone_bricks"
+    "bottom": "twigs:block/cobblestone_bricks",
+    "top": "twigs:block/cobblestone_bricks",
+    "side": "twigs:block/cobblestone_bricks"
   }
 }
