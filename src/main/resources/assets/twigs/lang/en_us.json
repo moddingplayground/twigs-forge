@@ -19,5 +19,14 @@
   "block.twigs.cobblestone_brick_stairs": "Cobblestone Brick Stairs",
   "block.twigs.cobblestone_brick_slab": "Cobblestone Bricks Slab",
   "block.twigs.cobblestone_brick_wall": "Cobblestone Bricks Wall",
-  "block.twigs.cracked_cobblestone_bricks": "Cracked Cobblestone Bricks"
+  "block.twigs.cracked_cobblestone_bricks": "Cracked Cobblestone Bricks",
+  "block.twigs.polished_amethyst": "Polished Amethyst",
+  "block.twigs.chiseled_polished_amethyst": "Chiseled Polished Amethyst",
+  "block.twigs.polished_amethyst_slab": "Polished Amethyst Slab",
+  "block.twigs.polished_amethyst_stairs": "Polished Amethyst Stairs",
+  "block.twigs.polished_amethyst_bricks": "Polished Amethyst Bricks",
+  "block.twigs.cracked_polished_amethyst_bricks": "Cracked Polished Amethyst Bricks",
+  "block.twigs.polished_amethyst_brick_wall": "Polished Amethyst Brick Wall",
+  "block.twigs.polished_amethyst_brick_slab": "Polished Amethyst Brick Slab",
+  "block.twigs.polished_amethyst_brick_stairs": "Polished Amethyst Brick Stairs"
 }
