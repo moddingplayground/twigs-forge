@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "twigs:lamp",
+    "twigs:soul_lamp",
     "twigs:mossy_bricks",
 	"twigs:polished_basalt_bricks",
     "twigs:cracked_bricks",

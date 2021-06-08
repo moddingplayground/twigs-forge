@@ -2,17 +2,26 @@ package com.ninni.twigs.init;
 
 
 import com.ninni.twigs.Twigs;
+import com.ninni.twigs.block.LampBlock;
 import com.ninni.twigs.block.vanilla.PublicStairsBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
+
+import java.util.function.ToIntFunction;
 
 @SuppressWarnings("unused")
 public class TwigsBlocks {
+    public static final Block LAMP = register("lamp", new LampBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(18))));
+    public static final Block SOUL_LAMP = register("soul_lamp", new LampBlock(FabricBlockSettings.copyOf(TwigsBlocks.LAMP).luminance(createLightLevelFromLitBlockState(17)).breakByTool(FabricToolTags.PICKAXES)));
     public static final Block CHISELED_BRICKS = register("chiseled_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS).breakByTool(FabricToolTags.PICKAXES)));
     public static final Block CRACKED_BRICKS = register("cracked_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS).breakByTool(FabricToolTags.PICKAXES)));
     public static final Block MOSSY_BRICKS = register("mossy_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS).breakByTool(FabricToolTags.PICKAXES)));
@@ -43,6 +52,11 @@ public class TwigsBlocks {
     public static final Block POLISHED_AMETHYST_STAIRS = register("polished_amethyst_stairs", new PublicStairsBlock(POLISHED_AMETHYST.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_AMETHYST)));
     public static final Block POLISHED_AMETHYST_SLAB = register("polished_amethyst_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_AMETHYST)));
 
+    private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
+        return (state) -> {
+            return (Boolean)state.get(Properties.LIT) ? litLevel : 0;
+        };
+    }
 
     private static Block register(String id, Block block, boolean registerItem) {
         Block registered = Registry.register(Registry.BLOCK, new Identifier(Twigs.MOD_ID, id), block);
