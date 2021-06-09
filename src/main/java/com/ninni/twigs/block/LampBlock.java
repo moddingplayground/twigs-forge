@@ -43,7 +43,7 @@ public class LampBlock extends Block {
     private void playSound(PlayerEntity player, boolean isLit) {
         if (!player.world.isClient) {
             player.playSound(
-                    isLit ? SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON : SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF,
+                    isLit ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF,
                     SoundCategory.BLOCKS,
                     0.3f,
                     isLit ? 0.6f : 0.5f

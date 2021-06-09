@@ -31,6 +31,14 @@
     "twigs:polished_amethyst_brick_stairs",
     "twigs:polished_amethyst_brick_wall",
     "twigs:chiseled_polished_amethyst",
-    "twigs:cracked_polished_amethyst_bricks"
+    "twigs:cracked_polished_amethyst_bricks",
+    "twigs:weeping_polished_blackstone_bricks",
+    "twigs:weeping_polished_blackstone_brick_stairs",
+    "twigs:weeping_polished_blackstone_brick_slab",
+    "twigs:weeping_polished_blackstone_brick_wall",
+    "twigs:twisting_polished_blackstone_bricks",
+    "twigs:twisting_polished_blackstone_brick_slab",
+    "twigs:twisting_polished_blackstone_brick_stairs",
+    "twigs:twisting_polished_blackstone_brick_wall"
   ]
 }
