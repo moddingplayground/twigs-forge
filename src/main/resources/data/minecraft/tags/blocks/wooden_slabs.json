@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "twigs:stripped_bamboo_slab"
+        "twigs:stripped_bamboo_slab",
+        "twigs:azalea_slab"
     ]
 }

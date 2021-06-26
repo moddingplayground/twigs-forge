@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "twigs:stripped_bamboo_pressure_plate"
+        "twigs:stripped_bamboo_pressure_plate",
+        "twigs:azalea_pressure_plate"
     ]
 }

@@ -16,6 +16,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 
@@ -23,6 +24,7 @@ import java.util.function.ToIntFunction;
 
 @SuppressWarnings("unused")
 public class TwigsBlocks {
+
     public static final Block LAMP = register("lamp", new LampBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(18))));
     public static final Block SOUL_LAMP = register("soul_lamp", new LampBlock(FabricBlockSettings.copyOf(TwigsBlocks.LAMP).luminance(createLightLevelFromLitBlockState(17)).breakByTool(FabricToolTags.PICKAXES)));
     public static final Block CHISELED_BRICKS = register("chiseled_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS).breakByTool(FabricToolTags.PICKAXES)));
@@ -82,6 +84,17 @@ public class TwigsBlocks {
     public static final Block BAMBOO_THATCH = register("bamboo_thatch", new Block(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.GRASS).breakByTool(FabricToolTags.HOES)));
     public static final Block BAMBOO_THATCH_STAIRS = register("bamboo_thatch_stairs", new PublicStairsBlock(BAMBOO_THATCH.getDefaultState(), FabricBlockSettings.copyOf(BAMBOO_THATCH)));
     public static final Block BAMBOO_THATCH_SLAB = register("bamboo_thatch_slab", new SlabBlock(FabricBlockSettings.copyOf(BAMBOO_THATCH)));
+    public static final Block AZALEA_LOG = register("azalea_log", new PillarBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LOG).sounds(BlockSoundGroup.WOOD).breakByTool(FabricToolTags.AXES)));
+    public static final Block STRIPPED_AZALEA_LOG = register("stripped_azalea_log", new PillarBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LOG).sounds(BlockSoundGroup.WOOD).breakByTool(FabricToolTags.AXES)));
+    public static final Block AZALEA_PLANKS = register("azalea_planks", new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD)));
+    public static final Block AZALEA_STAIRS = register("azalea_stairs", new PublicStairsBlock(AZALEA_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(AZALEA_PLANKS)));
+    public static final Block AZALEA_SLAB = register("azalea_slab", new SlabBlock(FabricBlockSettings.copyOf(AZALEA_PLANKS)));
+    public static final Block AZALEA_FENCE = register("azalea_fence", new FenceBlock(FabricBlockSettings.copyOf(AZALEA_PLANKS)));
+    public static final Block AZALEA_FENCE_GATE = register("azalea_fence_gate", new FenceGateBlock(FabricBlockSettings.copyOf(AZALEA_PLANKS)));
+    public static final Block AZALEA_DOOR = register("azalea_door", new PublicDoorBlock(FabricBlockSettings.copyOf(AZALEA_PLANKS).nonOpaque()));
+    public static final Block AZALEA_TRAPDOOR = register("azalea_trapdoor", new PublicTrapdoorBlock(FabricBlockSettings.copyOf(AZALEA_PLANKS).nonOpaque()));
+    public static final Block AZALEA_BUTTON = register("azalea_button", new PublicWoodenButtonBlock(FabricBlockSettings.copyOf(AZALEA_PLANKS)));
+    public static final Block AZALEA_PRESSURE_PLATE = register("azalea_pressure_plate", new PublicPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(AZALEA_PLANKS)));
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
         return (state) -> (Boolean)state.get(Properties.LIT) ? litLevel : 0;

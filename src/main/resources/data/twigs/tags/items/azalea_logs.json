@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "twigs:azalea_log",
+        "twigs:azalea_wood",
+        "twigs:stripped_azalea_log",
+        "twigs:stripped_azalea_wood"
+    ]
+}

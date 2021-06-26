@@ -37,6 +37,17 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TRAPDOOR, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_DOOR, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_LOG, 5, 20);
+		fbrInstance.add(TwigsBlocks.STRIPPED_AZALEA_LOG, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_PLANKS, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_STAIRS, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_SLAB, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_FENCE, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_FENCE_GATE, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_BUTTON, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_TRAPDOOR, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_DOOR, 5, 20);
+		fbrInstance.add(TwigsBlocks.AZALEA_PRESSURE_PLATE, 5, 20);
 
 	}
 }
