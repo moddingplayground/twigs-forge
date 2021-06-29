@@ -7,6 +7,10 @@
     "twigs:mossy_cobblestone_brick_wall",
     "twigs:polished_amethyst_brick_wall",
     "twigs:twisting_polished_blackstone_brick_wall",
-    "twigs:weeping_polished_blackstone_brick_wall"
+    "twigs:weeping_polished_blackstone_brick_wall",
+    "twigs:tuff_wall",
+    "twigs:polished_tuff_brick_wall",
+    "twigs:calcite_wall",
+    "twigs:polished_calcite_brick_wall"
   ]
 }
