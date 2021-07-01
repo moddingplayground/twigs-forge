@@ -5,7 +5,6 @@ import com.ninni.twigs.Twigs;
 import com.ninni.twigs.block.BambooMatBlock;
 import com.ninni.twigs.block.LampBlock;
 import com.ninni.twigs.block.PaperLanternBlock;
-import com.ninni.twigs.block.StrippedBamboo;
 import com.ninni.twigs.block.vanilla.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -67,7 +66,7 @@ public class TwigsBlocks {
     public static final Block CRIMSON_ROOTS_PAPER_LANTERN = register("crimson_roots_paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
     public static final Block DANDELION_PAPER_LANTERN = register("dandelion_paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
     public static final Block ROCKY_DIRT = register("rocky_dirt", new Block(FabricBlockSettings.copyOf(Blocks.DIRT).breakByTool(FabricToolTags.SHOVELS)));
-    public static final Block STRIPPED_BAMBOO = register("stripped_bamboo", new StrippedBamboo(FabricBlockSettings.copyOf(Blocks.BAMBOO).breakByTool(FabricToolTags.AXES)));
+    public static final Block STRIPPED_BAMBOO = register("stripped_bamboo", new ChainBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO).breakByTool(FabricToolTags.AXES)));
     public static final Block STRIPPED_BAMBOO_MAT = register("stripped_bamboo_mat", new BambooMatBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.SCAFFOLDING)));
     public static final Block STRIPPED_BAMBOO_PLANKS = register("stripped_bamboo_planks", new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
     public static final Block STRIPPED_BAMBOO_STAIRS = register("stripped_bamboo_stairs", new PublicStairsBlock(STRIPPED_BAMBOO_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
