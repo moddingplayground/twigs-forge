@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "twigs:stripped_bamboo"
+    "twigs:stripped_bamboo",
+    "twigs:stripped_bundled_bamboo",
+    "twigs:bundled_bamboo"
   ]
 }
