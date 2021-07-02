@@ -1,7 +1,6 @@
 {
     "replace": false,
     "values": [
-        "twigs:stripped_bamboo_trapdoor",
-        "twigs:azalea_trapdoor"
+        "twigs:stripped_bamboo_trapdoor"
     ]
 }

@@ -1,7 +1,9 @@
 package com.ninni.twigs;
 
 import com.google.common.reflect.Reflection;
+import com.ninni.twigs.init.TwigsBiomes;
 import com.ninni.twigs.init.TwigsBlocks;
+import com.ninni.twigs.init.TwigsConfiguredFeatures;
 import com.ninni.twigs.init.TwigsItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -20,7 +22,9 @@ public class Twigs implements ModInitializer {
 	public void onInitialize() {
 		Reflection.initialize(
 				TwigsBlocks.class,
-				TwigsItems.class
+				TwigsItems.class,
+				TwigsBiomes.class,
+				TwigsConfiguredFeatures.class
 		);
 
 		FlammableBlockRegistry fbrInstance = FlammableBlockRegistry.getDefaultInstance();
@@ -37,17 +41,5 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TRAPDOOR, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_DOOR, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_LOG, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_AZALEA_LOG, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_PLANKS, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_STAIRS, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_SLAB, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_FENCE, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_FENCE_GATE, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_BUTTON, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_TRAPDOOR, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_DOOR, 5, 20);
-		fbrInstance.add(TwigsBlocks.AZALEA_PRESSURE_PLATE, 5, 20);
-
 	}
 }
