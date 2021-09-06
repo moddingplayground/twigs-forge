@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "twigs:polished_rhyolite"
+      "item": "twigs:polished_calcite"
     }
   },
   "result": {
-    "item": "twigs:polished_rhyolite_bricks",
+    "item": "twigs:polished_calcite_bricks",
     "count": 4
   }
 }

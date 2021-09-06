@@ -2,7 +2,7 @@
   "parent": "twigs:recipes/root",
   "rewards": {
     "recipes": [
-      "twigs:stripped_bamboo_planks"
+      "twigs:stripped_bamboo"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "twigs:stripped_bamboo"
+            "item": "minecraft:bamboo"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "twigs:stripped_bamboo_planks"
+        "recipe": "twigs:stripped_bamboo"
       }
     }
   },
