@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom",
-  "textures": {
-    "top": "twigs:block/azalea_door_top",
-    "bottom": "twigs:block/azalea_door_bottom"
-  }
-}
