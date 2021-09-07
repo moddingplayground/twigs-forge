@@ -22,12 +22,13 @@ public class Twigs implements ModInitializer {
 	public void onInitialize() {
 		Reflection.initialize(
 				TwigsBlocks.class,
-				TwigsItems.class,
 				TwigsBiomes.class,
+				TwigsItems.class,
 				TwigsConfiguredFeatures.class
 		);
 
 		FlammableBlockRegistry fbrInstance = FlammableBlockRegistry.getDefaultInstance();
+		fbrInstance.add(TwigsBlocks.BAMBOO_LEAVES,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH_SLAB, 30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH_STAIRS, 30, 60);

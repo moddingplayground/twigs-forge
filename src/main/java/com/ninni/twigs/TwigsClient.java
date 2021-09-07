@@ -11,6 +11,7 @@ public class TwigsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
+                TwigsBlocks.BAMBOO_LEAVES,
                 TwigsBlocks.PAPER_LANTERN,
                 TwigsBlocks.ALLIUM_PAPER_LANTERN,
                 TwigsBlocks.BLUE_ORCHID_PAPER_LANTERN,
