@@ -1,7 +1,10 @@
 package com.ninni.twigs.block;
 
+import com.ninni.twigs.init.TwigsBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -9,6 +12,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -31,6 +35,11 @@ public class BambooLeavesBlock extends PlantBlock implements Waterloggable {
     public BambooLeavesBlock(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(QUANTITY, 1)).with(WATERLOGGED, false));
+    }
+
+    @Override
+    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
+        return !floor.isOf(TwigsBlocks.BAMBOO_LEAVES);
     }
 
     @Override
@@ -68,7 +77,7 @@ public class BambooLeavesBlock extends PlantBlock implements Waterloggable {
     }
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (state.get(QUANTITY) > 2) {
+        if (state.get(QUANTITY) > 2 && entity instanceof LivingEntity && entity.getType() != EntityType.PANDA && entity.getType() != EntityType.BEE && entity.getType() != EntityType.PARROT && entity.getType() != EntityType.OCELOT) {
             entity.slowMovement(state, new Vec3d(0.75D, 1.0D, 0.75D));
         }
     }

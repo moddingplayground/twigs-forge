@@ -2,10 +2,7 @@ package com.ninni.twigs.init;
 
 
 import com.ninni.twigs.Twigs;
-import com.ninni.twigs.block.BambooLeavesBlock;
-import com.ninni.twigs.block.BambooMatBlock;
-import com.ninni.twigs.block.LampBlock;
-import com.ninni.twigs.block.PaperLanternBlock;
+import com.ninni.twigs.block.*;
 import com.ninni.twigs.block.vanilla.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -25,6 +22,38 @@ public class TwigsBlocks {
     //lamps
     public static final Block LAMP = register("lamp", new LampBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(18))));
     public static final Block SOUL_LAMP = register("soul_lamp", new LampBlock(FabricBlockSettings.copyOf(TwigsBlocks.LAMP).luminance(createLightLevelFromLitBlockState(17)).breakByTool(FabricToolTags.PICKAXES)));
+    public static final Block CRIMSON_SHROOMLAMP = register("crimson_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(4.5F).sounds(BlockSoundGroup.WOOD).luminance(createLightLevelFromLitBlockState(16))));
+    public static final Block WARPED_SHROOMLAMP = register("warped_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(4.5F).sounds(BlockSoundGroup.WOOD).luminance(createLightLevelFromLitBlockState(16))));
+
+    //bamboo blocks
+    public static final Block BAMBOO_LEAVES = register("bamboo_leaves", new BambooLeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakInstantly().noCollision()), false);
+    public static final Block STRIPPED_BAMBOO = register("stripped_bamboo", new ChainBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO).breakByTool(FabricToolTags.AXES)));
+    public static final Block STRIPPED_BUNDLED_BAMBOO = register("stripped_bundled_bamboo", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
+    public static final Block STRIPPED_BAMBOO_MAT = register("stripped_bamboo_mat", new BambooMatBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.SCAFFOLDING)));
+    public static final Block STRIPPED_BAMBOO_PLANKS = register("stripped_bamboo_planks", new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
+    public static final Block STRIPPED_BAMBOO_STAIRS = register("stripped_bamboo_stairs", new PublicStairsBlock(STRIPPED_BAMBOO_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_SLAB = register("stripped_bamboo_slab", new SlabBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_FENCE = register("stripped_bamboo_fence", new FenceBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_FENCE_GATE = register("stripped_bamboo_fence_gate", new FenceGateBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_DOOR = register("stripped_bamboo_door", new PublicDoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_TRAPDOOR = register("stripped_bamboo_trapdoor", new PublicTrapdoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_BUTTON = register("stripped_bamboo_button", new PublicWoodenButtonBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block STRIPPED_BAMBOO_PRESSURE_PLATE = register("stripped_bamboo_pressure_plate", new PublicPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
+    public static final Block BUNDLED_BAMBOO = register("bundled_bamboo", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
+    public static final Block BAMBOO_THATCH = register("bamboo_thatch", new Block(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakByTool(FabricToolTags.HOES)));
+    public static final Block BAMBOO_THATCH_STAIRS = register("bamboo_thatch_stairs", new PublicStairsBlock(BAMBOO_THATCH.getDefaultState(), FabricBlockSettings.copyOf(BAMBOO_THATCH)));
+    public static final Block BAMBOO_THATCH_SLAB = register("bamboo_thatch_slab", new SlabBlock(FabricBlockSettings.copyOf(BAMBOO_THATCH)));
+
+    //tables
+    public static final Block OAK_TABLE = register("oak_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block SPRUCE_TABLE = register("spruce_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block BIRCH_TABLE = register("birch_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block JUNGLE_TABLE = register("jungle_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block ACACIA_TABLE = register("acacia_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block DARK_OAK_TABLE = register("dark_oak_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block CRIMSON_TABLE = register("crimson_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block WARPED_TABLE = register("warped_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
+    public static final Block STRIPPED_BAMBOO_TABLE = register("stripped_bamboo_table", new TableBlock(AbstractBlock.Settings.copy(STRIPPED_BAMBOO_PLANKS).breakInstantly()));
 
     //brick blocks
     public static final Block CHISELED_BRICKS = register("chiseled_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS).breakByTool(FabricToolTags.PICKAXES)));
@@ -150,25 +179,6 @@ public class TwigsBlocks {
     public static final Block POLISHED_CALCITE_BRICK_SLAB = register("polished_calcite_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
     public static final Block POLISHED_CALCITE_BRICK_WALL = register("polished_calcite_brick_wall", new WallBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
     public static final Block CRACKED_POLISHED_CALCITE_BRICKS = register("cracked_polished_calcite_bricks", new Block(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS).breakByTool(FabricToolTags.PICKAXES)));
-
-    //bamboo blocks
-    public static final Block BAMBOO_LEAVES = register("bamboo_leaves", new BambooLeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakInstantly().noCollision()), false);
-    public static final Block STRIPPED_BAMBOO = register("stripped_bamboo", new ChainBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO).breakByTool(FabricToolTags.AXES)));
-    public static final Block STRIPPED_BUNDLED_BAMBOO = register("stripped_bundled_bamboo", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
-    public static final Block STRIPPED_BAMBOO_MAT = register("stripped_bamboo_mat", new BambooMatBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.SCAFFOLDING)));
-    public static final Block STRIPPED_BAMBOO_PLANKS = register("stripped_bamboo_planks", new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
-    public static final Block STRIPPED_BAMBOO_STAIRS = register("stripped_bamboo_stairs", new PublicStairsBlock(STRIPPED_BAMBOO_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_SLAB = register("stripped_bamboo_slab", new SlabBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_FENCE = register("stripped_bamboo_fence", new FenceBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_FENCE_GATE = register("stripped_bamboo_fence_gate", new FenceGateBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_DOOR = register("stripped_bamboo_door", new PublicDoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_TRAPDOOR = register("stripped_bamboo_trapdoor", new PublicTrapdoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_BUTTON = register("stripped_bamboo_button", new PublicWoodenButtonBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block STRIPPED_BAMBOO_PRESSURE_PLATE = register("stripped_bamboo_pressure_plate", new PublicPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS)));
-    public static final Block BUNDLED_BAMBOO = register("bundled_bamboo", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
-    public static final Block BAMBOO_THATCH = register("bamboo_thatch", new Block(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakByTool(FabricToolTags.HOES)));
-    public static final Block BAMBOO_THATCH_STAIRS = register("bamboo_thatch_stairs", new PublicStairsBlock(BAMBOO_THATCH.getDefaultState(), FabricBlockSettings.copyOf(BAMBOO_THATCH)));
-    public static final Block BAMBOO_THATCH_SLAB = register("bamboo_thatch_slab", new SlabBlock(FabricBlockSettings.copyOf(BAMBOO_THATCH)));
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
         return (state) -> (Boolean)state.get(Properties.LIT) ? litLevel : 0;

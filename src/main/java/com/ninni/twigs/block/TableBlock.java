@@ -1,36 +1,51 @@
 package com.ninni.twigs.block;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class BambooMatBlock extends Block {
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
+@SuppressWarnings("deprecation")
+public class TableBlock extends HorizontalFacingBlock implements Waterloggable {
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
+    protected final static VoxelShape COLLISION_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 12, 0, 16, 16, 16),
+                                                                         Block.createCuboidShape(12, 0, 1, 15, 12, 4),
+                                                                         Block.createCuboidShape(12, 0, 12, 15, 12, 15),
+                                                                         Block.createCuboidShape(1, 0, 12, 4, 12, 15),
+                                                                         Block.createCuboidShape(1, 0, 1, 4, 12, 4));
+    protected final static VoxelShape OUTLINE_SHAPE = VoxelShapes.combine(Block.createCuboidShape(0, 12, 0, 16, 16, 16), Block.createCuboidShape(1, 0, 1, 15, 12, 15), BooleanBiFunction.OR);
 
-    public BambooMatBlock(Settings settings) {
+
+    public TableBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false));
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE;
+        return OUTLINE_SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape (BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return COLLISION_SHAPE;
     }
 
     @Override
@@ -38,7 +53,7 @@ public class BambooMatBlock extends Block {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl);
+        return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl).with(FACING, ctx.getPlayerFacing().getOpposite());
     }
 
     @Override
@@ -52,15 +67,12 @@ public class BambooMatBlock extends Block {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
+        builder.add(WATERLOGGED, FACING);
     }
 
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
-    }
-
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-        return true;
     }
 
 }

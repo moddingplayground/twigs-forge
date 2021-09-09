@@ -32,6 +32,13 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH_SLAB, 30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH_STAIRS, 30, 60);
+		fbrInstance.add(TwigsBlocks.OAK_TABLE, 5, 20);
+		fbrInstance.add(TwigsBlocks.SPRUCE_TABLE, 5, 20);
+		fbrInstance.add(TwigsBlocks.BIRCH_TABLE, 5, 20);
+		fbrInstance.add(TwigsBlocks.ACACIA_TABLE, 5, 20);
+		fbrInstance.add(TwigsBlocks.JUNGLE_TABLE, 5, 20);
+		fbrInstance.add(TwigsBlocks.DARK_OAK_TABLE, 5, 20);
+		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TABLE, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_STAIRS, 5, 20);
