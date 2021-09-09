@@ -22,8 +22,8 @@ public class TwigsBlocks {
     //lamps
     public static final Block LAMP = register("lamp", new LampBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(18))));
     public static final Block SOUL_LAMP = register("soul_lamp", new LampBlock(FabricBlockSettings.copyOf(TwigsBlocks.LAMP).luminance(createLightLevelFromLitBlockState(17)).breakByTool(FabricToolTags.PICKAXES)));
-    public static final Block CRIMSON_SHROOMLAMP = register("crimson_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(4.5F).sounds(BlockSoundGroup.WOOD).luminance(createLightLevelFromLitBlockState(16))));
-    public static final Block WARPED_SHROOMLAMP = register("warped_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(4.5F).sounds(BlockSoundGroup.WOOD).luminance(createLightLevelFromLitBlockState(16))));
+    public static final Block CRIMSON_SHROOMLAMP = register("crimson_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(3.5F).sounds(BlockSoundGroup.SHROOMLIGHT).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 15).nonOpaque()));
+    public static final Block WARPED_SHROOMLAMP = register("warped_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(3.5F).sounds(BlockSoundGroup.SHROOMLIGHT).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 15).nonOpaque()));
 
     //bamboo blocks
     public static final Block BAMBOO_LEAVES = register("bamboo_leaves", new BambooLeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakInstantly().noCollision()), false);

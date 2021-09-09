@@ -23,6 +23,7 @@ public class LampBlock extends Block {
         this.setDefaultState(this.getDefaultState().with(LIT, true));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public ActionResult onUse(
             BlockState state,
@@ -51,6 +52,7 @@ public class LampBlock extends Block {
         }
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(LIT);
     }
