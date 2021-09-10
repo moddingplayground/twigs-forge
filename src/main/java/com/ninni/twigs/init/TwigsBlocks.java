@@ -44,9 +44,6 @@ public class TwigsBlocks {
     public static final Block BAMBOO_THATCH_STAIRS = register("bamboo_thatch_stairs", new PublicStairsBlock(BAMBOO_THATCH.getDefaultState(), FabricBlockSettings.copyOf(BAMBOO_THATCH)));
     public static final Block BAMBOO_THATCH_SLAB = register("bamboo_thatch_slab", new SlabBlock(FabricBlockSettings.copyOf(BAMBOO_THATCH)));
 
-    //seats
-    public static final Block RED_SEAT = register("red_seat", new SeatBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
-
     //tables
     public static final Block OAK_TABLE = register("oak_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
     public static final Block SPRUCE_TABLE = register("spruce_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
