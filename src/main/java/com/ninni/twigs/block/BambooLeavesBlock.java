@@ -1,6 +1,5 @@
 package com.ninni.twigs.block;
 
-import com.ninni.twigs.init.TwigsBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
