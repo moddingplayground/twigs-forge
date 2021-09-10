@@ -1,0 +1,8 @@
+{
+  "parent": "twigs:block/seat_template",
+  "textures": {
+    "side": "twigs:block/red_seat",
+    "top": "twigs:block/red_seat_top",
+    "bottom": "twigs:block/seat_bottom"
+  }
+}
