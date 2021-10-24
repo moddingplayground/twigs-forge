@@ -4,14 +4,20 @@ package com.ninni.twigs.init;
 import com.ninni.twigs.Twigs;
 import com.ninni.twigs.block.*;
 import com.ninni.twigs.block.vanilla.*;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 import java.util.function.ToIntFunction;
@@ -24,6 +30,10 @@ public class TwigsBlocks {
     public static final Block SOUL_LAMP = register("soul_lamp", new LampBlock(FabricBlockSettings.copyOf(TwigsBlocks.LAMP).luminance(createLightLevelFromLitBlockState(17)).breakByTool(FabricToolTags.PICKAXES)));
     public static final Block CRIMSON_SHROOMLAMP = register("crimson_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(3.5F).sounds(BlockSoundGroup.SHROOMLIGHT).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 15).nonOpaque()));
     public static final Block WARPED_SHROOMLAMP = register("warped_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(3.5F).sounds(BlockSoundGroup.SHROOMLIGHT).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 15).nonOpaque()));
+
+    //azalea blocks
+    public static final Block AZALEA_FLOWERS = register("azalea_flowers", new GlowLichenBlock(FabricBlockSettings.of(Material.PLANT).breakByTool(FabricToolTags.SHEARS).breakInstantly().sounds(BlockSoundGroup.AZALEA).noCollision()));
+    public static final Block POTTED_AZALEA_FLOWERS = register("potted_azalea_flowers", new FlowerPotBlock(AZALEA_FLOWERS, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque()), false);
 
     //bamboo blocks
     public static final Block BAMBOO_LEAVES = register("bamboo_leaves", new BambooLeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakInstantly().noCollision()), false);
@@ -179,6 +189,25 @@ public class TwigsBlocks {
     public static final Block POLISHED_CALCITE_BRICK_SLAB = register("polished_calcite_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
     public static final Block POLISHED_CALCITE_BRICK_WALL = register("polished_calcite_brick_wall", new WallBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
     public static final Block CRACKED_POLISHED_CALCITE_BRICKS = register("cracked_polished_calcite_bricks", new Block(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS).breakByTool(FabricToolTags.PICKAXES)));
+
+    static {
+        UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
+            BlockPos pos = hit.getBlockPos();
+            BlockState state = world.getBlockState(pos);
+            if (state.isOf(Blocks.FLOWERING_AZALEA)) {
+                ItemStack stack = player.getStackInHand(hand);
+                if (stack.isIn(FabricToolTags.SHEARS)) {
+                    world.setBlockState(pos, Blocks.AZALEA.getDefaultState());
+                    world.playSoundFromEntity(null, player, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    Block.dropStack(world, pos.up(), new ItemStack(AZALEA_FLOWERS, world.random.nextInt(2) + 1));
+                    stack.damage(1, player, p -> p.sendToolBreakStatus(hand));
+                    return ActionResult.success(world.isClient);
+                }
+            }
+
+            return ActionResult.PASS;
+        });
+    }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
         return (state) -> (Boolean)state.get(Properties.LIT) ? litLevel : 0;

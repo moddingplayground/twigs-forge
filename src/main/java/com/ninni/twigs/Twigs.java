@@ -28,6 +28,7 @@ public class Twigs implements ModInitializer {
 		);
 
 		FlammableBlockRegistry fbrInstance = FlammableBlockRegistry.getDefaultInstance();
+		fbrInstance.add(TwigsBlocks.AZALEA_FLOWERS,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_LEAVES,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH_SLAB, 30, 60);
