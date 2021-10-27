@@ -2,7 +2,6 @@ package com.ninni.twigs;
 
 import com.google.common.reflect.Reflection;
 import com.ninni.twigs.block.vanilla.PublicStairsBlock;
-import com.ninni.twigs.init.TwigsBiomes;
 import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import net.fabricmc.api.ModInitializer;
@@ -16,7 +15,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -24,8 +22,6 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-
-import java.util.function.ToIntFunction;
 
 public class Twigs implements ModInitializer {
 	public static final String MOD_ID = "twigs";
@@ -169,7 +165,6 @@ public class Twigs implements ModInitializer {
 
 
 		Reflection.initialize(
-				TwigsBiomes.class,
 				TwigsBlocks.class,
 				TwigsItems.class
 		);
