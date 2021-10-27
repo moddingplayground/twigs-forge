@@ -17,6 +17,10 @@ public class DefaultBiomeFeaturesMixin {
     }
     @Inject(method = "addNetherMineables(Lnet/minecraft/world/biome/GenerationSettings$Builder;)V", at = @At("TAIL"))
     private static void AddNetherMineables(GenerationSettings.Builder builder, CallbackInfo ci) {
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, Twigs.ORE_RHYOLITE);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, Twigs.ORE_BLOODSTONE);
+    }
+    @Inject(method = "addEmeraldOre(Lnet/minecraft/world/biome/GenerationSettings$Builder;)V", at = @At("HEAD"))
+    private static void AddEmeraldOre(GenerationSettings.Builder builder, CallbackInfo ci) {
+        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, Twigs.ORE_SCHIST);
     }
 }

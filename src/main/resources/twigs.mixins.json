@@ -4,8 +4,7 @@
   "package": "com.ninni.twigs.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "DefaultBiomeFeaturesMixin",
-    "OverworldBiomeCreatorMixin"
+    "DefaultBiomeFeaturesMixin"
   ],
   "client": [
   ],
