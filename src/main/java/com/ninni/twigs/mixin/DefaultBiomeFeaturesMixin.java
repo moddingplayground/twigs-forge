@@ -21,6 +21,7 @@ public class DefaultBiomeFeaturesMixin {
     }
     @Inject(method = "addEmeraldOre(Lnet/minecraft/world/biome/GenerationSettings$Builder;)V", at = @At("HEAD"))
     private static void addEmeraldOre(GenerationSettings.Builder builder, CallbackInfo ci) {
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, Twigs.ORE_SCHIST);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, Twigs.ORE_SCHIST_UPPER);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, Twigs.ORE_SCHIST_LOWER);
     }
 }

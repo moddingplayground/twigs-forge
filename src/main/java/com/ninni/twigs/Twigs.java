@@ -72,10 +72,10 @@ public class Twigs implements ModInitializer {
 	public static final Block CRACKED_POLISHED_BLOODSTONE_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS).breakByTool(FabricToolTags.PICKAXES));
 
 
-
-	public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, RHYOLITE.getDefaultState(), 56)).uniformRange(YOffset.getBottom(), YOffset.fixed(0)).spreadHorizontally().repeat(1);
-	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.NETHERRACK, BLOODSTONE.getDefaultState(), 33)).uniformRange(YOffset.fixed(5), YOffset.fixed(41)).spreadHorizontally().repeat(25);
-	public static final ConfiguredFeature<?, ?> ORE_SCHIST = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 44)).uniformRange(YOffset.getBottom(), YOffset.fixed(0)).spreadHorizontally().repeat(10);
+	public static final ConfiguredFeature<?, ?> ORE_SCHIST_UPPER = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)).uniformRange(YOffset.fixed(64), YOffset.fixed(128)).spreadHorizontally().applyChance(6);
+	public static final ConfiguredFeature<?, ?> ORE_SCHIST_LOWER = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)).uniformRange(YOffset.fixed(0), YOffset.fixed(60)).spreadHorizontally().repeat(2);
+	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.NETHERRACK, BLOODSTONE.getDefaultState(), 33)).uniformRange(YOffset.fixed(0), YOffset.fixed(79)).spreadHorizontally().repeat(25);
+	public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, RHYOLITE.getDefaultState(), 56)).uniformRange(YOffset.getBottom(), YOffset.fixed(16)).spreadHorizontally().repeat(1);
 
 
 	@SuppressWarnings("UnstableApiUsage")
@@ -159,7 +159,8 @@ public class Twigs implements ModInitializer {
 
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_rhyolite"), ORE_RHYOLITE);
 
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist"), ORE_SCHIST);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist_upper"), ORE_SCHIST_UPPER);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist_lower"), ORE_SCHIST_LOWER);
 
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_bloodstone"), ORE_BLOODSTONE);
 
