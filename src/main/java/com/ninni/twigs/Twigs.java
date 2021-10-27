@@ -74,7 +74,7 @@ public class Twigs implements ModInitializer {
 
 
 	public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, RHYOLITE.getDefaultState(), 56)).uniformRange(YOffset.getBottom(), YOffset.fixed(0)).spreadHorizontally().repeat(1);
-	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.NETHERRACK, SCHIST.getDefaultState(), 44)).uniformRange(YOffset.getBottom(), YOffset.fixed(0)).spreadHorizontally().repeat(25);
+	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.NETHERRACK, BLOODSTONE.getDefaultState(), 33)).uniformRange(YOffset.fixed(5), YOffset.fixed(41)).spreadHorizontally().repeat(25);
 	public static final ConfiguredFeature<?, ?> ORE_SCHIST = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 44)).uniformRange(YOffset.getBottom(), YOffset.fixed(0)).spreadHorizontally().repeat(10);
 
 
