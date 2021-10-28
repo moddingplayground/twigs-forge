@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -193,5 +194,7 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TRAPDOOR, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_DOOR, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
+
+		FuelRegistry.INSTANCE.add(TwigsBlocks.BUNDLED_BAMBOO, 450);
 	}
 }
