@@ -132,5 +132,13 @@
   "block.twigs.twisting_polished_blackstone_bricks": "Twisting Polished Blackstone Bricks",
   "block.twigs.twisting_polished_blackstone_brick_wall": "Twisting Polished Blackstone Brick Wall",
   "block.twigs.twisting_polished_blackstone_brick_slab": "Twisting Polished Blackstone Brick Slab",
-  "block.twigs.twisting_polished_blackstone_brick_stairs": "Twisting Polished Blackstone Brick Stairs"
+  "block.twigs.twisting_polished_blackstone_brick_stairs": "Twisting Polished Blackstone Brick Stairs",
+  "block.twigs.copper_pillar": "Copper Pillar",
+  "block.twigs.exposed_copper_pillar": "Exposed Copper Pillar",
+  "block.twigs.weathered_copper_pillar": "Weathered Copper Pillar",
+  "block.twigs.oxidized_copper_pillar": "Oxidized Copper Pillar",
+  "block.twigs.waxed_copper_pillar": "Copper Pillar",
+  "block.twigs.waxed_exposed_copper_pillar": "Waxed Exposed Copper Pillar",
+  "block.twigs.waxed_weathered_copper_pillar": "Waxed Weathered Copper Pillar",
+  "block.twigs.waxed_oxidized_copper_pillar": "Waxed Oxidized Copper Pillar"
 }

@@ -1,6 +1,8 @@
 package com.ninni.twigs.init;
 
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import com.ninni.twigs.Twigs;
 import com.ninni.twigs.block.*;
 import com.ninni.twigs.block.vanilla.*;
@@ -23,7 +25,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.function.ToIntFunction;
 
 @SuppressWarnings("unused")
-public class TwigsBlocks {
+public final class TwigsBlocks {
 
     //lamps
     public static final Block LAMP = register("lamp", new LampBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(18))));
@@ -148,6 +150,17 @@ public class TwigsBlocks {
     public static final Block POLISHED_CALCITE_BRICK_WALL = register("polished_calcite_brick_wall", new WallBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
     public static final Block CRACKED_POLISHED_CALCITE_BRICKS = register("cracked_polished_calcite_bricks", new Block(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS).breakByTool(FabricToolTags.PICKAXES)));
 
+    //copper blocks
+    public static final Block COPPER_PILLAR = register("copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.copy(Blocks.CUT_COPPER)));
+    public static final Block EXPOSED_COPPER_PILLAR = register("exposed_copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(Blocks.EXPOSED_CUT_COPPER)));
+    public static final Block WEATHERED_COPPER_PILLAR = register("weathered_copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(Blocks.WEATHERED_CUT_COPPER)));
+    public static final Block OXIDIZED_COPPER_PILLAR = register("oxidized_copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(Blocks.OXIDIZED_CUT_COPPER)));
+    public static final Block WAXED_COPPER_PILLAR = register("waxed_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_CUT_COPPER)));
+    public static final Block WAXED_EXPOSED_COPPER_PILLAR = register("waxed_exposed_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_EXPOSED_CUT_COPPER)));
+    public static final Block WAXED_WEATHERED_COPPER_PILLAR = register("waxed_weathered_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_WEATHERED_CUT_COPPER)));
+    public static final Block WAXED_OXIDIZED_COPPER_PILLAR = register("waxed_oxidized_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
+
+
     static {
         UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
             BlockPos pos = hit.getBlockPos();
@@ -181,4 +194,7 @@ public class TwigsBlocks {
     private static Block register(String id, Block block) {
         return register(id, block, true);
     }
+
+    public static final BiMap<Block, Block> OXIDIZABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR, EXPOSED_COPPER_PILLAR).put(EXPOSED_COPPER_PILLAR, WEATHERED_COPPER_PILLAR).put(WEATHERED_COPPER_PILLAR, OXIDIZED_COPPER_PILLAR).build();
+
 }
