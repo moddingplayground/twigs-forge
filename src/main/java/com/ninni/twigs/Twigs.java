@@ -201,5 +201,6 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
 
 		FuelRegistry.INSTANCE.add(TwigsBlocks.BUNDLED_BAMBOO, 450);
+		FuelRegistry.INSTANCE.add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS, 200);
 	}
 }
