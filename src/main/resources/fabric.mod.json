@@ -15,7 +15,6 @@
 
   "license": "CC0-1.0",
   "icon": "assets/twigs/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -28,6 +27,7 @@
   "mixins": [
     "twigs.mixins.json"
   ],
+  "accessWidener": "twigs.accesswidener",
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",

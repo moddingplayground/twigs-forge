@@ -2,6 +2,8 @@ package com.ninni.twigs;
 
 import com.google.common.reflect.Reflection;
 import com.ninni.twigs.block.vanilla.PublicStairsBlock;
+import com.ninni.twigs.block.vanilla.TwigsSignBlock;
+import com.ninni.twigs.block.vanilla.TwigsWallSignBlock;
 import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import com.ninni.twigs.mixin.SignTypeAccessor;
@@ -79,8 +81,8 @@ public class Twigs implements ModInitializer {
 
 	//signs
 	public static final SignType STRIPPED_BAMBOO_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("stripped_bamboo"));
-	public static final Block STRIPPED_BAMBOO_SIGN = new SignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING), STRIPPED_BAMBOO_SIGN_TYPE);
-	public static final Block STRIPPED_BAMBOO_WALL_SIGN = new WallSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING).dropsLike(STRIPPED_BAMBOO_SIGN), STRIPPED_BAMBOO_SIGN_TYPE);
+	public static final Block STRIPPED_BAMBOO_SIGN = new TwigsSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING), STRIPPED_BAMBOO_SIGN_TYPE);
+	public static final Block STRIPPED_BAMBOO_WALL_SIGN = new TwigsWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING).dropsLike(STRIPPED_BAMBOO_SIGN), STRIPPED_BAMBOO_SIGN_TYPE);
 
 
 	@SuppressWarnings("UnstableApiUsage")
