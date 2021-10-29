@@ -14,6 +14,8 @@
     "twigs:stripped_bundled_bamboo",
     "twigs:bundled_bamboo",
     "twigs:crimson_shroomlamp",
-    "twigs:warped_shroomlamp"
+    "twigs:warped_shroomlamp",
+    "twigs:stripped_bamboo_sign",
+    "twigs:stripped_bamboo_wall_sign"
   ]
 }

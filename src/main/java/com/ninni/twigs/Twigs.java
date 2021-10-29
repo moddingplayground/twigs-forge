@@ -1,12 +1,10 @@
 package com.ninni.twigs;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 import com.google.common.reflect.Reflection;
 import com.ninni.twigs.block.vanilla.PublicStairsBlock;
 import com.ninni.twigs.init.TwigsBlocks;
-import com.ninni.twigs.init.TwigsBlocks.*;
 import com.ninni.twigs.init.TwigsItems;
+import com.ninni.twigs.mixin.SignTypeAccessor;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -15,11 +13,10 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.YOffset;
@@ -75,11 +72,15 @@ public class Twigs implements ModInitializer {
 	public static final Block POLISHED_BLOODSTONE_BRICK_WALL = new WallBlock(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS));
 	public static final Block CRACKED_POLISHED_BLOODSTONE_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS).breakByTool(FabricToolTags.PICKAXES));
 
-
 	public static final ConfiguredFeature<?, ?> ORE_SCHIST_UPPER = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)).uniformRange(YOffset.fixed(64), YOffset.fixed(128)).spreadHorizontally().applyChance(6);
 	public static final ConfiguredFeature<?, ?> ORE_SCHIST_LOWER = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)).uniformRange(YOffset.fixed(0), YOffset.fixed(60)).spreadHorizontally().repeat(2);
 	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.NETHERRACK, BLOODSTONE.getDefaultState(), 33)).uniformRange(YOffset.fixed(0), YOffset.fixed(79)).spreadHorizontally().repeat(25);
 	public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, RHYOLITE.getDefaultState(), 56)).uniformRange(YOffset.getBottom(), YOffset.fixed(16)).spreadHorizontally().repeat(1);
+
+	//signs
+	public static final SignType STRIPPED_BAMBOO_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("stripped_bamboo"));
+	public static final Block STRIPPED_BAMBOO_SIGN = new SignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING), STRIPPED_BAMBOO_SIGN_TYPE);
+	public static final Block STRIPPED_BAMBOO_WALL_SIGN = new WallSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING).dropsLike(STRIPPED_BAMBOO_SIGN), STRIPPED_BAMBOO_SIGN_TYPE);
 
 
 	@SuppressWarnings("UnstableApiUsage")
@@ -162,11 +163,13 @@ public class Twigs implements ModInitializer {
 		//im sorry i know its scuffed ill make the block registry more organized later
 
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_rhyolite"), ORE_RHYOLITE);
-
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist_upper"), ORE_SCHIST_UPPER);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist_lower"), ORE_SCHIST_LOWER);
-
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_bloodstone"), ORE_BLOODSTONE);
+
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_sign"), STRIPPED_BAMBOO_SIGN);
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_wall_sign"), STRIPPED_BAMBOO_WALL_SIGN);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_sign"), (Item)(new SignItem(new Item.Settings().maxCount(16).group(ITEM_GROUP), STRIPPED_BAMBOO_SIGN, STRIPPED_BAMBOO_WALL_SIGN)));
 
 
 		Reflection.initialize(

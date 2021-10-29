@@ -5,8 +5,10 @@
   "compatibilityLevel": "JAVA_16",
   "plugin": "com.ninni.twigs.mixin.SandwichableMixinPlugin",
   "mixins": [
+    "BlockEntityTypeMixin",
     "DefaultBiomeFeaturesMixin",
-    "OxidizableMixin"
+    "OxidizableMixin",
+    "SignTypeAccessor"
   ],
   "client": [
   ],
