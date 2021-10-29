@@ -98,7 +98,7 @@ public class BambooLeavesBlock extends PlantBlock implements Waterloggable {
             return Blocks.AIR.getDefaultState();
         } else {
             if (state.get(WATERLOGGED)) {
-                world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+                world.getFluidTickScheduler().isTicking(pos, Fluids.WATER);
             }
 
             return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
