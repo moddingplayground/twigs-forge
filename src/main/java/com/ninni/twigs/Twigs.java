@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
@@ -22,9 +21,12 @@ import net.minecraft.util.SignType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.decorator.*;
+import net.minecraft.world.gen.feature.*;
+
+import java.util.List;
+
+import static net.minecraft.world.gen.feature.OreConfiguredFeatures.*;
 
 public class Twigs implements ModInitializer {
 	public static final String MOD_ID = "twigs";
@@ -32,53 +34,69 @@ public class Twigs implements ModInitializer {
 
 
 	//rhyolite blocks
-	public static final Block RHYOLITE = new PillarBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block RHYOLITE = new PillarBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE));
 	public static final Block RHYOLITE_STAIRS = new PublicStairsBlock(RHYOLITE.getDefaultState(), FabricBlockSettings.copyOf(RHYOLITE));
 	public static final Block RHYOLITE_SLAB = new SlabBlock(FabricBlockSettings.copyOf(RHYOLITE));
 	public static final Block RHYOLITE_WALL = new WallBlock(FabricBlockSettings.copyOf(RHYOLITE));
-	public static final Block POLISHED_RHYOLITE = new Block(FabricBlockSettings.copyOf(RHYOLITE).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block POLISHED_RHYOLITE = new Block(FabricBlockSettings.copyOf(RHYOLITE));
 	public static final Block POLISHED_RHYOLITE_STAIRS = new PublicStairsBlock(POLISHED_RHYOLITE.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_RHYOLITE));
 	public static final Block POLISHED_RHYOLITE_SLAB = new SlabBlock(FabricBlockSettings.copyOf(POLISHED_RHYOLITE));
-	public static final Block POLISHED_RHYOLITE_BRICKS = new Block(FabricBlockSettings.copyOf(RHYOLITE).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block POLISHED_RHYOLITE_BRICKS = new Block(FabricBlockSettings.copyOf(RHYOLITE));
 	public static final Block POLISHED_RHYOLITE_BRICK_STAIRS = new PublicStairsBlock(POLISHED_RHYOLITE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_RHYOLITE_BRICKS));
 	public static final Block POLISHED_RHYOLITE_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copyOf(POLISHED_RHYOLITE_BRICKS));
 	public static final Block POLISHED_RHYOLITE_BRICK_WALL = new WallBlock(FabricBlockSettings.copyOf(POLISHED_RHYOLITE_BRICKS));
-	public static final Block CRACKED_POLISHED_RHYOLITE_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_RHYOLITE_BRICKS).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block CRACKED_POLISHED_RHYOLITE_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_RHYOLITE_BRICKS));
 
 	//schist blocks
-	public static final Block SCHIST = new Block(FabricBlockSettings.copyOf(Blocks.CALCITE).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block SCHIST = new Block(FabricBlockSettings.copyOf(Blocks.CALCITE));
 	public static final Block SCHIST_STAIRS = new PublicStairsBlock(SCHIST.getDefaultState(), FabricBlockSettings.copyOf(SCHIST));
 	public static final Block SCHIST_SLAB = new SlabBlock(FabricBlockSettings.copyOf(SCHIST));
 	public static final Block SCHIST_WALL = new WallBlock(FabricBlockSettings.copyOf(SCHIST));
-	public static final Block POLISHED_SCHIST = new Block(FabricBlockSettings.copyOf(SCHIST).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block POLISHED_SCHIST = new Block(FabricBlockSettings.copyOf(SCHIST));
 	public static final Block POLISHED_SCHIST_STAIRS = new PublicStairsBlock(POLISHED_SCHIST.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_SCHIST));
 	public static final Block POLISHED_SCHIST_SLAB = new SlabBlock(FabricBlockSettings.copyOf(POLISHED_SCHIST));
-	public static final Block POLISHED_SCHIST_BRICKS = new Block(FabricBlockSettings.copyOf(SCHIST).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block POLISHED_SCHIST_BRICKS = new Block(FabricBlockSettings.copyOf(SCHIST));
 	public static final Block POLISHED_SCHIST_BRICK_STAIRS = new PublicStairsBlock(POLISHED_SCHIST_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_SCHIST_BRICKS));
 	public static final Block POLISHED_SCHIST_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copyOf(POLISHED_SCHIST_BRICKS));
 	public static final Block POLISHED_SCHIST_BRICK_WALL = new WallBlock(FabricBlockSettings.copyOf(POLISHED_SCHIST_BRICKS));
-	public static final Block CRACKED_POLISHED_SCHIST_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_SCHIST_BRICKS).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block CRACKED_POLISHED_SCHIST_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_SCHIST_BRICKS));
 
 
 	//bloodstone blocks
-	public static final Block BLOODSTONE = new Block(FabricBlockSettings.copyOf(Blocks.BASALT).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block BLOODSTONE = new Block(FabricBlockSettings.copyOf(Blocks.BASALT));
 	public static final Block BLOODSTONE_STAIRS = new PublicStairsBlock(BLOODSTONE.getDefaultState(), FabricBlockSettings.copyOf(BLOODSTONE));
 	public static final Block BLOODSTONE_SLAB = new SlabBlock(FabricBlockSettings.copyOf(BLOODSTONE));
 	public static final Block BLOODSTONE_WALL = new WallBlock(FabricBlockSettings.copyOf(BLOODSTONE));
-	public static final Block POLISHED_BLOODSTONE = new Block(FabricBlockSettings.copyOf(BLOODSTONE).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block POLISHED_BLOODSTONE = new Block(FabricBlockSettings.copyOf(BLOODSTONE));
 	public static final Block POLISHED_BLOODSTONE_STAIRS = new PublicStairsBlock(POLISHED_BLOODSTONE.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_BLOODSTONE));
 	public static final Block POLISHED_BLOODSTONE_SLAB = new SlabBlock(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE));
-	public static final Block POLISHED_BLOODSTONE_BRICKS = new Block(FabricBlockSettings.copyOf(BLOODSTONE).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block POLISHED_BLOODSTONE_BRICKS = new Block(FabricBlockSettings.copyOf(BLOODSTONE));
 	public static final Block POLISHED_BLOODSTONE_BRICK_STAIRS = new PublicStairsBlock(POLISHED_BLOODSTONE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS));
 	public static final Block POLISHED_BLOODSTONE_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS));
 	public static final Block POLISHED_BLOODSTONE_BRICK_WALL = new WallBlock(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS));
-	public static final Block CRACKED_POLISHED_BLOODSTONE_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS).breakByTool(FabricToolTags.PICKAXES));
+	public static final Block CRACKED_POLISHED_BLOODSTONE_BRICKS = new Block(FabricBlockSettings.copyOf(POLISHED_BLOODSTONE_BRICKS));
 
-	public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, RHYOLITE.getDefaultState(), 56)).uniformRange(YOffset.getBottom(), YOffset.fixed(16)).spreadHorizontally().repeat(1);
+	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
+		return List.of(countModifier, SquarePlacementModifier.of(), heightModifier, BiomePlacementModifier.of());
+	}
 
-	public static final ConfiguredFeature<?, ?> ORE_SCHIST_UPPER = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)).uniformRange(YOffset.fixed(64), YOffset.fixed(128)).spreadHorizontally().applyChance(6);
-	public static final ConfiguredFeature<?, ?> ORE_SCHIST_LOWER = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)).uniformRange(YOffset.fixed(0), YOffset.fixed(60)).spreadHorizontally().repeat(2);
-	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.NETHERRACK, BLOODSTONE.getDefaultState(), 33)).uniformRange(YOffset.fixed(5), YOffset.fixed(41)).spreadHorizontally().repeat(2);
+	private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModfier) {
+		return modifiers(CountPlacementModifier.of(count), heightModfier);
+	}
+
+	private static List<PlacementModifier> modifiersWithRarity(int chance, PlacementModifier heightModifier) {
+		return modifiers(RarityFilterPlacementModifier.of(chance), heightModifier);
+	}
+
+	public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = ConfiguredFeatures.register("ore_rhyolite", Feature.ORE.configure(new OreFeatureConfig(BASE_STONE_OVERWORLD, RHYOLITE.getDefaultState(), 45)));
+	public static final ConfiguredFeature<?, ?> ORE_SCHIST = ConfiguredFeatures.register("ore_schist", Feature.ORE.configure(new OreFeatureConfig(BASE_STONE_OVERWORLD, SCHIST.getDefaultState(), 64)));
+	public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = ConfiguredFeatures.register("ore_bloodstone", Feature.ORE.configure(new OreFeatureConfig(BASE_STONE_NETHER, BLOODSTONE.getDefaultState(), 64)));
+
+
+	public static final PlacedFeature ORE_RHYOLITE_LOWER = PlacedFeatures.register("ore_rhyolite_lower", ORE_RHYOLITE.withPlacement(modifiersWithCount(2, HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(16)))));
+	public static final PlacedFeature ORE_SCHIST_UPPER = PlacedFeatures.register("ore_schist_upper", ORE_SCHIST.withPlacement(modifiersWithRarity(6, HeightRangePlacementModifier.uniform(YOffset.fixed(64), YOffset.fixed(128)))));
+	public static final PlacedFeature ORE_SCHIST_LOWER = PlacedFeatures.register("ore_schist_lower", ORE_SCHIST.withPlacement(OrePlacedFeatures.modifiersWithCount(2, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(60)))));
+	public static final PlacedFeature ORE_BLOODSTONE_NETHER = PlacedFeatures.register("ore_bloodstone_nether", ORE_BLOODSTONE.withPlacement(modifiersWithCount(2, HeightRangePlacementModifier.uniform(YOffset.fixed(5), YOffset.fixed(225)))));
 	//signs
 	public static final SignType STRIPPED_BAMBOO_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("stripped_bamboo"));
 	public static final Block STRIPPED_BAMBOO_SIGN = new TwigsSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING), STRIPPED_BAMBOO_SIGN_TYPE);
@@ -163,11 +181,6 @@ public class Twigs implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "cracked_polished_bloodstone_bricks"), CRACKED_POLISHED_BLOODSTONE_BRICKS);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "cracked_polished_bloodstone_bricks"), new BlockItem(CRACKED_POLISHED_BLOODSTONE_BRICKS, new FabricItemSettings().group(ITEM_GROUP)));
 		//im sorry i know its scuffed ill make the block registry more organized later
-
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_rhyolite"), ORE_RHYOLITE);
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist_upper"), ORE_SCHIST_UPPER);
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_schist_lower"), ORE_SCHIST_LOWER);
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(MOD_ID, "ore_bloodstone"), ORE_BLOODSTONE);
 
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_sign"), STRIPPED_BAMBOO_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_wall_sign"), STRIPPED_BAMBOO_WALL_SIGN);

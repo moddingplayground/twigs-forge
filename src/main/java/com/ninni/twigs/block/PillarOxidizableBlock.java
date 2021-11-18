@@ -9,9 +9,9 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Random;
 @SuppressWarnings("deprecation")
 public class PillarOxidizableBlock extends PillarBlock implements Oxidizable {
-    private final OxidizationLevel level;
+    private final OxidationLevel level;
 
-    public PillarOxidizableBlock(OxidizationLevel level, Settings settings) {
+    public PillarOxidizableBlock(OxidationLevel level, Settings settings) {
         super(settings);
         this.level = level;
     }
@@ -26,7 +26,7 @@ public class PillarOxidizableBlock extends PillarBlock implements Oxidizable {
         return Oxidizable.getIncreasedOxidationBlock(state.getBlock()).isPresent();
     }
 
-    public OxidizationLevel getDegradationLevel() {
+    public OxidationLevel getDegradationLevel() {
         return this.level;
     }
 }

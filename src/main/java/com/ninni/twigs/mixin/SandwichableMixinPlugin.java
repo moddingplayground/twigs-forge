@@ -42,6 +42,9 @@ public class SandwichableMixinPlugin implements IMixinConfigPlugin {
         tryMapInsertion(mixinClassName, "com.ninni.twigs.mixin.OxidizableMixin", "method_34740", targetClass,
                 "com/ninni/twigs/init/TwigsBlocks", "OXIDIZABLES"
         );
+        tryMapInsertion(mixinClassName, "com.ninni.twigs.mixin.mixin.HoneycombItemMixin", "method_34723", targetClass,
+                "com/ninni/twigs/init/TwigsBlocks", "WAXABLES"
+        );
     }
 
     public static void tryMapInsertion(String mixinCurrent, String mixinTarget, String methodName, ClassNode targetClass, String mapFieldClass, String mapField) {
