@@ -6,6 +6,8 @@
   "plugin": "com.ninni.twigs.mixin.SandwichableMixinPlugin",
   "mixins": [
     "BlockEntityTypeMixin",
+    "BoatDropsMixin",
+    "BoatTypeMixin",
     "DefaultBiomeFeaturesMixin",
     "HoneycombItemMixin",
     "OxidizableMixin",

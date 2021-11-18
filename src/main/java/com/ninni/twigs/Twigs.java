@@ -1,9 +1,8 @@
 package com.ninni.twigs;
 
 import com.google.common.reflect.Reflection;
-import com.ninni.twigs.block.vanilla.PublicStairsBlock;
-import com.ninni.twigs.block.vanilla.TwigsSignBlock;
-import com.ninni.twigs.block.vanilla.TwigsWallSignBlock;
+import com.ninni.twigs.block.BambooMatBlock;
+import com.ninni.twigs.block.vanilla.*;
 import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import com.ninni.twigs.mixin.SignTypeAccessor;
@@ -102,6 +101,16 @@ public class Twigs implements ModInitializer {
 	public static final Block STRIPPED_BAMBOO_SIGN = new TwigsSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING), STRIPPED_BAMBOO_SIGN_TYPE);
 	public static final Block STRIPPED_BAMBOO_WALL_SIGN = new TwigsWallSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.TERRACOTTA_WHITE).noCollision().strength(1.0F).sounds(BlockSoundGroup.SCAFFOLDING).dropsLike(STRIPPED_BAMBOO_SIGN), STRIPPED_BAMBOO_SIGN_TYPE);
 
+	public static final Block STRIPPED_BAMBOO_MAT = new BambooMatBlock(FabricBlockSettings.copyOf(Blocks.WHITE_CARPET).sounds(BlockSoundGroup.SCAFFOLDING));
+	public static final Block STRIPPED_BAMBOO_PLANKS = new Block(AbstractBlock.Settings.of(Material.WOOD, MapColor.OAK_TAN).strength(1.0F, 1.5F).sounds(BlockSoundGroup.SCAFFOLDING));
+	public static final Block STRIPPED_BAMBOO_STAIRS = new PublicStairsBlock(STRIPPED_BAMBOO_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_SLAB = new SlabBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_FENCE = new FenceBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_FENCE_GATE = new FenceGateBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_DOOR = new PublicDoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_TRAPDOOR = new PublicTrapdoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_BUTTON = new PublicWoodenButtonBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+	public static final Block STRIPPED_BAMBOO_PRESSURE_PLATE = new PublicPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
 
 	@SuppressWarnings("UnstableApiUsage")
 	@Override
@@ -186,6 +195,26 @@ public class Twigs implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_wall_sign"), STRIPPED_BAMBOO_WALL_SIGN);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_sign"), (Item)(new SignItem(new Item.Settings().maxCount(16).group(ITEM_GROUP), STRIPPED_BAMBOO_SIGN, STRIPPED_BAMBOO_WALL_SIGN)));
 
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_mat"), STRIPPED_BAMBOO_MAT);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_mat"),new BlockItem(STRIPPED_BAMBOO_MAT, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_planks"), STRIPPED_BAMBOO_PLANKS);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_planks"),new BlockItem(STRIPPED_BAMBOO_PLANKS, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_stairs"), STRIPPED_BAMBOO_STAIRS);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_stairs"),new BlockItem(STRIPPED_BAMBOO_STAIRS, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_slab"), STRIPPED_BAMBOO_SLAB);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_slab"),new BlockItem(STRIPPED_BAMBOO_SLAB, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_fence"), STRIPPED_BAMBOO_FENCE);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_fence"),new BlockItem(STRIPPED_BAMBOO_FENCE, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_fence_gate"), STRIPPED_BAMBOO_FENCE_GATE);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_fence_gate"),new BlockItem(STRIPPED_BAMBOO_FENCE_GATE, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_door"), STRIPPED_BAMBOO_DOOR);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_door"),new BlockItem(STRIPPED_BAMBOO_DOOR, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_trapdoor"), STRIPPED_BAMBOO_TRAPDOOR);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_trapdoor"),new BlockItem(STRIPPED_BAMBOO_TRAPDOOR, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_button"), STRIPPED_BAMBOO_BUTTON);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_button"),new BlockItem(STRIPPED_BAMBOO_BUTTON, new FabricItemSettings().group(ITEM_GROUP)));
+		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_pressure_plate"), STRIPPED_BAMBOO_PRESSURE_PLATE);
+		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_pressure_plate"),new BlockItem(STRIPPED_BAMBOO_PRESSURE_PLATE, new FabricItemSettings().group(ITEM_GROUP)));
 
 		Reflection.initialize(
 				TwigsBlocks.class,
@@ -208,17 +237,17 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.DARK_OAK_TABLE, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TABLE, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_STAIRS, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_SLAB, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_FENCE, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_FENCE_GATE, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_BUTTON, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TRAPDOOR, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_DOOR, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_PLANKS, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_STAIRS, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_SLAB, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_FENCE, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_FENCE_GATE, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_BUTTON, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_TRAPDOOR, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_DOOR, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
 
 		FuelRegistry.INSTANCE.add(TwigsBlocks.BUNDLED_BAMBOO, 450);
-		FuelRegistry.INSTANCE.add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS, 200);
+		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_PLANKS, 200);
 	}
 }
