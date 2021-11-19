@@ -31,7 +31,7 @@
   "depends": {
     "fabricloader": ">=0.12.5",
     "fabric": "*",
-    "minecraft": "1.18-beta.4"
+    "minecraft": "1.18-beta.5"
   },
   "suggests": {
     "another-mod": "*"

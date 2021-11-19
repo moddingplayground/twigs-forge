@@ -6,6 +6,7 @@ import com.ninni.twigs.entity.CustomBoatType;
 import com.ninni.twigs.init.TwigsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.BoatEntity.Type;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
