@@ -25,6 +25,8 @@ import net.minecraft.world.gen.feature.*;
 
 import java.util.List;
 
+import static com.ninni.twigs.entity.BoatItems.STRIPPED_BAMBOO_BOAT;
+import static com.ninni.twigs.init.TwigsBlocks.STRIPPED_BAMBOO;
 import static net.minecraft.world.gen.feature.OreConfiguredFeatures.*;
 
 public class Twigs implements ModInitializer {
@@ -236,7 +238,7 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(TwigsBlocks.JUNGLE_TABLE, 5, 20);
 		fbrInstance.add(TwigsBlocks.DARK_OAK_TABLE, 5, 20);
 		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO_TABLE, 5, 20);
-		fbrInstance.add(TwigsBlocks.STRIPPED_BAMBOO, 5, 20);
+		fbrInstance.add(STRIPPED_BAMBOO, 5, 20);
 		fbrInstance.add(STRIPPED_BAMBOO_PLANKS, 5, 20);
 		fbrInstance.add(STRIPPED_BAMBOO_STAIRS, 5, 20);
 		fbrInstance.add(STRIPPED_BAMBOO_SLAB, 5, 20);
@@ -247,7 +249,11 @@ public class Twigs implements ModInitializer {
 		fbrInstance.add(STRIPPED_BAMBOO_DOOR, 5, 20);
 		fbrInstance.add(STRIPPED_BAMBOO_PRESSURE_PLATE, 5, 20);
 
+		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO, 50);
+		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_BOAT, 1200);
+		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_SIGN, 200);
 		FuelRegistry.INSTANCE.add(TwigsBlocks.BUNDLED_BAMBOO, 450);
+		FuelRegistry.INSTANCE.add(TwigsBlocks.STRIPPED_BUNDLED_BAMBOO, 450);
 		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_PLANKS, 200);
 	}
 }
