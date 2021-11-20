@@ -42,7 +42,7 @@ public class SandwichableMixinPlugin implements IMixinConfigPlugin {
         tryMapInsertion(mixinClassName, "com.ninni.twigs.mixin.OxidizableMixin", "method_34740", targetClass,
                 "com/ninni/twigs/init/TwigsBlocks", "OXIDIZABLES"
         );
-        tryMapInsertion(mixinClassName, "com.ninni.twigs.mixin.mixin.HoneycombItemMixin", "method_34723", targetClass,
+        tryMapInsertion(mixinClassName, "com.ninni.twigs.mixin.HoneycombItemMixin", "method_34723", targetClass,
                 "com/ninni/twigs/init/TwigsBlocks", "WAXABLES"
         );
     }
