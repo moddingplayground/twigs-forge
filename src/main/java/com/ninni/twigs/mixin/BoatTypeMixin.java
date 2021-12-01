@@ -1,12 +1,10 @@
 package com.ninni.twigs.mixin;
 
 import com.ninni.twigs.Twigs;
-import com.ninni.twigs.entity.BoatItems;
+import com.ninni.twigs.entity.CustomBoatItem;
 import com.ninni.twigs.entity.CustomBoatType;
-import com.ninni.twigs.init.TwigsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.entity.vehicle.BoatEntity.Type;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +32,6 @@ public class BoatTypeMixin {
     @Mutable
     private static BoatEntity.Type[] field_7724;
 
-    @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "<clinit>", at = @At(value = "FIELD",
 
             opcode = Opcodes.PUTSTATIC,
@@ -48,7 +45,6 @@ public class BoatTypeMixin {
         CustomBoatType.STRIPPED_BAMBOO = stripped_bamboo;
         types.add(stripped_bamboo);
 
-        BoatItems.registerBoats();
 
         field_7724 = types.toArray(new BoatEntity.Type[0]);
     }

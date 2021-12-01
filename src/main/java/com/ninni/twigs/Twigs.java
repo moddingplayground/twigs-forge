@@ -3,6 +3,8 @@ package com.ninni.twigs;
 import com.google.common.reflect.Reflection;
 import com.ninni.twigs.block.BambooMatBlock;
 import com.ninni.twigs.block.vanilla.*;
+import com.ninni.twigs.entity.CustomBoatItem;
+import com.ninni.twigs.entity.CustomBoatType;
 import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import com.ninni.twigs.mixin.SignTypeAccessor;
@@ -17,7 +19,6 @@ import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
-import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.*;
@@ -25,9 +26,10 @@ import net.minecraft.world.gen.feature.*;
 
 import java.util.List;
 
-import static com.ninni.twigs.entity.BoatItems.STRIPPED_BAMBOO_BOAT;
+import static com.ninni.twigs.entity.CustomBoatItem.STRIPPED_BAMBOO_BOAT;
 import static com.ninni.twigs.init.TwigsBlocks.STRIPPED_BAMBOO;
-import static net.minecraft.world.gen.feature.OreConfiguredFeatures.*;
+import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_NETHER;
+import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_OVERWORLD;
 
 public class Twigs implements ModInitializer {
 	public static final String MOD_ID = "twigs";
@@ -193,10 +195,10 @@ public class Twigs implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "cracked_polished_bloodstone_bricks"), new BlockItem(CRACKED_POLISHED_BLOODSTONE_BRICKS, new FabricItemSettings().group(ITEM_GROUP)));
 		//im sorry i know its scuffed ill make the block registry more organized later
 
+		CustomBoatItem.registerBoats();
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_sign"), STRIPPED_BAMBOO_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_wall_sign"), STRIPPED_BAMBOO_WALL_SIGN);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_sign"), (Item)(new SignItem(new Item.Settings().maxCount(16).group(ITEM_GROUP), STRIPPED_BAMBOO_SIGN, STRIPPED_BAMBOO_WALL_SIGN)));
-
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_mat"), STRIPPED_BAMBOO_MAT);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "stripped_bamboo_mat"),new BlockItem(STRIPPED_BAMBOO_MAT, new FabricItemSettings().group(ITEM_GROUP)));
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_planks"), STRIPPED_BAMBOO_PLANKS);
@@ -256,4 +258,6 @@ public class Twigs implements ModInitializer {
 		FuelRegistry.INSTANCE.add(TwigsBlocks.STRIPPED_BUNDLED_BAMBOO, 450);
 		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_PLANKS, 200);
 	}
+
+
 }
