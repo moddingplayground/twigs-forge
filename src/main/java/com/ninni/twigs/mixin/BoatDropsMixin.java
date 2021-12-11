@@ -1,11 +1,8 @@
 package com.ninni.twigs.mixin;
 
-import com.ninni.twigs.Twigs;
 import com.ninni.twigs.entity.CustomBoatItem;
-import com.ninni.twigs.entity.CustomBoatType;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

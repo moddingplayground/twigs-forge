@@ -33,7 +33,7 @@ public class BambooLeavesBlock extends PlantBlock implements Waterloggable {
 
     public BambooLeavesBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(((this.stateManager.getDefaultState()).with(QUANTITY, 1)).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(QUANTITY, 1).with(WATERLOGGED, false));
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.ninni.twigs.Twigs;
 import com.ninni.twigs.block.*;
-import com.ninni.twigs.block.vanilla.*;
+import com.ninni.twigs.block.vanilla.PublicStairsBlock;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;

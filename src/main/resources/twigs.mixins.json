@@ -2,19 +2,16 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.ninni.twigs.mixin",
-  "compatibilityLevel": "JAVA_16",
-  "plugin": "com.ninni.twigs.mixin.SandwichableMixinPlugin",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "com.ninni.twigs.mixin.TwigsMixinPlugin",
   "mixins": [
     "BlockEntityTypeMixin",
     "BoatDropsMixin",
     "BoatTypeMixin",
     "DefaultBiomeFeaturesMixin",
-    "HoneycombItemMixin",
-    "OxidizableMixin",
     "SignTypeAccessor"
   ],
-  "client": [
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

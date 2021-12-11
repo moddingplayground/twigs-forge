@@ -4,7 +4,6 @@ import com.google.common.reflect.Reflection;
 import com.ninni.twigs.block.BambooMatBlock;
 import com.ninni.twigs.block.vanilla.*;
 import com.ninni.twigs.entity.CustomBoatItem;
-import com.ninni.twigs.entity.CustomBoatType;
 import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import com.ninni.twigs.mixin.SignTypeAccessor;
@@ -34,7 +33,6 @@ import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_O
 public class Twigs implements ModInitializer {
 	public static final String MOD_ID = "twigs";
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(Twigs.MOD_ID, "item_group"), () -> new ItemStack(Items.STICK));
-
 
 	//rhyolite blocks
 	public static final Block RHYOLITE = new PillarBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE));
@@ -225,8 +223,6 @@ public class Twigs implements ModInitializer {
 				TwigsItems.class
 		);
 
-
-
 		FlammableBlockRegistry fbrInstance = FlammableBlockRegistry.getDefaultInstance();
 		fbrInstance.add(TwigsBlocks.AZALEA_FLOWERS,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_LEAVES,30, 60);
@@ -258,6 +254,4 @@ public class Twigs implements ModInitializer {
 		FuelRegistry.INSTANCE.add(TwigsBlocks.STRIPPED_BUNDLED_BAMBOO, 450);
 		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_PLANKS, 200);
 	}
-
-
 }

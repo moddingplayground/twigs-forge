@@ -9,7 +9,6 @@ import java.util.Objects;
 import static com.ninni.twigs.Twigs.MOD_ID;
 
 public class TwigsWallSignBlock extends SignBlock {
-
     public TwigsWallSignBlock(Settings settings, SignType type) {
         super(settings, type);
     }

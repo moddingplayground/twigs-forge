@@ -1,7 +1,6 @@
 package com.ninni.twigs.mixin;
 
 import com.ninni.twigs.Twigs;
-import com.ninni.twigs.entity.CustomBoatItem;
 import com.ninni.twigs.entity.CustomBoatType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.vehicle.BoatEntity;
