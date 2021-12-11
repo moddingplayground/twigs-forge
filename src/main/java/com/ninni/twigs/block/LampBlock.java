@@ -25,14 +25,7 @@ public class LampBlock extends Block {
 
     @SuppressWarnings("deprecation")
     @Override
-    public ActionResult onUse(
-            BlockState state,
-            World world,
-            BlockPos pos,
-            PlayerEntity player,
-            Hand hand,
-            BlockHitResult result
-    ) {
+    public ActionResult onUse(BlockState state, World world,BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
         final boolean wasLit = state.get(LIT);
 
         world.setBlockState(pos, state.with(LIT, !wasLit));

@@ -32,7 +32,7 @@ import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_O
 
 public class Twigs implements ModInitializer {
 	public static final String MOD_ID = "twigs";
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(Twigs.MOD_ID, "item_group"), () -> new ItemStack(Items.STICK));
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(Twigs.MOD_ID, "item_group"), () -> new ItemStack(TwigsBlocks.TWIG));
 
 	//rhyolite blocks
 	public static final Block RHYOLITE = new PillarBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE));
@@ -191,7 +191,7 @@ public class Twigs implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "polished_bloodstone_brick_wall"), new BlockItem(POLISHED_BLOODSTONE_BRICK_WALL, new FabricItemSettings().group(ITEM_GROUP)));
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "cracked_polished_bloodstone_bricks"), CRACKED_POLISHED_BLOODSTONE_BRICKS);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "cracked_polished_bloodstone_bricks"), new BlockItem(CRACKED_POLISHED_BLOODSTONE_BRICKS, new FabricItemSettings().group(ITEM_GROUP)));
-		//im sorry i know its scuffed ill make the block registry more organized later
+		//im sorry I know its scuffed ill make the block registry more organized later
 
 		CustomBoatItem.registerBoats();
 		Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "stripped_bamboo_sign"), STRIPPED_BAMBOO_SIGN);
@@ -225,6 +225,7 @@ public class Twigs implements ModInitializer {
 
 		FlammableBlockRegistry fbrInstance = FlammableBlockRegistry.getDefaultInstance();
 		fbrInstance.add(TwigsBlocks.AZALEA_FLOWERS,30, 60);
+		fbrInstance.add(TwigsBlocks.TWIG,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_LEAVES,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH,30, 60);
 		fbrInstance.add(TwigsBlocks.BAMBOO_THATCH_SLAB, 30, 60);
