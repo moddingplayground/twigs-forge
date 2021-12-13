@@ -24,6 +24,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.function.ToIntFunction;
 
+import static com.ninni.twigs.Twigs.MOD_ID;
 import static com.ninni.twigs.Twigs.STRIPPED_BAMBOO_PLANKS;
 
 @SuppressWarnings("unused")
@@ -179,9 +180,9 @@ public final class TwigsBlocks {
     }
 
     private static Block register(String id, Block block, boolean registerItem) {
-        Block registered = Registry.register(Registry.BLOCK, new Identifier(Twigs.MOD_ID, id), block);
+        Block registered = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, id), block);
         if (registerItem) {
-            Registry.register(Registry.ITEM, new Identifier(Twigs.MOD_ID, id), new BlockItem(registered, new FabricItemSettings().group(Twigs.ITEM_GROUP)));
+            Registry.register(Registry.ITEM, new Identifier(MOD_ID, id), new BlockItem(registered, new FabricItemSettings().group(Twigs.ITEM_GROUP)));
         }
         return registered;
     }

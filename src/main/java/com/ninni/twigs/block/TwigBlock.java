@@ -55,7 +55,7 @@ public class TwigBlock extends PlantBlock implements Waterloggable {
     @SuppressWarnings("deprecation")
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
-        if (!player.getStackInHand(hand).isOf(TwigsBlocks.TWIG.asItem()) && !player.getStackInHand(hand).isEmpty()) {
+        if ((player.getInventory().getOccupiedSlotWithRoomForStack(TwigsBlocks.TWIG.asItem().getDefaultStack()) == -1) && (player.getInventory().getEmptySlot() == -1)) {
             return ActionResult.FAIL;
         }
         //this doesn't work if the player's hand is full, and I have no idea what to do
