@@ -264,7 +264,7 @@ public class Twigs implements ModInitializer {
 		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_PLANKS, 200);
 
 		if (BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).isPresent()) {
-			BiomeModifications.addFeature(context -> (context.getBiomeKey().equals(BiomeKeys.FOREST) && context.getBiomeKey().equals(BiomeKeys.FLOWER_FOREST) && context.getBiomeKey().equals(BiomeKeys.DARK_FOREST) && context.getBiomeKey().equals(BiomeKeys.BIRCH_FOREST) && context.getBiomeKey().equals(BiomeKeys.OLD_GROWTH_BIRCH_FOREST) && context.getBiomeKey().equals(BiomeKeys.WINDSWEPT_FOREST)), GenerationStep.Feature.VEGETAL_DECORATION,
+			BiomeModifications.addFeature(context -> (context.getBiomeKey().equals(BiomeKeys.FOREST) || context.getBiomeKey().equals(BiomeKeys.FLOWER_FOREST) || context.getBiomeKey().equals(BiomeKeys.DARK_FOREST) || context.getBiomeKey().equals(BiomeKeys.BIRCH_FOREST) && context.getBiomeKey().equals(BiomeKeys.OLD_GROWTH_BIRCH_FOREST) || context.getBiomeKey().equals(BiomeKeys.WINDSWEPT_FOREST)), GenerationStep.Feature.VEGETAL_DECORATION,
 					BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).get());
 		}
 	}
