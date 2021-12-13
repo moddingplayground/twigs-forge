@@ -8,6 +8,7 @@ import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import com.ninni.twigs.mixin.SignTypeAccessor;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -18,7 +19,10 @@ import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.*;
@@ -27,6 +31,7 @@ import java.util.List;
 
 import static com.ninni.twigs.entity.CustomBoatItem.STRIPPED_BAMBOO_BOAT;
 import static com.ninni.twigs.init.TwigsBlocks.STRIPPED_BAMBOO;
+import static com.ninni.twigs.init.TwigsPlacedFeatures.PATCH_TWIG;
 import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_NETHER;
 import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_OVERWORLD;
 
@@ -113,6 +118,9 @@ public class Twigs implements ModInitializer {
 	public static final Block STRIPPED_BAMBOO_TRAPDOOR = new PublicTrapdoorBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
 	public static final Block STRIPPED_BAMBOO_BUTTON = new PublicWoodenButtonBlock(FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
 	public static final Block STRIPPED_BAMBOO_PRESSURE_PLATE = new PublicPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(STRIPPED_BAMBOO_PLANKS));
+
+
+
 
 	@SuppressWarnings("UnstableApiUsage")
 	@Override
@@ -254,5 +262,10 @@ public class Twigs implements ModInitializer {
 		FuelRegistry.INSTANCE.add(TwigsBlocks.BUNDLED_BAMBOO, 450);
 		FuelRegistry.INSTANCE.add(TwigsBlocks.STRIPPED_BUNDLED_BAMBOO, 450);
 		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_PLANKS, 200);
+
+		if (BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).isPresent()) {
+			BiomeModifications.addFeature(context -> context.getBiomeKey().equals(BiomeKeys.FOREST), GenerationStep.Feature.VEGETAL_DECORATION,
+					BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).get());
+		}
 	}
 }
