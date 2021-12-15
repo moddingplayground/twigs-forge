@@ -22,6 +22,6 @@ public class TwigsConfiguredFeatures {
 
 
     static {
-        PATCH_TWIG = ConfiguredFeatures.register("patch_twig", Feature.RANDOM_PATCH.configure(createRandomPatchFeatureConfig(BlockStateProvider.of(TwigsBlocks.TWIG.getDefaultState().getBlock()), 64)));
+        PATCH_TWIG = ConfiguredFeatures.register("patch_twig", Feature.RANDOM_PATCH.configure(createRandomPatchFeatureConfig(BlockStateProvider.of(TwigsBlocks.TWIG.getDefaultState().getBlock()), 16)));
     }
 }
