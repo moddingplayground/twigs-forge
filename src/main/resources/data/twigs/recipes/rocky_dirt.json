@@ -10,7 +10,7 @@
             "item": "minecraft:dirt"
         },
         "C": {
-            "item": "minecraft:cobblestone"
+            "item": "twigs:pebble"
         }
     },
     "result": {
