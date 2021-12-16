@@ -11,6 +11,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 public class TwigsConfiguredFeatures {
 
     public static final ConfiguredFeature<RandomPatchFeatureConfig, ?> PATCH_TWIG;
+    public static final ConfiguredFeature<RandomPatchFeatureConfig, ?> PATCH_PEBBLE;
 
 
     public TwigsConfiguredFeatures() {
@@ -23,5 +24,6 @@ public class TwigsConfiguredFeatures {
 
     static {
         PATCH_TWIG = ConfiguredFeatures.register("patch_twig", Feature.RANDOM_PATCH.configure(createRandomPatchFeatureConfig(BlockStateProvider.of(TwigsBlocks.TWIG.getDefaultState().getBlock()), 16)));
+        PATCH_PEBBLE = ConfiguredFeatures.register("patch_pebble", Feature.RANDOM_PATCH.configure(createRandomPatchFeatureConfig(BlockStateProvider.of(TwigsBlocks.PEBBLE.getDefaultState().getBlock()), 8)));
     }
 }

@@ -15,6 +15,7 @@ import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.NOT_IN_SU
 
 public class TwigsPlacedFeatures {
     public static final PlacedFeature PATCH_TWIG;
+    public static final PlacedFeature PATCH_PEBBLE;
 
     public TwigsPlacedFeatures() {
     }
@@ -53,6 +54,7 @@ public class TwigsPlacedFeatures {
 
     static {
         PATCH_TWIG = PlacedFeatures.register("patch_twig", TwigsConfiguredFeatures.PATCH_TWIG.withPlacement(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
+        PATCH_PEBBLE = PlacedFeatures.register("patch_pebble", TwigsConfiguredFeatures.PATCH_PEBBLE.withPlacement(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
     }
 }
 

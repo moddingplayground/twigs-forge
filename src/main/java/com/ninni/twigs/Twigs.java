@@ -31,6 +31,7 @@ import java.util.List;
 
 import static com.ninni.twigs.entity.CustomBoatItem.STRIPPED_BAMBOO_BOAT;
 import static com.ninni.twigs.init.TwigsBlocks.STRIPPED_BAMBOO;
+import static com.ninni.twigs.init.TwigsPlacedFeatures.PATCH_PEBBLE;
 import static com.ninni.twigs.init.TwigsPlacedFeatures.PATCH_TWIG;
 import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_NETHER;
 import static net.minecraft.world.gen.feature.OreConfiguredFeatures.BASE_STONE_OVERWORLD;
@@ -266,6 +267,10 @@ public class Twigs implements ModInitializer {
 		if (BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).isPresent()) {
 			BiomeModifications.addFeature(context -> (context.getBiomeKey().equals(BiomeKeys.FOREST) || context.getBiomeKey().equals(BiomeKeys.FLOWER_FOREST) || context.getBiomeKey().equals(BiomeKeys.DARK_FOREST) || context.getBiomeKey().equals(BiomeKeys.BIRCH_FOREST) || context.getBiomeKey().equals(BiomeKeys.OLD_GROWTH_BIRCH_FOREST) || context.getBiomeKey().equals(BiomeKeys.WINDSWEPT_FOREST) || context.getBiomeKey().equals(BiomeKeys.TAIGA)), GenerationStep.Feature.VEGETAL_DECORATION,
 					BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).get());
+		}
+		if (BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_PEBBLE).isPresent()) {
+			BiomeModifications.addFeature(context -> (context.getBiomeKey().equals(BiomeKeys.SAVANNA) || context.getBiomeKey().equals(BiomeKeys.PLAINS) || context.getBiomeKey().equals(BiomeKeys.MEADOW) || context.getBiomeKey().equals(BiomeKeys.STONY_SHORE) || context.getBiomeKey().equals(BiomeKeys.TAIGA)), GenerationStep.Feature.VEGETAL_DECORATION,
+				BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_PEBBLE).get());
 		}
 	}
 }
