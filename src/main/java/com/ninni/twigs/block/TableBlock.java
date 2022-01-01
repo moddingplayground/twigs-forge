@@ -1,78 +1,82 @@
 package com.ninni.twigs.block;
 
-import net.minecraft.block.*;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.function.BooleanBiFunction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 @SuppressWarnings("deprecation")
-public class TableBlock extends HorizontalFacingBlock implements Waterloggable {
-    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+public class TableBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    protected final static VoxelShape COLLISION_SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 12, 0, 16, 16, 16),
-                                                                         Block.createCuboidShape(12, 0, 1, 15, 12, 4),
-                                                                         Block.createCuboidShape(12, 0, 12, 15, 12, 15),
-                                                                         Block.createCuboidShape(1, 0, 12, 4, 12, 15),
-                                                                         Block.createCuboidShape(1, 0, 1, 4, 12, 4));
-    protected final static VoxelShape OUTLINE_SHAPE = VoxelShapes.combine(Block.createCuboidShape(0, 12, 0, 16, 16, 16), Block.createCuboidShape(1, 0, 1, 15, 12, 15), BooleanBiFunction.OR);
+    protected final static VoxelShape COLLISION_SHAPE = Shapes.or(Block.box(0, 12, 0, 16, 16, 16),
+                                                                         Block.box(12, 0, 1, 15, 12, 4),
+                                                                         Block.box(12, 0, 12, 15, 12, 15),
+                                                                         Block.box(1, 0, 12, 4, 12, 15),
+                                                                         Block.box(1, 0, 1, 4, 12, 4));
+    protected final static VoxelShape OUTLINE_SHAPE = Shapes.joinUnoptimized(Block.box(0, 12, 0, 16, 16, 16), Block.box(1, 0, 1, 15, 12, 15), BooleanOp.OR);
 
 
-    public TableBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
-        this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false));
+    public TableBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return OUTLINE_SHAPE;
     }
 
     @Override
-    public VoxelShape getCollisionShape (BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return COLLISION_SHAPE;
     }
 
-    @Override
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, bl).with(FACING, ctx.getPlayerFacing().getOpposite());
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidstate = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return super.getStateForPlacement(ctx).setValue(WATERLOGGED, flag);
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.getFluidTickScheduler().isTicking(pos, Fluids.WATER);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED, FACING);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
 }

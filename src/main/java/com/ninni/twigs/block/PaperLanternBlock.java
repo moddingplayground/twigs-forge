@@ -1,45 +1,53 @@
 package com.ninni.twigs.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class PaperLanternBlock extends LanternBlock {
-    public static final BooleanProperty HANGING;
-    public static final BooleanProperty WATERLOGGED;
-    protected static final VoxelShape STANDING_SHAPE;
-    protected static final VoxelShape HANGING_SHAPE;
+    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    protected static final VoxelShape STANDING_SHAPE = Shapes.or(
+            Block.box(5, 9, 5, 11, 11, 11),
+            Block.box(3, 0, 3, 13, 9, 13));
+    protected static final VoxelShape HANGING_SHAPE = Shapes.or(
+            Block.box(5, 9, 5, 11, 11, 11),
+            Block.box(7, 11, 7, 9, 16, 9),
+            Block.box(3, 0, 3, 13, 9, 13));
 
-    public PaperLanternBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(((this.stateManager.getDefaultState()).with(HANGING, false)).with(WATERLOGGED, false));
+    public PaperLanternBlock(Properties properties) {
+        super(properties);
+        this.registerDefaultState(((this.stateDefinition.any()).setValue(HANGING, false)).setValue(WATERLOGGED, false));
     }
 
     @Override
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        Direction[] var3 = ctx.getPlacementDirections();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidstate = ctx.getLevel().getFluidState(ctx.getClickedPos());
 
-        for (Direction direction : var3) {
+        for(Direction direction : ctx.getNearestLookingDirections()) {
             if (direction.getAxis() == Direction.Axis.Y) {
-                BlockState blockState = this.getDefaultState().with(HANGING, direction == Direction.UP);
-                if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
-                    return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+                BlockState blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
+                if (blockstate.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
+                    return blockstate.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
                 }
             }
         }
@@ -48,56 +56,48 @@ public class PaperLanternBlock extends LanternBlock {
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+//        super.createBlockStateDefinition(builder);
         builder.add(HANGING, WATERLOGGED);
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         Direction direction = attachedDirection(state).getOpposite();
-        return Block.sideCoversSmallSquare(world, pos.offset(direction), direction.getOpposite());
+        return Block.canSupportCenter(world, pos.relative(direction), direction.getOpposite());
     }
 
     protected static Direction attachedDirection(BlockState state) {
-        return state.get(HANGING) ? Direction.DOWN : Direction.UP;
+        return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
     }
 
     @Override
-    public PistonBehavior getPistonBehavior(BlockState state) {
-        return PistonBehavior.DESTROY;
+    public PushReaction getPistonPushReaction(BlockState state) {
+        return PushReaction.DESTROY;
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (state.get(WATERLOGGED)) {
-            world.getFluidTickScheduler().isTicking(pos, Fluids.WATER);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return attachedDirection(state).getOpposite() == direction && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
         return false;
     }
 
-    static {
-        HANGING = Properties.HANGING;
-        WATERLOGGED = Properties.WATERLOGGED;
-        STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5, 9, 5, 11, 11, 11),
-                                           Block.createCuboidShape(3, 0, 3, 13, 9, 13));
-        HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5, 9, 5, 11, 11, 11),
-                                          Block.createCuboidShape(7, 11, 7, 9, 16, 9),
-                                          Block.createCuboidShape(3, 0, 3, 13, 9, 13));
-    }
 }

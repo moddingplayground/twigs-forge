@@ -1,44 +1,44 @@
 package com.ninni.twigs.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.RedstoneTorchBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RedstoneTorchBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 
 public class LampBlock extends Block {
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
 
-    public LampBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(this.getDefaultState().with(LIT, true));
+    public LampBlock(Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.defaultBlockState().setValue(LIT, true));
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public ActionResult onUse(BlockState state, World world,BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
-        final boolean wasLit = state.get(LIT);
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+        final boolean wasLit = state.getValue(LIT);
 
-        world.setBlockState(pos, state.with(LIT, !wasLit));
+        world.setBlockAndUpdate(pos, state.setValue(LIT, !wasLit));
         playSound(player, !wasLit);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    private void playSound(PlayerEntity player, boolean isLit) {
-        if (!player.world.isClient) {
-            player.playSound(
-                    isLit ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF,
-                    SoundCategory.BLOCKS,
+    private void playSound(Player player, boolean isLit) {
+        if (!player.level.isClientSide()) {
+            player.playNotifySound(
+                    isLit ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.STONE_BUTTON_CLICK_OFF,
+                    SoundSource.BLOCKS,
                     0.3f,
                     isLit ? 0.6f : 0.5f
             );
@@ -46,8 +46,8 @@ public class LampBlock extends Block {
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(LIT);
     }
-
 }

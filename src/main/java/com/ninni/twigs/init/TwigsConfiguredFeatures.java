@@ -5,25 +5,42 @@
 
 package com.ninni.twigs.init;
 
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import com.ninni.twigs.Twigs;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 public class TwigsConfiguredFeatures {
 
-    public static final ConfiguredFeature<RandomPatchFeatureConfig, ?> PATCH_TWIG;
-    public static final ConfiguredFeature<RandomPatchFeatureConfig, ?> PATCH_PEBBLE;
-
+    public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = registerConfiguredFeature("ore_rhyolite", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD), TwigsBlocks.RHYOLITE.get().defaultBlockState(), 45)));
+    public static final ConfiguredFeature<?, ?> ORE_SCHIST = registerConfiguredFeature("ore_schist", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD), TwigsBlocks.SCHIST.get().defaultBlockState(), 64)));
+    public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = registerConfiguredFeature("ore_bloodstone", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_NETHER), TwigsBlocks.BLOODSTONE.get().defaultBlockState(), 64)));
+    public static final ConfiguredFeature<RandomPatchConfiguration, ?> PATCH_TWIG = registerConfiguredFeature("patch_twig", Feature.RANDOM_PATCH.configured(createRandomPatchConfiguration(BlockStateProvider.simple(TwigsBlocks.TWIG.get().defaultBlockState().getBlock()), 16)));
+    public static final ConfiguredFeature<RandomPatchConfiguration, ?> PATCH_PEBBLE = registerConfiguredFeature("patch_pebble", Feature.RANDOM_PATCH.configured(createRandomPatchConfiguration(BlockStateProvider.simple(TwigsBlocks.PEBBLE.get().defaultBlockState().getBlock()), 8)));
 
     public TwigsConfiguredFeatures() {
     }
 
-    private static RandomPatchFeatureConfig createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
-        return ConfiguredFeatures.createRandomPatchFeatureConfig(tries, Feature.SIMPLE_BLOCK.configure(new SimpleBlockFeatureConfig(block)).withInAirFilter());
+    private static RandomPatchConfiguration createRandomPatchConfiguration(BlockStateProvider block, int tries) {
+        return FeatureUtils.simpleRandomPatchConfiguration(tries, Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(block)).onlyWhenEmpty());
     }
 
+    public static <C extends FeatureConfiguration, F extends Feature<C>, CF extends ConfiguredFeature<C, F>> CF registerConfiguredFeature(String name, CF configuredFeature) {
+        ResourceLocation ID = new ResourceLocation(Twigs.MOD_ID, name);
+        if (BuiltinRegistries.CONFIGURED_FEATURE.keySet().contains(ID))
+            throw new IllegalStateException("The Configured Feature " + name + "already exists in the registry");
 
-    static {
-        PATCH_TWIG = ConfiguredFeatures.register("patch_twig", Feature.RANDOM_PATCH.configure(createRandomPatchFeatureConfig(BlockStateProvider.of(TwigsBlocks.TWIG.getDefaultState().getBlock()), 16)));
-        PATCH_PEBBLE = ConfiguredFeatures.register("patch_pebble", Feature.RANDOM_PATCH.configure(createRandomPatchFeatureConfig(BlockStateProvider.of(TwigsBlocks.PEBBLE.getDefaultState().getBlock()), 8)));
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID, configuredFeature);
+        return configuredFeature;
     }
 }

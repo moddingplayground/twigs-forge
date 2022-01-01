@@ -1,197 +1,248 @@
 package com.ninni.twigs.init;
 
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 import com.ninni.twigs.Twigs;
-import com.ninni.twigs.block.*;
-import com.ninni.twigs.block.vanilla.PublicStairsBlock;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.*;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import com.ninni.twigs.block.BambooLeavesBlock;
+import com.ninni.twigs.block.BambooMatBlock;
+import com.ninni.twigs.block.LampBlock;
+import com.ninni.twigs.block.PaperLanternBlock;
+import com.ninni.twigs.block.PebbleBlock;
+import com.ninni.twigs.block.PillarOxidizableBlock;
+import com.ninni.twigs.block.TableBlock;
+import com.ninni.twigs.block.TwigBlock;
+import com.ninni.twigs.block.vanilla.TwigsSignBlock;
+import com.ninni.twigs.block.vanilla.TwigsWallSignBlock;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChainBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.GlowLichenBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.WoodButtonBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
-import static com.ninni.twigs.Twigs.MOD_ID;
-import static com.ninni.twigs.Twigs.STRIPPED_BAMBOO_PLANKS;
-
-@SuppressWarnings("unused")
+@Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class TwigsBlocks {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Twigs.MOD_ID);
 
     //lamps
-    public static final Block LAMP = register("lamp", new LampBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(18))));
-    public static final Block SOUL_LAMP = register("soul_lamp", new LampBlock(FabricBlockSettings.copyOf(TwigsBlocks.LAMP).luminance(createLightLevelFromLitBlockState(17))));
-    public static final Block CRIMSON_SHROOMLAMP = register("crimson_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(3.5F).sounds(BlockSoundGroup.SHROOMLIGHT).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 15).nonOpaque()));
-    public static final Block WARPED_SHROOMLAMP = register("warped_shroomlamp", new Block(AbstractBlock.Settings.of(Material.NETHER_WOOD).strength(3.5F).sounds(BlockSoundGroup.SHROOMLIGHT).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 15).nonOpaque()));
+    public static final RegistryObject<Block> LAMP = registerBlock("lamp", () -> new LampBlock(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(4.5F).sound(SoundType.LANTERN).lightLevel(createLightLevelFromLitBlockState(18))));
+    public static final RegistryObject<Block> SOUL_LAMP = registerBlock("soul_lamp", () -> new LampBlock(BlockBehaviour.Properties.copy(TwigsBlocks.LAMP.get()).lightLevel(createLightLevelFromLitBlockState(17))));
+    public static final RegistryObject<Block> CRIMSON_SHROOMLAMP = registerBlock("crimson_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
+    public static final RegistryObject<Block> WARPED_SHROOMLAMP = registerBlock("warped_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
 
     //azalea blocks
-    public static final Block AZALEA_FLOWERS = register("azalea_flowers", new GlowLichenBlock(FabricBlockSettings.of(Material.PLANT).breakInstantly().sounds(BlockSoundGroup.AZALEA).noCollision()));
-    public static final Block POTTED_AZALEA_FLOWERS = register("potted_azalea_flowers", new FlowerPotBlock(AZALEA_FLOWERS, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque()), false);
+    public static final RegistryObject<Block> AZALEA_FLOWERS = registerBlock("azalea_flowers", () -> new GlowLichenBlock(BlockBehaviour.Properties.of(Material.PLANT).instabreak().sound(SoundType.AZALEA).noCollission()));
+    public static final RegistryObject<Block> POTTED_AZALEA_FLOWERS = registerBlockWithNoTab("potted_azalea_flowers", () -> new FlowerPotBlock(AZALEA_FLOWERS.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
 
     //bamboo blocks
-    public static final Block BAMBOO_LEAVES = register("bamboo_leaves", new BambooLeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES).breakInstantly().noCollision()), false);
-    public static final Block STRIPPED_BAMBOO = register("stripped_bamboo", new ChainBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO)));
-    public static final Block STRIPPED_BUNDLED_BAMBOO = register("stripped_bundled_bamboo", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
-    public static final Block BUNDLED_BAMBOO = register("bundled_bamboo", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.SCAFFOLDING)));
-    public static final Block BAMBOO_THATCH = register("bamboo_thatch", new Block(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).sounds(BlockSoundGroup.AZALEA_LEAVES)));
-    public static final Block BAMBOO_THATCH_STAIRS = register("bamboo_thatch_stairs", new PublicStairsBlock(BAMBOO_THATCH.getDefaultState(), FabricBlockSettings.copyOf(BAMBOO_THATCH)));
-    public static final Block BAMBOO_THATCH_SLAB = register("bamboo_thatch_slab", new SlabBlock(FabricBlockSettings.copyOf(BAMBOO_THATCH)));
+    public static final RegistryObject<Block> BAMBOO_LEAVES = registerBlockWithNoTab("bamboo_leaves", () -> new BambooLeavesBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES).sound(SoundType.AZALEA_LEAVES).instabreak().noCollission()));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO = registerBlock("stripped_bamboo", () -> new ChainBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO)));
+    public static final RegistryObject<Block> STRIPPED_BUNDLED_BAMBOO = registerBlock("stripped_bundled_bamboo", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.SCAFFOLDING)));
+    public static final RegistryObject<Block> BUNDLED_BAMBOO = registerBlock("bundled_bamboo", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.SCAFFOLDING)));
+    public static final RegistryObject<Block> BAMBOO_THATCH = registerBlock("bamboo_thatch", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES).sound(SoundType.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> BAMBOO_THATCH_STAIRS = registerBlock("bamboo_thatch_stairs", () -> new StairBlock(BAMBOO_THATCH.get().defaultBlockState(), BlockBehaviour.Properties.copy(BAMBOO_THATCH.get())));
+    public static final RegistryObject<Block> BAMBOO_THATCH_SLAB = registerBlock("bamboo_thatch_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(BAMBOO_THATCH.get())));
+
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_MAT = registerBlock("stripped_bamboo_mat", () -> new BambooMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_CARPET).sound(SoundType.SCAFFOLDING)));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_PLANKS = registerBlock("stripped_bamboo_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(1.0F, 1.5F).sound(SoundType.SCAFFOLDING)));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_STAIRS = registerBlock("stripped_bamboo_stairs", () -> new StairBlock(STRIPPED_BAMBOO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_SLAB = registerBlock("stripped_bamboo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_FENCE = registerBlock("stripped_bamboo_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_FENCE_GATE = registerBlock("stripped_bamboo_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_DOOR = registerBlock("stripped_bamboo_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_TRAPDOOR = registerBlock("stripped_bamboo_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_BUTTON = registerBlock("stripped_bamboo_button", () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_PRESSURE_PLATE = registerBlock("stripped_bamboo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
 
     //tables
-    public static final Block OAK_TABLE = register("oak_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block SPRUCE_TABLE = register("spruce_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block BIRCH_TABLE = register("birch_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block JUNGLE_TABLE = register("jungle_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block ACACIA_TABLE = register("acacia_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block DARK_OAK_TABLE = register("dark_oak_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block CRIMSON_TABLE = register("crimson_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block WARPED_TABLE = register("warped_table", new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).breakInstantly()));
-    public static final Block STRIPPED_BAMBOO_TABLE = register("stripped_bamboo_table", new TableBlock(AbstractBlock.Settings.copy(STRIPPED_BAMBOO_PLANKS).breakInstantly()));
+    public static final RegistryObject<Block> OAK_TABLE = registerBlock("oak_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> SPRUCE_TABLE = registerBlock("spruce_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> BIRCH_TABLE = registerBlock("birch_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> JUNGLE_TABLE = registerBlock("jungle_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> ACACIA_TABLE = registerBlock("acacia_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> DARK_OAK_TABLE = registerBlock("dark_oak_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> CRIMSON_TABLE = registerBlock("crimson_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> WARPED_TABLE = registerBlock("warped_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_TABLE = registerBlock("stripped_bamboo_table", () -> new TableBlock(BlockBehaviour.Properties.copy(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get()).instabreak()));
 
     //brick blocks
-    public static final Block CHISELED_BRICKS = register("chiseled_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS)));
-    public static final Block CRACKED_BRICKS = register("cracked_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS)));
-    public static final Block MOSSY_BRICKS = register("mossy_bricks", new Block(FabricBlockSettings.copyOf(Blocks.BRICKS)));
-    public static final Block MOSSY_BRICK_STAIRS = register("mossy_brick_stairs", new PublicStairsBlock(MOSSY_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(MOSSY_BRICKS)));
-    public static final Block MOSSY_BRICK_SLAB = register("mossy_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(MOSSY_BRICKS)));
-    public static final Block MOSSY_BRICK_WALL = register("mossy_brick_wall", new WallBlock(FabricBlockSettings.copyOf(MOSSY_BRICKS)));
+    public static final RegistryObject<Block> CHISELED_BRICKS = registerBlock("chiseled_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> CRACKED_BRICKS = registerBlock("cracked_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MOSSY_BRICKS = registerBlock("mossy_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MOSSY_BRICK_STAIRS = registerBlock("mossy_brick_stairs", () -> new StairBlock(MOSSY_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(MOSSY_BRICKS.get())));
+    public static final RegistryObject<Block> MOSSY_BRICK_SLAB = registerBlock("mossy_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(MOSSY_BRICKS.get())));
+    public static final RegistryObject<Block> MOSSY_BRICK_WALL = registerBlock("mossy_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(MOSSY_BRICKS.get())));
 
     //basalt blocks
-    public static final Block POLISHED_BASALT_BRICKS = register("polished_basalt_bricks", new PillarBlock(FabricBlockSettings.copyOf(Blocks.POLISHED_BASALT)));
-    public static final Block SMOOTH_BASALT_BRICKS = register("smooth_basalt_bricks", new Block(FabricBlockSettings.copyOf(Blocks.SMOOTH_BASALT)));
-    public static final Block SMOOTH_BASALT_BRICK_STAIRS = register("smooth_basalt_brick_stairs", new PublicStairsBlock(SMOOTH_BASALT_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(SMOOTH_BASALT_BRICKS)));
-    public static final Block SMOOTH_BASALT_BRICK_SLAB = register("smooth_basalt_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(SMOOTH_BASALT_BRICKS)));
-    public static final Block SMOOTH_BASALT_BRICK_WALL = register("smooth_basalt_brick_wall", new WallBlock(FabricBlockSettings.copyOf(SMOOTH_BASALT_BRICKS)));
+    public static final RegistryObject<Block> POLISHED_BASALT_BRICKS = registerBlock("polished_basalt_bricks", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BASALT)));
+    public static final RegistryObject<Block> SMOOTH_BASALT_BRICKS = registerBlock("smooth_basalt_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SMOOTH_BASALT)));
+    public static final RegistryObject<Block> SMOOTH_BASALT_BRICK_STAIRS = registerBlock("smooth_basalt_brick_stairs", () -> new StairBlock(SMOOTH_BASALT_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(SMOOTH_BASALT_BRICKS.get())));
+    public static final RegistryObject<Block> SMOOTH_BASALT_BRICK_SLAB = registerBlock("smooth_basalt_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(SMOOTH_BASALT_BRICKS.get())));
+    public static final RegistryObject<Block> SMOOTH_BASALT_BRICK_WALL = registerBlock("smooth_basalt_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(SMOOTH_BASALT_BRICKS.get())));
 
     //cobblestone bricks
-    public static final Block COBBLESTONE_BRICKS = register("cobblestone_bricks", new Block(FabricBlockSettings.copyOf(Blocks.COBBLESTONE)));
-    public static final Block COBBLESTONE_BRICK_STAIRS = register("cobblestone_brick_stairs", new PublicStairsBlock(COBBLESTONE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(COBBLESTONE_BRICKS)));
-    public static final Block COBBLESTONE_BRICK_SLAB = register("cobblestone_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(COBBLESTONE_BRICKS)));
-    public static final Block COBBLESTONE_BRICK_WALL = register("cobblestone_brick_wall", new WallBlock(FabricBlockSettings.copyOf(COBBLESTONE_BRICKS)));
-    public static final Block CRACKED_COBBLESTONE_BRICKS = register("cracked_cobblestone_bricks", new Block(FabricBlockSettings.copyOf(Blocks.COBBLESTONE)));
-    public static final Block MOSSY_COBBLESTONE_BRICKS = register("mossy_cobblestone_bricks", new Block(FabricBlockSettings.copyOf(Blocks.COBBLESTONE)));
-    public static final Block MOSSY_COBBLESTONE_BRICK_STAIRS = register("mossy_cobblestone_brick_stairs", new PublicStairsBlock(COBBLESTONE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(COBBLESTONE_BRICKS)));
-    public static final Block MOSSY_COBBLESTONE_BRICK_SLAB = register("mossy_cobblestone_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(COBBLESTONE_BRICKS)));
-    public static final Block MOSSY_COBBLESTONE_BRICK_WALL = register("mossy_cobblestone_brick_wall", new WallBlock(FabricBlockSettings.copyOf(COBBLESTONE_BRICKS)));
+    public static final RegistryObject<Block> COBBLESTONE_BRICKS = registerBlock("cobblestone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.COBBLESTONE)));
+    public static final RegistryObject<Block> COBBLESTONE_BRICK_STAIRS = registerBlock("cobblestone_brick_stairs", () -> new StairBlock(COBBLESTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
+    public static final RegistryObject<Block> COBBLESTONE_BRICK_SLAB = registerBlock("cobblestone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
+    public static final RegistryObject<Block> COBBLESTONE_BRICK_WALL = registerBlock("cobblestone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_COBBLESTONE_BRICKS = registerBlock("cracked_cobblestone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICKS = registerBlock("mossy_cobblestone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.COBBLESTONE)));
+    public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_STAIRS = registerBlock("mossy_cobblestone_brick_stairs", () -> new StairBlock(COBBLESTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
+    public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_SLAB = registerBlock("mossy_cobblestone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
+    public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_WALL = registerBlock("mossy_cobblestone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
 
     //amethyst blocks
-    public static final Block POLISHED_AMETHYST_BRICKS = register("polished_amethyst_bricks", new Block(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)));
-    public static final Block POLISHED_AMETHYST_BRICK_STAIRS = register("polished_amethyst_brick_stairs", new PublicStairsBlock(POLISHED_AMETHYST_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_AMETHYST_BRICKS)));
-    public static final Block POLISHED_AMETHYST_BRICK_SLAB = register("polished_amethyst_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_AMETHYST_BRICKS)));
-    public static final Block POLISHED_AMETHYST_BRICK_WALL = register("polished_amethyst_brick_wall", new WallBlock(FabricBlockSettings.copyOf(POLISHED_AMETHYST_BRICKS)));
-    public static final Block CRACKED_POLISHED_AMETHYST_BRICKS = register("cracked_polished_amethyst_bricks", new Block(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)));
-    public static final Block POLISHED_AMETHYST = register("polished_amethyst", new Block(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)));
-    public static final Block CHISELED_POLISHED_AMETHYST = register("chiseled_polished_amethyst", new Block(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)));
-    public static final Block POLISHED_AMETHYST_STAIRS = register("polished_amethyst_stairs", new PublicStairsBlock(POLISHED_AMETHYST.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_AMETHYST)));
-    public static final Block POLISHED_AMETHYST_SLAB = register("polished_amethyst_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_AMETHYST)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICKS = registerBlock("polished_amethyst_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_STAIRS = registerBlock("polished_amethyst_brick_stairs", () -> new StairBlock(POLISHED_AMETHYST_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_SLAB = registerBlock("polished_amethyst_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_WALL = registerBlock("polished_amethyst_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_AMETHYST_BRICKS = registerBlock("cracked_polished_amethyst_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST = registerBlock("polished_amethyst", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> CHISELED_POLISHED_AMETHYST = registerBlock("chiseled_polished_amethyst", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_STAIRS = registerBlock("polished_amethyst_stairs", () -> new StairBlock(POLISHED_AMETHYST.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_AMETHYST.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_SLAB = registerBlock("polished_amethyst_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST.get())));
 
     //twisting and weeping blackstone blocks
-    public static final Block TWISTING_POLISHED_BLACKSTONE_BRICKS = register("twisting_polished_blackstone_bricks", new Block(FabricBlockSettings.copyOf(Blocks.POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block TWISTING_POLISHED_BLACKSTONE_BRICK_STAIRS = register("twisting_polished_blackstone_brick_stairs", new PublicStairsBlock(TWISTING_POLISHED_BLACKSTONE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(TWISTING_POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block TWISTING_POLISHED_BLACKSTONE_BRICK_SLAB = register("twisting_polished_blackstone_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(TWISTING_POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block TWISTING_POLISHED_BLACKSTONE_BRICK_WALL = register("twisting_polished_blackstone_brick_wall", new WallBlock(FabricBlockSettings.copyOf(TWISTING_POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block WEEPING_POLISHED_BLACKSTONE_BRICKS = register("weeping_polished_blackstone_bricks", new Block(FabricBlockSettings.copyOf(Blocks.POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block WEEPING_POLISHED_BLACKSTONE_BRICK_STAIRS = register("weeping_polished_blackstone_brick_stairs", new PublicStairsBlock(WEEPING_POLISHED_BLACKSTONE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(WEEPING_POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block WEEPING_POLISHED_BLACKSTONE_BRICK_SLAB = register("weeping_polished_blackstone_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(WEEPING_POLISHED_BLACKSTONE_BRICKS)));
-    public static final Block WEEPING_POLISHED_BLACKSTONE_BRICK_WALL = register("weeping_polished_blackstone_brick_wall", new WallBlock(FabricBlockSettings.copyOf(WEEPING_POLISHED_BLACKSTONE_BRICKS)));
+    public static final RegistryObject<Block> TWISTING_POLISHED_BLACKSTONE_BRICKS = registerBlock("twisting_polished_blackstone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS)));
+    public static final RegistryObject<Block> TWISTING_POLISHED_BLACKSTONE_BRICK_STAIRS = registerBlock("twisting_polished_blackstone_brick_stairs", () -> new StairBlock(TWISTING_POLISHED_BLACKSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(TWISTING_POLISHED_BLACKSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> TWISTING_POLISHED_BLACKSTONE_BRICK_SLAB = registerBlock("twisting_polished_blackstone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(TWISTING_POLISHED_BLACKSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> TWISTING_POLISHED_BLACKSTONE_BRICK_WALL = registerBlock("twisting_polished_blackstone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(TWISTING_POLISHED_BLACKSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> WEEPING_POLISHED_BLACKSTONE_BRICKS = registerBlock("weeping_polished_blackstone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS)));
+    public static final RegistryObject<Block> WEEPING_POLISHED_BLACKSTONE_BRICK_STAIRS = registerBlock("weeping_polished_blackstone_brick_stairs", () -> new StairBlock(WEEPING_POLISHED_BLACKSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(WEEPING_POLISHED_BLACKSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> WEEPING_POLISHED_BLACKSTONE_BRICK_SLAB = registerBlock("weeping_polished_blackstone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(WEEPING_POLISHED_BLACKSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> WEEPING_POLISHED_BLACKSTONE_BRICK_WALL = registerBlock("weeping_polished_blackstone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(WEEPING_POLISHED_BLACKSTONE_BRICKS.get())));
 
     //paper lanterns
-    public static final Block PAPER_LANTERN = register("paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
-    public static final Block ALLIUM_PAPER_LANTERN = register("allium_paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
-    public static final Block BLUE_ORCHID_PAPER_LANTERN = register("blue_orchid_paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
-    public static final Block CRIMSON_ROOTS_PAPER_LANTERN = register("crimson_roots_paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
-    public static final Block DANDELION_PAPER_LANTERN = register("dandelion_paper_lantern", new PaperLanternBlock(FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.WOOL).strength(0.5f, 0.0f).sounds(BlockSoundGroup.WOOL).blockVision(AbstractBlock.AbstractBlockState::hasEmissiveLighting).luminance(value -> 10).nonOpaque())));
+    public static final RegistryObject<Block> PAPER_LANTERN = registerBlock("paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> ALLIUM_PAPER_LANTERN = registerBlock("allium_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> BLUE_ORCHID_PAPER_LANTERN = registerBlock("blue_orchid_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> CRIMSON_ROOTS_PAPER_LANTERN = registerBlock("crimson_roots_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> DANDELION_PAPER_LANTERN = registerBlock("dandelion_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
 
     //miscellaneous blocks
-    public static final Block ROCKY_DIRT = register("rocky_dirt", new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(2.5F).sounds(BlockSoundGroup.TUFF).requiresTool()));
-    public static final Block TWIG = register("twig", new TwigBlock(FabricBlockSettings.of(Material.WOOD).breakInstantly().sounds(BlockSoundGroup.WOOD).noCollision()));
-    public static final Block PEBBLE = register("pebble", new PebbleBlock(FabricBlockSettings.of(Material.STONE).breakInstantly().sounds(BlockSoundGroup.STONE).noCollision()));
+    public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TWIG = registerBlock("twig", () -> new TwigBlock(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
+    public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new PebbleBlock(BlockBehaviour.Properties.of(Material.STONE).instabreak().sound(SoundType.STONE).noCollission()));
 
     //tuff blocks
-    public static final Block TUFF_STAIRS = register("tuff_stairs", new PublicStairsBlock(Blocks.TUFF.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BASALT)));
-    public static final Block TUFF_SLAB = register("tuff_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.TUFF)));
-    public static final Block TUFF_WALL = register("tuff_wall", new WallBlock(FabricBlockSettings.copyOf(Blocks.TUFF)));
-    public static final Block POLISHED_TUFF = register("polished_tuff", new Block(FabricBlockSettings.copyOf(Blocks.TUFF)));
-    public static final Block POLISHED_TUFF_STAIRS = register("polished_tuff_stairs", new PublicStairsBlock(POLISHED_TUFF.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_TUFF)));
-    public static final Block POLISHED_TUFF_SLAB = register("polished_tuff_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_TUFF)));
-    public static final Block POLISHED_TUFF_BRICKS = register("polished_tuff_bricks", new Block(FabricBlockSettings.copyOf(Blocks.TUFF)));
-    public static final Block POLISHED_TUFF_BRICK_STAIRS = register("polished_tuff_brick_stairs", new PublicStairsBlock(POLISHED_TUFF_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_TUFF_BRICKS)));
-    public static final Block POLISHED_TUFF_BRICK_SLAB = register("polished_tuff_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_TUFF_BRICKS)));
-    public static final Block POLISHED_TUFF_BRICK_WALL = register("polished_tuff_brick_wall", new WallBlock(FabricBlockSettings.copyOf(POLISHED_TUFF_BRICKS)));
-    public static final Block CRACKED_POLISHED_TUFF_BRICKS = register("cracked_polished_tuff_bricks", new Block(FabricBlockSettings.copyOf(POLISHED_TUFF_BRICKS)));
+    public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.BASALT)));
+    public static final RegistryObject<Block> TUFF_SLAB = registerBlock("tuff_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.TUFF)));
+    public static final RegistryObject<Block> TUFF_WALL = registerBlock("tuff_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.TUFF)));
+    public static final RegistryObject<Block> POLISHED_TUFF = registerBlock("polished_tuff", () -> new Block(BlockBehaviour.Properties.copy(Blocks.TUFF)));
+    public static final RegistryObject<Block> POLISHED_TUFF_STAIRS = registerBlock("polished_tuff_stairs", () -> new StairBlock(POLISHED_TUFF.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_TUFF.get())));
+    public static final RegistryObject<Block> POLISHED_TUFF_SLAB = registerBlock("polished_tuff_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_TUFF.get())));
+    public static final RegistryObject<Block> POLISHED_TUFF_BRICKS = registerBlock("polished_tuff_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.TUFF)));
+    public static final RegistryObject<Block> POLISHED_TUFF_BRICK_STAIRS = registerBlock("polished_tuff_brick_stairs", () -> new StairBlock(POLISHED_TUFF_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_TUFF_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_TUFF_BRICK_SLAB = registerBlock("polished_tuff_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_TUFF_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_TUFF_BRICK_WALL = registerBlock("polished_tuff_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_TUFF_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_TUFF_BRICKS = registerBlock("cracked_polished_tuff_bricks", () -> new Block(BlockBehaviour.Properties.copy(POLISHED_TUFF_BRICKS.get())));
 
     //calcite blocks
-    public static final Block CALCITE_STAIRS = register("calcite_stairs", new PublicStairsBlock(Blocks.CALCITE.getDefaultState(), FabricBlockSettings.copyOf(Blocks.CALCITE)));
-    public static final Block CALCITE_SLAB = register("calcite_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.CALCITE)));
-    public static final Block CALCITE_WALL = register("calcite_wall", new WallBlock(FabricBlockSettings.copyOf(Blocks.CALCITE)));
-    public static final Block POLISHED_CALCITE = register("polished_calcite", new Block(FabricBlockSettings.copyOf(Blocks.CALCITE)));
-    public static final Block POLISHED_CALCITE_STAIRS = register("polished_calcite_stairs", new PublicStairsBlock(POLISHED_CALCITE.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_CALCITE)));
-    public static final Block POLISHED_CALCITE_SLAB = register("polished_calcite_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE)));
-    public static final Block POLISHED_CALCITE_BRICKS = register("polished_calcite_bricks", new Block(FabricBlockSettings.copyOf(Blocks.CALCITE)));
-    public static final Block POLISHED_CALCITE_BRICK_STAIRS = register("polished_calcite_brick_stairs", new PublicStairsBlock(POLISHED_CALCITE_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
-    public static final Block POLISHED_CALCITE_BRICK_SLAB = register("polished_calcite_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
-    public static final Block POLISHED_CALCITE_BRICK_WALL = register("polished_calcite_brick_wall", new WallBlock(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
-    public static final Block CRACKED_POLISHED_CALCITE_BRICKS = register("cracked_polished_calcite_bricks", new Block(FabricBlockSettings.copyOf(POLISHED_CALCITE_BRICKS)));
+    public static final RegistryObject<Block> CALCITE_STAIRS = registerBlock("calcite_stairs", () -> new StairBlock(Blocks.CALCITE.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> CALCITE_SLAB = registerBlock("calcite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> CALCITE_WALL = registerBlock("calcite_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> POLISHED_CALCITE = registerBlock("polished_calcite", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> POLISHED_CALCITE_STAIRS = registerBlock("polished_calcite_stairs", () -> new StairBlock(POLISHED_CALCITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_CALCITE.get())));
+    public static final RegistryObject<Block> POLISHED_CALCITE_SLAB = registerBlock("polished_calcite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_CALCITE.get())));
+    public static final RegistryObject<Block> POLISHED_CALCITE_BRICKS = registerBlock("polished_calcite_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> POLISHED_CALCITE_BRICK_STAIRS = registerBlock("polished_calcite_brick_stairs", () -> new StairBlock(POLISHED_CALCITE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_CALCITE_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_CALCITE_BRICK_SLAB = registerBlock("polished_calcite_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_CALCITE_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_CALCITE_BRICK_WALL = registerBlock("polished_calcite_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_CALCITE_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_CALCITE_BRICKS = registerBlock("cracked_polished_calcite_bricks", () -> new Block(BlockBehaviour.Properties.copy(POLISHED_CALCITE_BRICKS.get())));
 
     //copper blocks
-    public static final Block COPPER_PILLAR = register("copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.copy(Blocks.CUT_COPPER)));
-    public static final Block EXPOSED_COPPER_PILLAR = register("exposed_copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(Blocks.EXPOSED_CUT_COPPER)));
-    public static final Block WEATHERED_COPPER_PILLAR = register("weathered_copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(Blocks.WEATHERED_CUT_COPPER)));
-    public static final Block OXIDIZED_COPPER_PILLAR = register("oxidized_copper_pillar", new PillarOxidizableBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(Blocks.OXIDIZED_CUT_COPPER)));
-    public static final Block WAXED_COPPER_PILLAR = register("waxed_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_CUT_COPPER)));
-    public static final Block WAXED_EXPOSED_COPPER_PILLAR = register("waxed_exposed_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_EXPOSED_CUT_COPPER)));
-    public static final Block WAXED_WEATHERED_COPPER_PILLAR = register("waxed_weathered_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_WEATHERED_CUT_COPPER)));
-    public static final Block WAXED_OXIDIZED_COPPER_PILLAR = register("waxed_oxidized_copper_pillar", new PillarBlock(FabricBlockSettings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
+    public static final RegistryObject<Block> COPPER_PILLAR = registerBlock("copper_pillar", () -> new PillarOxidizableBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.CUT_COPPER)));
+    public static final RegistryObject<Block> EXPOSED_COPPER_PILLAR = registerBlock("exposed_copper_pillar", () -> new PillarOxidizableBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.EXPOSED_CUT_COPPER)));
+    public static final RegistryObject<Block> WEATHERED_COPPER_PILLAR = registerBlock("weathered_copper_pillar", () -> new PillarOxidizableBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.WEATHERED_CUT_COPPER)));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_PILLAR = registerBlock("oxidized_copper_pillar", () -> new PillarOxidizableBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.OXIDIZED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_COPPER_PILLAR = registerBlock("waxed_copper_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.WAXED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PILLAR = registerBlock("waxed_exposed_copper_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.WAXED_EXPOSED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PILLAR = registerBlock("waxed_weathered_copper_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.WAXED_WEATHERED_CUT_COPPER)));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PILLAR = registerBlock("waxed_oxidized_copper_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
 
+    //rhyolite blocks
+    public static final RegistryObject<Block> RHYOLITE = registerBlock("rhyolite", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)));
+    public static final RegistryObject<Block> RHYOLITE_STAIRS = registerBlock("rhyolite_stairs", () -> new StairBlock(RHYOLITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(RHYOLITE.get())));
+    public static final RegistryObject<Block> RHYOLITE_SLAB = registerBlock("rhyolite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(RHYOLITE.get())));
+    public static final RegistryObject<Block> RHYOLITE_WALL = registerBlock("rhyolite_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(RHYOLITE.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE = registerBlock("polished_rhyolite", () -> new Block(BlockBehaviour.Properties.copy(RHYOLITE.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE_STAIRS = registerBlock("polished_rhyolite_stairs", () -> new StairBlock(POLISHED_RHYOLITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_RHYOLITE.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE_SLAB = registerBlock("polished_rhyolite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_RHYOLITE.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE_BRICKS = registerBlock("polished_rhyolite_bricks", () -> new Block(BlockBehaviour.Properties.copy(RHYOLITE.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE_BRICK_STAIRS = registerBlock("polished_rhyolite_brick_stairs", () -> new StairBlock(POLISHED_RHYOLITE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_RHYOLITE_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE_BRICK_SLAB = registerBlock("polished_rhyolite_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_RHYOLITE_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_RHYOLITE_BRICK_WALL = registerBlock("polished_rhyolite_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_RHYOLITE_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_RHYOLITE_BRICKS = registerBlock("cracked_polished_rhyolite_bricks", () -> new Block(BlockBehaviour.Properties.copy(POLISHED_RHYOLITE_BRICKS.get())));
 
+    //schist blocks
+    public static final RegistryObject<Block> SCHIST = registerBlock("schist", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistryObject<Block> SCHIST_STAIRS = registerBlock("schist_stairs", () -> new StairBlock(SCHIST.get().defaultBlockState(), BlockBehaviour.Properties.copy(SCHIST.get())));
+    public static final RegistryObject<Block> SCHIST_SLAB = registerBlock("schist_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(SCHIST.get())));
+    public static final RegistryObject<Block> SCHIST_WALL = registerBlock("schist_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(SCHIST.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST = registerBlock("polished_schist", () -> new Block(BlockBehaviour.Properties.copy(SCHIST.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST_STAIRS = registerBlock("polished_schist_stairs", () -> new StairBlock(POLISHED_SCHIST.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_SCHIST.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST_SLAB = registerBlock("polished_schist_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_SCHIST.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST_BRICKS = registerBlock("polished_schist_bricks", () -> new Block(BlockBehaviour.Properties.copy(SCHIST.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST_BRICK_STAIRS = registerBlock("polished_schist_brick_stairs", () -> new StairBlock(POLISHED_SCHIST_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_SCHIST_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST_BRICK_SLAB = registerBlock("polished_schist_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_SCHIST_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_SCHIST_BRICK_WALL = registerBlock("polished_schist_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_SCHIST_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_SCHIST_BRICKS = registerBlock("cracked_polished_schist_bricks", () -> new Block(BlockBehaviour.Properties.copy(POLISHED_SCHIST_BRICKS.get())));
 
-    static {
-        UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
-            BlockPos pos = hit.getBlockPos();
-            BlockState state = world.getBlockState(pos);
-            if (state.isOf(Blocks.FLOWERING_AZALEA)) {
-                ItemStack stack = player.getStackInHand(hand);
-                if (stack.isIn(FabricToolTags.SHEARS)) {
-                    world.setBlockState(pos, Blocks.AZALEA.getDefaultState());
-                    world.playSoundFromEntity(null, player, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    Block.dropStack(world, pos.up(), new ItemStack(AZALEA_FLOWERS, world.random.nextInt(2) + 1));
-                    stack.damage(1, player, p -> p.sendToolBreakStatus(hand));
-                    return ActionResult.success(world.isClient);
-                }
-            }
+    //bloodstone blocks
+    public static final RegistryObject<Block> BLOODSTONE = registerBlock("bloodstone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BASALT)));
+    public static final RegistryObject<Block> BLOODSTONE_STAIRS = registerBlock("bloodstone_stairs", () -> new StairBlock(BLOODSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(BLOODSTONE.get())));
+    public static final RegistryObject<Block> BLOODSTONE_SLAB = registerBlock("bloodstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(BLOODSTONE.get())));
+    public static final RegistryObject<Block> BLOODSTONE_WALL = registerBlock("bloodstone_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(BLOODSTONE.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE = registerBlock("polished_bloodstone", () -> new Block(BlockBehaviour.Properties.copy(BLOODSTONE.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE_STAIRS = registerBlock("polished_bloodstone_stairs", () -> new StairBlock(POLISHED_BLOODSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_BLOODSTONE.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE_SLAB = registerBlock("polished_bloodstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_BLOODSTONE.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE_BRICKS = registerBlock("polished_bloodstone_bricks", () -> new Block(BlockBehaviour.Properties.copy(BLOODSTONE.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE_BRICK_STAIRS = registerBlock("polished_bloodstone_brick_stairs", () -> new StairBlock(POLISHED_BLOODSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_BLOODSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE_BRICK_SLAB = registerBlock("polished_bloodstone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_BLOODSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_BLOODSTONE_BRICK_WALL = registerBlock("polished_bloodstone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_BLOODSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_BLOODSTONE_BRICKS = registerBlock("cracked_polished_bloodstone_bricks", () -> new Block(BlockBehaviour.Properties.copy(POLISHED_BLOODSTONE_BRICKS.get())));
 
-            return ActionResult.PASS;
-        });
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_SIGN = registerBlockWithNoTab("stripped_bamboo_sign", () -> new TwigsSignBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_WHITE).noCollission().strength(1.0F).sound(SoundType.SCAFFOLDING), TwigsWoodType.STRIPPED_BAMBOO));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_WALL_SIGN = registerBlockWithNoTab("stripped_bamboo_wall_sign", () -> new TwigsWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_WHITE).noCollission().strength(1.0F).sound(SoundType.SCAFFOLDING).dropsLike(STRIPPED_BAMBOO_SIGN.get()), TwigsWoodType.STRIPPED_BAMBOO));
+
+    public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> block) {
+        RegistryObject<B> blocks = BLOCKS.register(name, block);
+        TwigsItems.ITEMS.register(name, () -> new BlockItem(blocks.get(), new Item.Properties().tab(Twigs.ITEM_GROUP)));
+        return blocks;
+    }
+
+    public static <B extends Block> RegistryObject<B> registerBlockWithNoTab(String name, Supplier<? extends B> block) {
+        return BLOCKS.register(name, block);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
-        return (state) -> (Boolean)state.get(Properties.LIT) ? litLevel : 0;
+        return (state) -> (Boolean)state.getValue(BlockStateProperties.LIT) ? litLevel : 0;
     }
 
-    private static Block register(String id, Block block, boolean registerItem) {
-        Block registered = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, id), block);
-        if (registerItem) {
-            Registry.register(Registry.ITEM, new Identifier(MOD_ID, id), new BlockItem(registered, new FabricItemSettings().group(Twigs.ITEM_GROUP)));
-        }
-        return registered;
-    }
-    private static Block register(String id, Block block) {
-        return register(id, block, true);
-    }
-
-    public static final BiMap<Block, Block> OXIDIZABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR, EXPOSED_COPPER_PILLAR).put(EXPOSED_COPPER_PILLAR, WEATHERED_COPPER_PILLAR).put(WEATHERED_COPPER_PILLAR, OXIDIZED_COPPER_PILLAR).build();
-    public static final BiMap<Block, Block> WAXABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR, WAXED_COPPER_PILLAR).put(EXPOSED_COPPER_PILLAR, WAXED_EXPOSED_COPPER_PILLAR).put(WEATHERED_COPPER_PILLAR, WAXED_WEATHERED_COPPER_PILLAR).put(OXIDIZED_COPPER_PILLAR, WAXED_OXIDIZED_COPPER_PILLAR).build();
+//    public static final BiMap<Block, Block> OXIDIZABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR.get(), EXPOSED_COPPER_PILLAR.get()).put(EXPOSED_COPPER_PILLAR.get(), WEATHERED_COPPER_PILLAR.get()).put(WEATHERED_COPPER_PILLAR.get(), OXIDIZED_COPPER_PILLAR.get()).build();
+//    public static final BiMap<Block, Block> WAXABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR.get(), WAXED_COPPER_PILLAR.get()).put(EXPOSED_COPPER_PILLAR.get(), WAXED_EXPOSED_COPPER_PILLAR.get()).put(WEATHERED_COPPER_PILLAR.get(), WAXED_WEATHERED_COPPER_PILLAR.get()).put(OXIDIZED_COPPER_PILLAR.get(), WAXED_OXIDIZED_COPPER_PILLAR.get()).build();
 
 }

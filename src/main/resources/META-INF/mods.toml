@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="All Rights Reserved"
+[[mods]]
+modId="twigs"
+version="${file.jarVersion}"
+displayName="Ninni, Dopadream"
+description='''
+This is a forge port of Twigs
+'''
+[[dependencies.twigs]]
+   modId="forge"
+   mandatory=true
+   versionRange="[39,)"
+   ordering="NONE"
+   side="BOTH"
+[[dependencies.twigs]]
+   modId="minecraft"
+   mandatory=true
+   versionRange="[1.18.1,1.19)"
+   ordering="NONE"
+   side="BOTH"
