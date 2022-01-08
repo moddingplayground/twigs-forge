@@ -53,16 +53,4 @@ public class Twigs {
 		TwigsRendererManager.init();
 	}
 
-	public void onInitialize() {
-		//im sorry I know its scuffed ill make the block registry more organized later
-
-//		if (BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).isPresent()) {
-//			BiomeModifications.addFeature(context -> (context.getBiomeKey().equals(BiomeKeys.FOREST) || context.getBiomeKey().equals(BiomeKeys.FLOWER_FOREST) || context.getBiomeKey().equals(BiomeKeys.DARK_FOREST) || context.getBiomeKey().equals(BiomeKeys.BIRCH_FOREST) || context.getBiomeKey().equals(BiomeKeys.OLD_GROWTH_BIRCH_FOREST) || context.getBiomeKey().equals(BiomeKeys.WINDSWEPT_FOREST) || context.getBiomeKey().equals(BiomeKeys.TAIGA)), GenerationStep.Feature.VEGETAL_DECORATION,
-//					BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_TWIG).get());
-//		}
-//		if (BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_PEBBLE).isPresent()) {
-//			BiomeModifications.addFeature(context -> (context.getBiomeKey().equals(BiomeKeys.SAVANNA) || context.getBiomeKey().equals(BiomeKeys.PLAINS) || context.getBiomeKey().equals(BiomeKeys.MEADOW) || context.getBiomeKey().equals(BiomeKeys.STONY_SHORE) || context.getBiomeKey().equals(BiomeKeys.TAIGA)), GenerationStep.Feature.VEGETAL_DECORATION,
-//				BuiltinRegistries.PLACED_FEATURE.getKey(PATCH_PEBBLE).get());
-//		}
-	}
 }

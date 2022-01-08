@@ -20,18 +20,4 @@ public class TwigsItems {
     public static final RegistryObject<Item> STRIPPED_BAMBOO_SIGN = ITEMS.register("stripped_bamboo_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), TwigsBlocks.STRIPPED_BAMBOO_SIGN.get(), TwigsBlocks.STRIPPED_BAMBOO_WALL_SIGN.get()));
     public static final RegistryObject<Item> STRIPPED_BAMBOO_BOAT = ITEMS.register("stripped_bamboo_boat", () -> new StrippedBambooBoatItem(StrippedBambooBoatEntity.BoatType.STRIPPED_BAMBOO, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
-//    static {
-//        CompostingChanceRegistry composting = CompostingChanceRegistry.INSTANCE;
-//        composting.add(BAMBOO_LEAVES, 0.5F);
-//
-//        LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-//            if (id.equals(Blocks.BAMBOO.getLootTableId())) {
-//                supplier.copyFrom(manager.getTable(new Identifier(Twigs.MOD_ID, "additions/blocks/bamboo")));
-//            }
-//        });
-//    }
-//
-//    private static Item register(String id, Item item) {
-//        return Registry.register(Registry.ITEM, new Identifier(Twigs.MOD_ID, id), item);
-//    }
 }

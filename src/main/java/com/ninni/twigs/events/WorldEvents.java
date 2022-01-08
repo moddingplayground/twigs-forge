@@ -14,10 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class WorldEvents {
-    /**
-     * -2327091475967763756
-     * @param event
-     */
+    
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
         Biome.BiomeCategory category = event.getCategory();
