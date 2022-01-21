@@ -4,7 +4,8 @@ license="All Rights Reserved"
 [[mods]]
 modId="twigs"
 version="${file.jarVersion}"
-displayName="Ninni, Dopadream"
+displayName="Twigs"
+logoFile="icon.png"
 description='''
 This is a forge port of Twigs
 '''

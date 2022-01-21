@@ -99,20 +99,20 @@ public class StrippedBambooBoatEntity extends Boat {
             return this.name;
         }
 
-        public static BoatType byId(int p_38431_) {
+        public static BoatType byId(int id) {
             BoatType[] aboat$type = values();
-            if (p_38431_ < 0 || p_38431_ >= aboat$type.length) {
-                p_38431_ = 0;
+            if (id < 0 || id >= aboat$type.length) {
+                id = 0;
             }
 
-            return aboat$type[p_38431_];
+            return aboat$type[id];
         }
 
-        public static BoatType byName(String p_38433_) {
+        public static BoatType byName(String name) {
             BoatType[] aboat$type = values();
 
             for(int i = 0; i < aboat$type.length; ++i) {
-                if (aboat$type[i].getName().equals(p_38433_)) {
+                if (aboat$type[i].getName().equals(name)) {
                     return aboat$type[i];
                 }
             }
