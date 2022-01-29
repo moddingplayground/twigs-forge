@@ -1,6 +1,9 @@
 package com.ninni.twigs.init;
 
 import com.ninni.twigs.Twigs;
+import com.ninni.twigs.block.AmethystSlabBlock;
+import com.ninni.twigs.block.AmethystStairBlock;
+import com.ninni.twigs.block.AmethystWallBlock;
 import com.ninni.twigs.block.BambooLeavesBlock;
 import com.ninni.twigs.block.BambooMatBlock;
 import com.ninni.twigs.block.LampBlock;
@@ -13,6 +16,7 @@ import com.ninni.twigs.block.vanilla.TwigsSignBlock;
 import com.ninni.twigs.block.vanilla.TwigsWallSignBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.AmethystBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChainBlock;
@@ -115,15 +119,15 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_WALL = registerBlock("mossy_cobblestone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(COBBLESTONE_BRICKS.get())));
 
     //amethyst blocks
-    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICKS = registerBlock("polished_amethyst_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
-    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_STAIRS = registerBlock("polished_amethyst_brick_stairs", () -> new StairBlock(POLISHED_AMETHYST_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
-    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_SLAB = registerBlock("polished_amethyst_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
-    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_WALL = registerBlock("polished_amethyst_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
-    public static final RegistryObject<Block> CRACKED_POLISHED_AMETHYST_BRICKS = registerBlock("cracked_polished_amethyst_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
-    public static final RegistryObject<Block> POLISHED_AMETHYST = registerBlock("polished_amethyst", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
-    public static final RegistryObject<Block> CHISELED_POLISHED_AMETHYST = registerBlock("chiseled_polished_amethyst", () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
-    public static final RegistryObject<Block> POLISHED_AMETHYST_STAIRS = registerBlock("polished_amethyst_stairs", () -> new StairBlock(POLISHED_AMETHYST.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_AMETHYST.get())));
-    public static final RegistryObject<Block> POLISHED_AMETHYST_SLAB = registerBlock("polished_amethyst_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICKS = registerBlock("polished_amethyst_bricks", () -> new AmethystBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_STAIRS = registerBlock("polished_amethyst_brick_stairs", () -> new AmethystStairBlock(POLISHED_AMETHYST_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_SLAB = registerBlock("polished_amethyst_brick_slab", () -> new AmethystSlabBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_BRICK_WALL = registerBlock("polished_amethyst_brick_wall", () -> new AmethystWallBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_POLISHED_AMETHYST_BRICKS = registerBlock("cracked_polished_amethyst_bricks", () -> new AmethystBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST = registerBlock("polished_amethyst", () -> new AmethystBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> CHISELED_POLISHED_AMETHYST = registerBlock("chiseled_polished_amethyst", () -> new AmethystBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_STAIRS = registerBlock("polished_amethyst_stairs", () -> new AmethystStairBlock(POLISHED_AMETHYST.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_AMETHYST.get())));
+    public static final RegistryObject<Block> POLISHED_AMETHYST_SLAB = registerBlock("polished_amethyst_slab", () -> new AmethystSlabBlock(BlockBehaviour.Properties.copy(POLISHED_AMETHYST.get())));
 
     //twisting and weeping blackstone blocks
     public static final RegistryObject<Block> TWISTING_POLISHED_BLACKSTONE_BRICKS = registerBlock("twisting_polished_blackstone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS)));

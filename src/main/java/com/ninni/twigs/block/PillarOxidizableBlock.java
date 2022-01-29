@@ -8,7 +8,6 @@ import com.ninni.twigs.init.TwigsBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -21,10 +20,10 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public class PillarOxidizableBlock extends RotatedPillarBlock implements WeatheringCopper {
     private final WeatherState level;
-    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> {
+    static Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> {
         return ImmutableBiMap.<Block, Block>builder().put(TwigsBlocks.COPPER_PILLAR.get(), TwigsBlocks.EXPOSED_COPPER_PILLAR.get()).put(TwigsBlocks.EXPOSED_COPPER_PILLAR.get(), TwigsBlocks.WEATHERED_COPPER_PILLAR.get()).put(TwigsBlocks.WEATHERED_COPPER_PILLAR.get(), TwigsBlocks.OXIDIZED_COPPER_PILLAR.get()).build();
     });
-    Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> {
+    static Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> {
         return NEXT_BY_BLOCK.get().inverse();
     });
     Supplier<BiMap<Block, Block>> WAXABLES = Suppliers.memoize(() -> {
@@ -53,6 +52,16 @@ public class PillarOxidizableBlock extends RotatedPillarBlock implements Weather
 
     public Optional<BlockState> getPreviousState(BlockState state) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
+    }
+
+    public static Optional<Block> getPrevious(Block p_154891_) {
+        return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(p_154891_));
+    }
+
+    public static Optional<BlockState> getPrevious(BlockState state) {
+        return getPrevious(state.getBlock()).map((map) -> {
+            return map.withPropertiesOf(state);
+        });
     }
 
     public Optional<BlockState> getWaxed(BlockState state) {
