@@ -18,13 +18,4 @@ public class TwigsSignBlock extends StandingSignBlock {
         return TwigsBlockEntities.TWIGS_SIGN.get().create(pos, state);
     }
 
-//        @Override
-//    public final Identifier getLootTableId() {
-//        Identifier correctedLootTableId = new Identifier(MOD_ID, "blocks/" + this.getSignType().getName() + "_sign");
-//        if (!Objects.equals(this.lootTableId, correctedLootTableId)) {
-//            this.lootTableId = correctedLootTableId;
-//        }
-////
-//        return this.lootTableId;
-//    }
 }
