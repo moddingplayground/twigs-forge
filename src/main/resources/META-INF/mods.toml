@@ -3,7 +3,7 @@ loaderVersion="[39,)"
 license="All Rights Reserved"
 [[mods]]
 modId="twigs"
-version="${file.jarVersion}"
+version="1.1.5"
 displayName="Twigs"
 logoFile="icon.png"
 description='''
