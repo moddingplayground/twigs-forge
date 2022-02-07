@@ -23,6 +23,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -46,6 +47,19 @@ public class MiscEvents {
         Player player = event.getPlayer();
         ItemStack stack = event.getItemStack();
         InteractionHand hand = event.getHand();
+        ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack offHand = player.getItemInHand(InteractionHand.OFF_HAND);
+        if (itemInHand.getItem() == TwigsBlocks.TWIG.get().asItem() && offHand.getItem() == TwigsBlocks.TWIG.get().asItem() && state.getBlock() instanceof CampfireBlock) {
+            if (!state.getValue(CampfireBlock.LIT)) {
+                if (!player.getAbilities().instabuild) {
+                    itemInHand.shrink(1);
+                    offHand.shrink(1);
+                }
+                world.playSound(null, blockPos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.setBlock(blockPos, state.setValue(CampfireBlock.LIT, true), 2);
+                player.swing(hand);
+            }
+        }
         if (state.is(Blocks.FLOWERING_AZALEA) && stack.is(Tags.Items.SHEARS)) {
             world.setBlockAndUpdate(blockPos, Blocks.AZALEA.defaultBlockState());
             world.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
