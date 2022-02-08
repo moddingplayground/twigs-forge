@@ -6,12 +6,11 @@ import com.ninni.twigs.block.AmethystStairBlock;
 import com.ninni.twigs.block.AmethystWallBlock;
 import com.ninni.twigs.block.BambooLeavesBlock;
 import com.ninni.twigs.block.BambooMatBlock;
+import com.ninni.twigs.block.FloorLayerBlock;
 import com.ninni.twigs.block.LampBlock;
 import com.ninni.twigs.block.PaperLanternBlock;
-import com.ninni.twigs.block.PebbleBlock;
 import com.ninni.twigs.block.PillarOxidizableBlock;
 import com.ninni.twigs.block.TableBlock;
-import com.ninni.twigs.block.TwigBlock;
 import com.ninni.twigs.block.vanilla.TwigsSignBlock;
 import com.ninni.twigs.block.vanilla.TwigsWallSignBlock;
 import net.minecraft.world.item.BlockItem;
@@ -52,8 +51,8 @@ public final class TwigsBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Twigs.MOD_ID);
 
     //lamps
-    public static final RegistryObject<Block> LAMP = registerBlock("lamp", () -> new LampBlock(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(4.5F).sound(SoundType.LANTERN).lightLevel(createLightLevelFromLitBlockState(18))));
-    public static final RegistryObject<Block> SOUL_LAMP = registerBlock("soul_lamp", () -> new LampBlock(BlockBehaviour.Properties.copy(TwigsBlocks.LAMP.get()).lightLevel(createLightLevelFromLitBlockState(17))));
+    public static final RegistryObject<Block> LAMP = registerBlock("lamp", () -> new LampBlock(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(4.5F).sound(SoundType.LANTERN).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0)));
+    public static final RegistryObject<Block> SOUL_LAMP = registerBlock("soul_lamp", () -> new LampBlock(BlockBehaviour.Properties.copy(TwigsBlocks.LAMP.get())));
     public static final RegistryObject<Block> CRIMSON_SHROOMLAMP = registerBlock("crimson_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
     public static final RegistryObject<Block> WARPED_SHROOMLAMP = registerBlock("warped_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
 
@@ -140,16 +139,16 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> WEEPING_POLISHED_BLACKSTONE_BRICK_WALL = registerBlock("weeping_polished_blackstone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(WEEPING_POLISHED_BLACKSTONE_BRICKS.get())));
 
     //paper lanterns
-    public static final RegistryObject<Block> PAPER_LANTERN = registerBlock("paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
-    public static final RegistryObject<Block> ALLIUM_PAPER_LANTERN = registerBlock("allium_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
-    public static final RegistryObject<Block> BLUE_ORCHID_PAPER_LANTERN = registerBlock("blue_orchid_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
-    public static final RegistryObject<Block> CRIMSON_ROOTS_PAPER_LANTERN = registerBlock("crimson_roots_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
-    public static final RegistryObject<Block> DANDELION_PAPER_LANTERN = registerBlock("dandelion_paper_lantern", () -> new PaperLanternBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.5f, 0.0f).sound(SoundType.WOOL).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> PAPER_LANTERN = registerBlock("paper_lantern", () -> new PaperLanternBlock(Blocks.AIR, BlockBehaviour.Properties.of(Material.WOOL).instabreak().sound(SoundType.BAMBOO).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> ALLIUM_PAPER_LANTERN = registerBlock("allium_paper_lantern", () -> new PaperLanternBlock(Blocks.ALLIUM, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
+    public static final RegistryObject<Block> BLUE_ORCHID_PAPER_LANTERN = registerBlock("blue_orchid_paper_lantern", () -> new PaperLanternBlock(Blocks.BLUE_ORCHID, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
+    public static final RegistryObject<Block> CRIMSON_ROOTS_PAPER_LANTERN = registerBlock("crimson_roots_paper_lantern", () -> new PaperLanternBlock(Blocks.CRIMSON_ROOTS, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
+    public static final RegistryObject<Block> DANDELION_PAPER_LANTERN = registerBlock("dandelion_paper_lantern", () -> new PaperLanternBlock(Blocks.DANDELION, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
 
     //miscellaneous blocks
     public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> TWIG = registerBlock("twig", () -> new TwigBlock(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
-    public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new PebbleBlock(BlockBehaviour.Properties.of(Material.STONE).instabreak().sound(SoundType.STONE).noCollission()));
+    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
+    public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(Material.STONE).instabreak().sound(SoundType.STONE).noCollission()));
 
     //tuff blocks
     public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.BASALT)));

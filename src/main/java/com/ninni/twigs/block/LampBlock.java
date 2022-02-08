@@ -15,34 +15,23 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 
+@SuppressWarnings("deprecation")
 public class LampBlock extends Block {
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
 
     public LampBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(LIT, true));
+        this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        final boolean wasLit = state.getValue(LIT);
-
-        world.setBlockAndUpdate(pos, state.setValue(LIT, !wasLit));
-        playSound(player, !wasLit);
-
-        return InteractionResult.SUCCESS;
-    }
-
-    private void playSound(Player player, boolean isLit) {
-        if (!player.level.isClientSide()) {
-            player.playNotifySound(
-                    isLit ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.STONE_BUTTON_CLICK_OFF,
-                    SoundSource.BLOCKS,
-                    0.3f,
-                    isLit ? 0.6f : 0.5f
-            );
+        if (!world.isClientSide()) {
+            boolean wasLit = !state.getValue(LIT);
+            world.setBlockAndUpdate(pos, state.setValue(LIT, wasLit));
+            world.playSound(null, pos, wasLit ? SoundEvents.FIRECHARGE_USE : SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 2.0F);
         }
+        return InteractionResult.SUCCESS;
     }
 
     @Override

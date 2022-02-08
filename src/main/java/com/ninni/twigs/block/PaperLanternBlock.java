@@ -1,7 +1,11 @@
 package com.ninni.twigs.block;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -22,6 +26,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class PaperLanternBlock extends LanternBlock {
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -32,9 +38,13 @@ public class PaperLanternBlock extends LanternBlock {
             Block.box(5, 9, 5, 11, 11, 11),
             Block.box(7, 11, 7, 9, 16, 9),
             Block.box(3, 0, 3, 13, 9, 13));
+    private final Block block;
+    private final Component component;
 
-    public PaperLanternBlock(Properties properties) {
+    public PaperLanternBlock(Block block, Properties properties) {
         super(properties);
+        this.block = block;
+        this.component = this.block.getName().copy().withStyle(ChatFormatting.GRAY);
         this.registerDefaultState(((this.stateDefinition.any()).setValue(HANGING, false)).setValue(WATERLOGGED, false));
     }
 
@@ -62,7 +72,6 @@ public class PaperLanternBlock extends LanternBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-//        super.createBlockStateDefinition(builder);
         builder.add(HANGING, WATERLOGGED);
     }
 
@@ -100,4 +109,8 @@ public class PaperLanternBlock extends LanternBlock {
         return false;
     }
 
+    @Override
+    public void appendHoverText(ItemStack p_49816_, @Nullable BlockGetter p_49817_, List<Component> toolTip, TooltipFlag p_49819_) {
+        if (this.block != Blocks.AIR) toolTip.add(this.component);
+    }
 }
