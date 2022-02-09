@@ -1,16 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "sticks",
-  "pattern": [
-    "#",
-    "#"
-  ],
-  "key": {
-    "#": {
+  "ingredients": [
+    {
       "item": "twigs:twig"
     }
-  },
+  ],
   "result": {
-    "item": "minecraft:stick"
+    "item": "minecraft:stick",
+    "count": 2
   }
 }

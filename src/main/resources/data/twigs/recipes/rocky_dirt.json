@@ -1,9 +1,8 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "   ",
-        " #C",
-        " C#"
+        "#C",
+        "C#"
     ],
     "key": {
         "#": {
@@ -15,6 +14,6 @@
     },
     "result": {
         "item": "twigs:rocky_dirt",
-        "count": 4
+        "count": 2
     }
 }

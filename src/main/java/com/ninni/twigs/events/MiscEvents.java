@@ -5,6 +5,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.ninni.twigs.Twigs;
 import com.ninni.twigs.block.PillarOxidizableBlock;
+import com.ninni.twigs.block.StrippedBambooBlock;
 import com.ninni.twigs.init.TwigsBlocks;
 import com.ninni.twigs.init.TwigsItems;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
@@ -70,12 +71,7 @@ public class MiscEvents {
         if (stack.getItem() instanceof AxeItem) {
             Optional<BlockState> finalState = Optional.empty();
             if (state.getBlock() instanceof PillarOxidizableBlock) {
-                Optional<BlockState> previous = ((PillarOxidizableBlock) state.getBlock()).getPreviousState(state);
-                if (state.is(TwigsBlocks.WAXED_COPPER_PILLAR.get())) {
-                    world.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    world.levelEvent(player, 3005, blockPos, 0);
-                    world.setBlock(blockPos, TwigsBlocks.COPPER_PILLAR.get().defaultBlockState(), 2);
-                }
+                Optional<BlockState> previous = PillarOxidizableBlock.getPreviousState(state);
                 if (previous.isPresent()) {
                     world.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     world.levelEvent(player, 3005, blockPos, 0);
@@ -87,6 +83,12 @@ public class MiscEvents {
                 world.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 world.levelEvent(player, 3004, blockPos, 0);
                 finalState = previousWaxed;
+            }
+            if (state.is(Blocks.BAMBOO)) {
+                if (!world.getBlockState(blockPos.above()).is(Blocks.BAMBOO)) {
+                    world.playSound(player, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    finalState = Optional.of(TwigsBlocks.STRIPPED_BAMBOO.get().defaultBlockState().setValue(StrippedBambooBlock.FROM_BAMBOO, true));
+                }
             }
             if (finalState.isPresent()) {
                 world.setBlock(blockPos, finalState.get(), 11);
@@ -105,6 +107,7 @@ public class MiscEvents {
         TWIGS_FUELS.put(TwigsBlocks.BUNDLED_BAMBOO.get(), 450);
         TWIGS_FUELS.put(TwigsBlocks.STRIPPED_BUNDLED_BAMBOO.get(), 450);
         TWIGS_FUELS.put(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get(), 200);
+        TWIGS_FUELS.put(TwigsBlocks.STRIPPED_BAMBOO.get(), 50);
         for (ItemLike itemLike : TWIGS_FUELS.keySet()) {
             if (event.getItemStack().is(itemLike.asItem())) {
                 event.setBurnTime(TWIGS_FUELS.get(itemLike));

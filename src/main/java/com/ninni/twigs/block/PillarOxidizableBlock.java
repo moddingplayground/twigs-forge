@@ -1,10 +1,8 @@
 package com.ninni.twigs.block;
 
-import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.ninni.twigs.api.WeatheringPillar;
 import com.ninni.twigs.init.TwigsBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -16,11 +14,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
 public class PillarOxidizableBlock extends RotatedPillarBlock implements WeatheringCopper {
     private final WeatherState level;
-    public static final Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> {
+    public static Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> {
         return ImmutableBiMap.<Block, Block>builder()
                 .put(TwigsBlocks.COPPER_PILLAR.get(), TwigsBlocks.EXPOSED_COPPER_PILLAR.get())
                 .put(TwigsBlocks.EXPOSED_COPPER_PILLAR.get(), TwigsBlocks.WEATHERED_COPPER_PILLAR.get())
@@ -43,7 +42,7 @@ public class PillarOxidizableBlock extends RotatedPillarBlock implements Weather
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        return WeatheringPillar.getNext(state.getBlock()).isPresent();
+        return Optional.ofNullable(NEXT_BY_BLOCK.get().get(state.getBlock())).isPresent();
     }
 
     @Override

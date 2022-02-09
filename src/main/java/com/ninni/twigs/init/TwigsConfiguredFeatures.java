@@ -22,14 +22,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 public class TwigsConfiguredFeatures {
 
+    public static final ConfiguredFeature<RandomPatchConfiguration, ?> PATCH_TWIG = registerConfiguredFeature("patch_twig", Feature.RANDOM_PATCH.configured(createRandomPatchConfiguration(BlockStateProvider.simple(TwigsBlocks.TWIG.get().defaultBlockState().getBlock()), 3)));
+    public static final ConfiguredFeature<RandomPatchConfiguration, ?> PATCH_PEBBLE = registerConfiguredFeature("patch_pebble", Feature.RANDOM_PATCH.configured(createRandomPatchConfiguration(BlockStateProvider.simple(TwigsBlocks.PEBBLE.get().defaultBlockState().getBlock()), 2)));
     public static final ConfiguredFeature<?, ?> ORE_RHYOLITE = registerConfiguredFeature("ore_rhyolite", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD), TwigsBlocks.RHYOLITE.get().defaultBlockState(), 45)));
     public static final ConfiguredFeature<?, ?> ORE_SCHIST = registerConfiguredFeature("ore_schist", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD), TwigsBlocks.SCHIST.get().defaultBlockState(), 64)));
     public static final ConfiguredFeature<?, ?> ORE_BLOODSTONE = registerConfiguredFeature("ore_bloodstone", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_NETHER), TwigsBlocks.BLOODSTONE.get().defaultBlockState(), 64)));
-    public static final ConfiguredFeature<RandomPatchConfiguration, ?> PATCH_TWIG = registerConfiguredFeature("patch_twig", Feature.RANDOM_PATCH.configured(createRandomPatchConfiguration(BlockStateProvider.simple(TwigsBlocks.TWIG.get().defaultBlockState().getBlock()), 16)));
-    public static final ConfiguredFeature<RandomPatchConfiguration, ?> PATCH_PEBBLE = registerConfiguredFeature("patch_pebble", Feature.RANDOM_PATCH.configured(createRandomPatchConfiguration(BlockStateProvider.simple(TwigsBlocks.PEBBLE.get().defaultBlockState().getBlock()), 8)));
-
-    public TwigsConfiguredFeatures() {
-    }
 
     private static RandomPatchConfiguration createRandomPatchConfiguration(BlockStateProvider block, int tries) {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(block)).onlyWhenEmpty());

@@ -30,16 +30,16 @@ import java.util.Objects;
 
 @SuppressWarnings("deprecation")
 public class BambooLeavesBlock extends BushBlock implements SimpleWaterloggedBlock {
-    public static final IntegerProperty QUANTITY = BlockStateProperties.PICKLES;
+    public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 4);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    protected static final VoxelShape ZERO_SHAPE = Block.box(0, 0, 0, 16, 1, 16);
-    protected static final VoxelShape ONE_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
-    protected static final VoxelShape TWO_SHAPE = Block.box(0, 0, 0, 16, 3, 16);
-    protected static final VoxelShape THREE_SHAPE = Block.box(0, 0, 0, 16, 5, 16);
+    protected static final VoxelShape SHAPE_ONE = Block.box(0, 0, 0, 16, 1, 16);
+    protected static final VoxelShape SHAPE_TWO = Block.box(0, 0, 0, 16, 2, 16);
+    protected static final VoxelShape SHAPE_THREE = Block.box(0, 0, 0, 16, 3, 16);
+    protected static final VoxelShape SHAPE_FOUR = Block.box(0, 0, 0, 16, 5, 16);
 
     public BambooLeavesBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(QUANTITY, 1).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, 1).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -55,14 +55,14 @@ public class BambooLeavesBlock extends BushBlock implements SimpleWaterloggedBlo
 
     @Override
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) &&  state.getValue(QUANTITY) < 4 || super.canBeReplaced(state, context);
+        return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) &&  state.getValue(LAYERS) < 4 || super.canBeReplaced(state, context);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos());
         if (blockState.is(this)) {
-            return blockState.cycle(QUANTITY);
+            return blockState.cycle(LAYERS);
         } else {
             FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
             boolean bl = fluidState.getType() == Fluids.WATER;
@@ -70,26 +70,19 @@ public class BambooLeavesBlock extends BushBlock implements SimpleWaterloggedBlo
         }
     }
 
-
-    @SuppressWarnings("EnhancedSwitchMigration")
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        switch(state.getValue(QUANTITY)) {
-            case 1:
-            default:
-                return ZERO_SHAPE;
-            case 2:
-                return ONE_SHAPE;
-            case 3:
-                return TWO_SHAPE;
-            case 4:
-                return THREE_SHAPE;
-        }
+        return switch (state.getValue(LAYERS)) {
+            default -> SHAPE_ONE;
+            case 2 -> SHAPE_TWO;
+            case 3 -> SHAPE_THREE;
+            case 4 -> SHAPE_FOUR;
+        };
     }
 
     @Override
     public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-        if (state.getValue(QUANTITY) > 2 && entity instanceof LivingEntity && entity.getType() != EntityType.PANDA && entity.getType() != EntityType.BEE && entity.getType() != EntityType.PARROT && entity.getType() != EntityType.OCELOT) {
+        if (state.getValue(LAYERS) > 2 && entity instanceof LivingEntity && entity.getType() != EntityType.PANDA && entity.getType() != EntityType.BEE && entity.getType() != EntityType.PARROT && entity.getType() != EntityType.OCELOT) {
             entity.makeStuckInBlock(state, new Vec3(0.75D, 1.0D, 0.75D));
         }
     }
@@ -107,7 +100,6 @@ public class BambooLeavesBlock extends BushBlock implements SimpleWaterloggedBlo
             if (state.getValue(WATERLOGGED)) {
                 world.getFluidTicks().willTickThisTick(pos, Fluids.WATER);
             }
-
             return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
         }
     }
@@ -115,6 +107,6 @@ public class BambooLeavesBlock extends BushBlock implements SimpleWaterloggedBlo
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(QUANTITY, WATERLOGGED);
+        builder.add(LAYERS, WATERLOGGED);
     }
 }
