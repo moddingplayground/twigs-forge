@@ -19,7 +19,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.AmethystBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ChainBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
@@ -35,7 +34,6 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -45,7 +43,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class TwigsBlocks {
@@ -241,12 +238,5 @@ public final class TwigsBlocks {
     public static <B extends Block> RegistryObject<B> registerBlockWithNoTab(String name, Supplier<? extends B> block) {
         return BLOCKS.register(name, block);
     }
-
-    private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
-        return (state) -> (Boolean)state.getValue(BlockStateProperties.LIT) ? litLevel : 0;
-    }
-
-//    public static final BiMap<Block, Block> OXIDIZABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR.get(), EXPOSED_COPPER_PILLAR.get()).put(EXPOSED_COPPER_PILLAR.get(), WEATHERED_COPPER_PILLAR.get()).put(WEATHERED_COPPER_PILLAR.get(), OXIDIZED_COPPER_PILLAR.get()).build();
-//    public static final BiMap<Block, Block> WAXABLES = ImmutableBiMap.<Block, Block>builder().put(COPPER_PILLAR.get(), WAXED_COPPER_PILLAR.get()).put(EXPOSED_COPPER_PILLAR.get(), WAXED_EXPOSED_COPPER_PILLAR.get()).put(WEATHERED_COPPER_PILLAR.get(), WAXED_WEATHERED_COPPER_PILLAR.get()).put(OXIDIZED_COPPER_PILLAR.get(), WAXED_OXIDIZED_COPPER_PILLAR.get()).build();
 
 }

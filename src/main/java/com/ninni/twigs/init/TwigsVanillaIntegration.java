@@ -1,24 +1,18 @@
 package com.ninni.twigs.init;
 
-import com.google.common.base.Suppliers;
 import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.HoneycombItem;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.WeatheringCopper;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class TwigsVanillaIntegration {
 
