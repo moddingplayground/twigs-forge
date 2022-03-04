@@ -73,7 +73,7 @@ public class FloorLayerBlock extends BushBlock implements SimpleWaterloggedBlock
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
-        return (!state.getCollisionShape(world, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(world, pos, Direction.UP)) && !state.is(BlockTags.LEAVES);
+        return (!state.getCollisionShape(world, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(world, pos, Direction.UP)) && !state.m_204336_(BlockTags.LEAVES);
     }
 
     @Override

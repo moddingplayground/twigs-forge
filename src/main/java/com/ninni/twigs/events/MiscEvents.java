@@ -47,7 +47,7 @@ public class MiscEvents {
         Player player = event.getPlayer();
         ItemStack stack = event.getItemStack();
         InteractionHand hand = event.getHand();
-        if (state.is(Blocks.FLOWERING_AZALEA) && stack.is(Tags.Items.SHEARS)) {
+        if (state.is(Blocks.FLOWERING_AZALEA) && stack.m_204117_(Tags.Items.SHEARS)) {
             world.setBlockAndUpdate(blockPos, Blocks.AZALEA.defaultBlockState());
             world.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
             Block.popResource(world, blockPos.above(), new ItemStack(TwigsBlocks.AZALEA_FLOWERS.get(), world.random.nextInt(2) + 1));

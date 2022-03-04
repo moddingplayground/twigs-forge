@@ -1,6 +1,7 @@
 package com.ninni.twigs;
 
 import com.ninni.twigs.client.TwigsRendererManager;
+import com.ninni.twigs.config.TwigsConfig;
 import com.ninni.twigs.events.MiscEvents;
 import com.ninni.twigs.events.WorldEvents;
 import com.ninni.twigs.init.TwigsBlockEntities;
@@ -13,7 +14,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -43,6 +46,7 @@ public class Twigs {
 
 		MinecraftForge.EVENT_BUS.register(this);
 
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TwigsConfig.COMMON);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
