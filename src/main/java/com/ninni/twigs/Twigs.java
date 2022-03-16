@@ -6,8 +6,10 @@ import com.ninni.twigs.events.MiscEvents;
 import com.ninni.twigs.events.WorldEvents;
 import com.ninni.twigs.init.TwigsBlockEntities;
 import com.ninni.twigs.init.TwigsBlocks;
+import com.ninni.twigs.init.TwigsConfiguredFeatures;
 import com.ninni.twigs.init.TwigsEntityTypes;
 import com.ninni.twigs.init.TwigsItems;
+import com.ninni.twigs.init.TwigsPlacedFeatures;
 import com.ninni.twigs.init.TwigsVanillaIntegration;
 import com.ninni.twigs.init.TwigsWoodType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -51,6 +53,10 @@ public class Twigs {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		TwigsVanillaIntegration.init();
+		event.enqueueWork(() -> {
+			TwigsConfiguredFeatures.init();
+			TwigsPlacedFeatures.init();
+		});
 	}
 
 	private void clientSetup(final FMLClientSetupEvent event) {

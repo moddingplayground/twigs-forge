@@ -18,7 +18,7 @@ mixin {
 }
 
 group = 'com'
-version = '1.1.5'
+version = '1.18.2-1.0.0'
 
 java {
 	archivesBaseName = 'twigs'
@@ -26,7 +26,7 @@ java {
 }
 
 minecraft {
-	mappings channel: 'official', version: '1.18.1'
+	mappings channel: 'official', version: '1.18.2'
 
 	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -87,7 +87,7 @@ repositories {
 }
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:1.18.2-40.0.2'
+	minecraft 'net.minecraftforge:forge:1.18.2-40.0.3'
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
