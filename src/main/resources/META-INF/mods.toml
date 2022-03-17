@@ -1,23 +1,23 @@
 modLoader="javafml"
-loaderVersion="[39,)"
-license="All Rights Reserved"
+loaderVersion="[40,)"
+license="MIT (Code), All Rights Reserved (Assets)"
+
 [[mods]]
-modId="twigs"
-version="1.1.5"
-displayName="Twigs"
-logoFile="icon.png"
-description='''
-This is a forge port of Twigs
-'''
+  modId       = "twigs"
+  version     = "1.1.4+1.18.2"
+  displayName = "Twigs"
+  logoFile    = "icon.png"
+  description = "A Minecraft mod all about building, adding new and interesting materials, as well as extra renditions of vanilla blocks."
+
 [[dependencies.twigs]]
-   modId="forge"
-   mandatory=true
-   versionRange="[39,)"
-   ordering="NONE"
-   side="BOTH"
+  modId="forge"
+  mandatory=true
+  versionRange="[40,)"
+  ordering="NONE"
+  side="BOTH"
 [[dependencies.twigs]]
-   modId="minecraft"
-   mandatory=true
-   versionRange="[1.18.1,1.19)"
-   ordering="NONE"
-   side="BOTH"
+  modId="minecraft"
+  mandatory=true
+  versionRange="[1.18.2,)"
+  ordering="NONE"
+  side="BOTH"

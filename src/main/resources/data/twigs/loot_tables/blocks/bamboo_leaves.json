@@ -18,7 +18,7 @@
               "condition": "minecraft:block_state_property",
               "block": "twigs:bamboo_leaves",
               "properties": {
-                "pickles": "2"
+                "layers": "2"
               }
             }
           ]
@@ -31,7 +31,7 @@
               "condition": "minecraft:block_state_property",
               "block": "twigs:bamboo_leaves",
               "properties": {
-                "pickles": "3"
+                "layers": "3"
               }
             }
           ]
@@ -44,7 +44,7 @@
               "condition": "minecraft:block_state_property",
               "block": "twigs:bamboo_leaves",
               "properties": {
-                "pickles": "4"
+                "layers": "4"
               }
             }
           ]
