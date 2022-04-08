@@ -146,8 +146,9 @@ public final class TwigsBlocks {
 
     //miscellaneous blocks
     public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
-    public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(Material.STONE).instabreak().sound(SoundType.STONE).noCollission()));
+    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.WOOD)).instabreak().sound(SoundType.WOOD).noCollission()));
+    public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.COLOR_GRAY)).instabreak().sound(SoundType.STONE).noCollission()));
+    public static final RegistryObject<Block> SEA_SHELL = registerBlock("sea_shell", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.COLOR_ORANGE)).instabreak().sound(SoundType.BONE_BLOCK).noCollission()));
 
     //tuff blocks
     public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.BASALT)));

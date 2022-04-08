@@ -7,11 +7,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bamboo"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "twigs:bamboo_leaves",
           "conditions": [
             {
               "condition": "minecraft:inverted",
@@ -23,12 +18,8 @@
                 }
               }
             }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          ],
+          "name": "twigs:bamboo_leaves"
         }
       ]
     }

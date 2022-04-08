@@ -1,7 +1,15 @@
 package net.moddingplayground.twigs;
 
 import net.minecraft.resources.ResourceLocation;
-import net.moddingplayground.twigs.client.TwigsRendererManager;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moddingplayground.twigs.config.TwigsConfig;
 import net.moddingplayground.twigs.events.MiscEvents;
 import net.moddingplayground.twigs.events.WorldEvents;
@@ -12,17 +20,6 @@ import net.moddingplayground.twigs.init.TwigsEntityTypes;
 import net.moddingplayground.twigs.init.TwigsItems;
 import net.moddingplayground.twigs.init.TwigsPlacedFeatures;
 import net.moddingplayground.twigs.init.TwigsVanillaIntegration;
-import net.moddingplayground.twigs.init.TwigsWoodType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Twigs.MOD_ID)
 public class Twigs {
@@ -37,7 +34,6 @@ public class Twigs {
     public Twigs() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::setup);
-        modEventBus.addListener(this::clientSetup);
 
         TwigsBlocks.BLOCKS.register(modEventBus);
         TwigsItems.ITEMS.register(modEventBus);
@@ -58,11 +54,6 @@ public class Twigs {
             TwigsConfiguredFeatures.init();
             TwigsPlacedFeatures.init();
         });
-    }
-
-    private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(TwigsWoodType::init);
-        TwigsRendererManager.init();
     }
 
 }

@@ -1,5 +1,6 @@
 package net.moddingplayground.twigs.init;
 
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.moddingplayground.twigs.Twigs;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
@@ -21,8 +22,9 @@ public class TwigsPlacedFeatures {
     public static void init() {
     }
 
-    public static final Holder<PlacedFeature> PATCH_TWIG = registerPlacedFeature("patch_twig", TwigsConfiguredFeatures.PATCH_TWIG, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-    public static final Holder<PlacedFeature> PATCH_PEBBLE = registerPlacedFeature("patch_pebble", TwigsConfiguredFeatures.PATCH_PEBBLE, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+    public static final Holder<PlacedFeature> PATCH_TWIG = registerPlacedFeature("patch_twig", TwigsConfiguredFeatures.PATCH_TWIG, modifiers(2));
+    public static final Holder<PlacedFeature> PATCH_PEBBLE = registerPlacedFeature("patch_pebble", TwigsConfiguredFeatures.PATCH_PEBBLE, modifiers(2));
+    public static final Holder<PlacedFeature> PATCH_SEA_SHELL = registerPlacedFeature("patch_sea_shell", TwigsConfiguredFeatures.PATCH_SEA_SHELL, modifiers(2));
     public static final Holder<PlacedFeature> ORE_RHYOLITE_LOWER = registerPlacedFeature("ore_rhyolite_lower", TwigsConfiguredFeatures.ORE_RHYOLITE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(16))));
     public static final Holder<PlacedFeature> ORE_SCHIST_UPPER = registerPlacedFeature("ore_schist_upper", TwigsConfiguredFeatures.ORE_SCHIST, rareOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(64), VerticalAnchor.absolute(128))));
     public static final Holder<PlacedFeature> ORE_SCHIST_LOWER = registerPlacedFeature("ore_schist_lower", TwigsConfiguredFeatures.ORE_SCHIST, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(60))));
@@ -34,6 +36,10 @@ public class TwigsPlacedFeatures {
 
     public static Holder<PlacedFeature> registerPlacedFeature(String string, Holder<? extends ConfiguredFeature<?, ?>> holder, PlacementModifier ... placementModifiers) {
         return registerPlacedFeature(string, holder, List.of(placementModifiers));
+    }
+
+    private static List<PlacementModifier> modifiers(int chance) {
+        return VegetationPlacements.worldSurfaceSquaredWithCount(chance);
     }
 
     /*

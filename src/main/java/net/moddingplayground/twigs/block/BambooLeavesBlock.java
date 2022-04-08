@@ -25,6 +25,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.moddingplayground.twigs.init.TwigsEntityTypeTags;
 
 import java.util.Objects;
 
@@ -82,8 +83,10 @@ public class BambooLeavesBlock extends BushBlock implements SimpleWaterloggedBlo
 
     @Override
     public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-        if (state.getValue(LAYERS) > 2 && entity instanceof LivingEntity && entity.getType() != EntityType.PANDA && entity.getType() != EntityType.BEE && entity.getType() != EntityType.PARROT && entity.getType() != EntityType.OCELOT) {
-            entity.makeStuckInBlock(state, new Vec3(0.75D, 1.0D, 0.75D));
+        if (state.getValue(LAYERS) > 2 && entity instanceof LivingEntity) {
+            if (entity.getType().is(TwigsEntityTypeTags.BAMBOO_LEAVES_SLOW_IMMUNE)) {
+                entity.makeStuckInBlock(state, new Vec3(0.75D, 1.0D, 0.75D));
+            }
         }
     }
 
