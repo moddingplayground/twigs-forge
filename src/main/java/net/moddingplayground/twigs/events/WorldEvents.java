@@ -1,13 +1,7 @@
 package net.moddingplayground.twigs.events;
 
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
-import net.minecraftforge.common.BiomeDictionary;
-import net.moddingplayground.twigs.Twigs;
-import net.moddingplayground.twigs.config.TwigsConfig;
-import net.moddingplayground.twigs.init.TwigsPlacedFeatures;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -16,6 +10,9 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.config.TwigsConfig;
+import net.moddingplayground.twigs.init.TwigsPlacedFeatures;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class WorldEvents {

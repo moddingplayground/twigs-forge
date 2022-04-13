@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moddingplayground.twigs.config.TwigsConfig;
+import net.moddingplayground.twigs.crafting.conditions.QuarkCondition;
 import net.moddingplayground.twigs.events.MiscEvents;
 import net.moddingplayground.twigs.events.WorldEvents;
 import net.moddingplayground.twigs.init.TwigsBlockEntities;
@@ -50,10 +52,13 @@ public class Twigs {
 
     private void setup(final FMLCommonSetupEvent event) {
         TwigsVanillaIntegration.init();
+
         event.enqueueWork(() -> {
             TwigsConfiguredFeatures.init();
             TwigsPlacedFeatures.init();
         });
+
+        CraftingHelper.register(new QuarkCondition.Serializer());
     }
 
 }
