@@ -121,7 +121,7 @@ if (ENV.MODRINTH_TOKEN) modrinth {
   projectId = project.modrinth_id
   versionNumber = version
   versionName = VER_NAME
-  versionType = project.release_type
+  versionType = project.release_type == 'alpha' ? 'beta' : 'release'
   changelog = CHANGELOG
   uploadFile = jar
   gameVersions = [ project.ver_minecraft ]
