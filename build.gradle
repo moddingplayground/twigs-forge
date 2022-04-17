@@ -7,9 +7,12 @@ buildscript {
   }
 
   dependencies {
-    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
-    classpath group: 'org.spongepowered',         name: 'mixingradle', version: '0.7-SNAPSHOT'
-    classpath group: 'org.kohsuke',               name: 'github-api',  version: '1.301'
+    classpath (group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true) { exclude group: 'org.apache.logging.log4j' }
+    classpath 'org.apache.logging.log4j:log4j-api:2.11.2'
+    classpath 'org.apache.logging.log4j:log4j-core:2.11.2'
+
+    classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+    classpath group: 'org.kohsuke',       name: 'github-api',  version: '1.301'
   }
 }
 
