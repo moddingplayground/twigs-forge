@@ -118,8 +118,7 @@ public class MiscEvents {
                .put(TwigsItems.STRIPPED_BAMBOO_SIGN.get(), 200)
                .put(TwigsBlocks.BUNDLED_BAMBOO.get(), 450)
                .put(TwigsBlocks.STRIPPED_BUNDLED_BAMBOO.get(), 450)
-               .put(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get(), 200)
-               .put(TwigsBlocks.STRIPPED_BAMBOO.get(), 50);
+               .put(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get(), 200);
         }).build().forEach((item, burnTime) -> { if (event.getItemStack().is(item.asItem())) event.setBurnTime(burnTime); });
     }
 
