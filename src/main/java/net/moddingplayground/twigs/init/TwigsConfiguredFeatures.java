@@ -5,7 +5,6 @@
 
 package net.moddingplayground.twigs.init;
 
-import net.moddingplayground.twigs.Twigs;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConf
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.moddingplayground.twigs.Twigs;
 
 public class TwigsConfiguredFeatures {
 

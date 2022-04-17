@@ -1,10 +1,10 @@
 package net.moddingplayground.twigs.block.blockentities;
 
-import net.moddingplayground.twigs.init.TwigsBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.moddingplayground.twigs.init.TwigsBlockEntities;
 
 public class TwigsSignBlockEntity extends SignBlockEntity {
 

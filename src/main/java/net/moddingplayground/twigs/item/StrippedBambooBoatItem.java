@@ -1,6 +1,5 @@
 package net.moddingplayground.twigs.item;
 
-import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
 
 import java.util.List;
 import java.util.function.Predicate;

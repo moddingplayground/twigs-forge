@@ -8,8 +8,6 @@
     "BlockStateBaseMixin",
     "LightningBoltMixin"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }

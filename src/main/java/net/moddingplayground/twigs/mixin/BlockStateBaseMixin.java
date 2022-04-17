@@ -1,10 +1,10 @@
 package net.moddingplayground.twigs.mixin;
 
-import net.moddingplayground.twigs.block.StrippedBambooBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.Vec3;
+import net.moddingplayground.twigs.block.StrippedBambooBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

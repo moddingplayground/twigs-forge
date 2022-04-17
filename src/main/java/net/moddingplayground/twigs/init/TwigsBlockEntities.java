@@ -1,12 +1,12 @@
 package net.moddingplayground.twigs.init;
 
-import net.moddingplayground.twigs.Twigs;
-import net.moddingplayground.twigs.block.blockentities.TwigsSignBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.block.blockentities.TwigsSignBlockEntity;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TwigsBlockEntities {

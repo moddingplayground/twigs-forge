@@ -1,9 +1,5 @@
 package net.moddingplayground.twigs.init;
 
-import net.moddingplayground.twigs.Twigs;
-import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
-import net.moddingplayground.twigs.item.FlintAndSteelBlockItem;
-import net.moddingplayground.twigs.item.StrippedBambooBoatItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -12,6 +8,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
+import net.moddingplayground.twigs.item.FlintAndSteelBlockItem;
+import net.moddingplayground.twigs.item.StrippedBambooBoatItem;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TwigsItems {

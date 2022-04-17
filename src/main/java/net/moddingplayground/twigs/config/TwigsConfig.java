@@ -1,8 +1,8 @@
 package net.moddingplayground.twigs.config;
 
-import net.moddingplayground.twigs.Twigs;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
+import net.moddingplayground.twigs.Twigs;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID)
 public class TwigsConfig {

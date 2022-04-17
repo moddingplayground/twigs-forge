@@ -6,8 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import net.moddingplayground.twigs.Twigs;
-import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,6 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
 
 import java.util.Map;
 import java.util.stream.Stream;

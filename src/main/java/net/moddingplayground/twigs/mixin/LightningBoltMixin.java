@@ -1,11 +1,12 @@
 package net.moddingplayground.twigs.mixin;
 
-import net.moddingplayground.twigs.block.PillarOxidizableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
+import net.moddingplayground.twigs.block.PillarOxidizableBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +28,7 @@ public class LightningBoltMixin {
                 PillarOxidizableBlock.getPreviousState(blockstate).ifPresent(state -> {
                     world.setBlockAndUpdate(blockpos, state);
                 });
-                world.levelEvent(3002, blockpos, -1);
+                world.levelEvent(LevelEvent.PARTICLES_ELECTRIC_SPARK, blockpos, -1);
                 cir.setReturnValue(Optional.of(blockpos));
             }
         }

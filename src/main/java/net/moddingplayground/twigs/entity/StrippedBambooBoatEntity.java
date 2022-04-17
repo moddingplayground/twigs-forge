@@ -1,8 +1,5 @@
 package net.moddingplayground.twigs.entity;
 
-import net.moddingplayground.twigs.init.TwigsBlocks;
-import net.moddingplayground.twigs.init.TwigsEntityTypes;
-import net.moddingplayground.twigs.init.TwigsItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,6 +12,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import net.moddingplayground.twigs.init.TwigsBlocks;
+import net.moddingplayground.twigs.init.TwigsEntityTypes;
+import net.moddingplayground.twigs.init.TwigsItems;
 
 public class StrippedBambooBoatEntity extends Boat {
 
@@ -74,7 +74,7 @@ public class StrippedBambooBoatEntity extends Boat {
 
     public enum BoatType {
         STRIPPED_BAMBOO(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get(), "stripped_bamboo");
-;
+
         private final String name;
         private final Block planks;
 

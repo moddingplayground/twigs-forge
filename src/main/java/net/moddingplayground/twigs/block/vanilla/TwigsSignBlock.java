@@ -1,11 +1,11 @@
 package net.moddingplayground.twigs.block.vanilla;
 
-import net.moddingplayground.twigs.init.TwigsBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.moddingplayground.twigs.init.TwigsBlockEntities;
 
 public class TwigsSignBlock extends StandingSignBlock {
 

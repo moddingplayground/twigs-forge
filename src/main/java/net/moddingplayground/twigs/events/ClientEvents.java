@@ -1,7 +1,13 @@
 package net.moddingplayground.twigs.events;
 
+import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.moddingplayground.twigs.Twigs;
 import net.moddingplayground.twigs.client.StrippedBambooBoatRenderer;
@@ -9,12 +15,6 @@ import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
 import net.moddingplayground.twigs.init.TwigsBlockEntities;
 import net.moddingplayground.twigs.init.TwigsBlocks;
 import net.moddingplayground.twigs.init.TwigsEntityTypes;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.moddingplayground.twigs.init.TwigsWoodType;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
