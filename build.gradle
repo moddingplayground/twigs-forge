@@ -2,18 +2,25 @@
 
 buildscript {
   repositories {
-    maven { url = 'https://maven.minecraftforge.net' }
-    maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
-    mavenCentral()
+    maven { url 'https://maven.minecraftforge.net/' }
+    maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
   }
+
   dependencies {
-    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    classpath group: "org.spongepowered", name: "mixingradle", version: "0.7-SNAPSHOT"
+    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
+    classpath group: 'org.spongepowered',         name: 'mixingradle', version: '0.7-SNAPSHOT'
+    classpath group: 'org.kohsuke',               name: 'github-api',  version: '1.301'
   }
 }
 
+plugins {
+  id 'java'
+  id 'com.modrinth.minotaur'          version '2.0.2'
+  id 'com.matthewprenger.cursegradle' version '1.4.0'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: "org.spongepowered.mixin"
+apply plugin: 'org.spongepowered.mixin'
 
 java { toolchain.languageVersion = JavaLanguageVersion.of(17) }
 
@@ -84,3 +91,56 @@ jar {
 jar.finalizedBy('reobfJar')
 
 mixin { add sourceSets.main, "${project.mod_id}.refmap.json" }
+
+/* Releasing */
+
+def VER_NAME = "[$project.major_version] $project.mod_name $project.version_id"
+def CHANGELOG = new File("./gradle", "CHANGELOG.md").text
+
+import org.kohsuke.github.*
+task github(dependsOn: build) {
+  onlyIf { ENV.GITHUB_TOKEN }
+  doLast {
+    def github = GitHub.connectUsingOAuth(ENV.GITHUB_TOKEN)
+    def repository = github.getRepository(project.github_repository)
+
+    def builder = new GHReleaseBuilder(repository, version)
+    builder.name(VER_NAME)
+    builder.body(CHANGELOG)
+    builder.commitish(project.github_branch)
+    builder.prerelease(project.release_type == 'beta')
+    builder.create().uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
+  }
+}
+
+if (ENV.MODRINTH_TOKEN) modrinth {
+  token = ENV.MODRINTH_TOKEN
+  projectId = project.modrinth_id
+  versionNumber = version
+  versionName = VER_NAME
+  versionType = project.release_type
+  changelog = CHANGELOG
+  uploadFile = jar
+  gameVersions = [ project.ver_minecraft ]
+}
+
+if (ENV.CURSEFORGE_API_KEY) curseforge {
+  apiKey = ENV.CURSEFORGE_API_KEY
+
+  project {
+    id = project.curseforge_id
+    addGameVersion project.curseforge_version
+    addGameVersion 'Forge'
+
+    changelog = CHANGELOG
+    releaseType = project.release_type
+
+    mainArtifact(jar) { displayName = VER_NAME }
+
+    afterEvaluate { uploadTask.dependsOn(jar) }
+  }
+
+  options { forgeGradleIntegration = false }
+}
+
+task releaseVersion(dependsOn: [ build, 'github', 'modrinth', 'curseforge' ])
