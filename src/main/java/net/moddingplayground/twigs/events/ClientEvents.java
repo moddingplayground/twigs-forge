@@ -25,7 +25,6 @@ public class ClientEvents {
         event.enqueueWork(TwigsWoodType::init);
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.AZALEA_FLOWERS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.PEBBLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.SEA_SHELL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.TWIG.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.POTTED_AZALEA_FLOWERS.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.OAK_TABLE.get(), RenderType.cutout());

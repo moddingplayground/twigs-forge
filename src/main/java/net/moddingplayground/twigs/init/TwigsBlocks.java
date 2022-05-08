@@ -2,23 +2,7 @@ package net.moddingplayground.twigs.init;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.AmethystBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.GlowLichenBlock;
-import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraft.world.level.block.WallBlock;
-import net.minecraft.world.level.block.WeatheringCopper;
-import net.minecraft.world.level.block.WoodButtonBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
@@ -29,18 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.moddingplayground.twigs.Twigs;
-import net.moddingplayground.twigs.block.AmethystSlabBlock;
-import net.moddingplayground.twigs.block.AmethystStairBlock;
-import net.moddingplayground.twigs.block.AmethystWallBlock;
-import net.moddingplayground.twigs.block.BambooLeavesBlock;
-import net.moddingplayground.twigs.block.BambooMatBlock;
-import net.moddingplayground.twigs.block.FloorLayerBlock;
-import net.moddingplayground.twigs.block.LampBlock;
-import net.moddingplayground.twigs.block.PaperLanternBlock;
-import net.moddingplayground.twigs.block.PillarOxidizableBlock;
-import net.moddingplayground.twigs.block.StrippedBambooBlock;
-import net.moddingplayground.twigs.block.TableBlock;
-import net.moddingplayground.twigs.block.VerticalSlabBlock;
+import net.moddingplayground.twigs.block.*;
 import net.moddingplayground.twigs.block.vanilla.TwigsSignBlock;
 import net.moddingplayground.twigs.block.vanilla.TwigsWallSignBlock;
 
@@ -105,7 +78,6 @@ public final class TwigsBlocks {
 
     //basalt blocks
     public static final RegistryObject<Block> POLISHED_BASALT_BRICKS = registerBlock("polished_basalt_bricks", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_BASALT)));
-    public static final RegistryObject<Block> POLISHED_BASALT_BRICK_VERTICAL_SLAB = registerCompatBlock("quark", "polished_basalt_brick_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(POLISHED_BASALT_BRICKS.get())));
     public static final RegistryObject<Block> SMOOTH_BASALT_BRICKS = registerBlock("smooth_basalt_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SMOOTH_BASALT)));
     public static final RegistryObject<Block> SMOOTH_BASALT_BRICK_STAIRS = registerBlock("smooth_basalt_brick_stairs", () -> new StairBlock(() -> SMOOTH_BASALT_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(SMOOTH_BASALT_BRICKS.get())));
     public static final RegistryObject<Block> SMOOTH_BASALT_BRICK_SLAB = registerBlock("smooth_basalt_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(SMOOTH_BASALT_BRICKS.get())));
@@ -161,7 +133,6 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.WOOD)).instabreak().sound(SoundType.WOOD).noCollission()));
     public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.COLOR_GRAY)).instabreak().sound(SoundType.STONE).noCollission()));
-    public static final RegistryObject<Block> SEA_SHELL = registerBlock("sea_shell", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.COLOR_ORANGE)).instabreak().sound(SoundType.BONE_BLOCK).noCollission()));
 
     //tuff blocks
     public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.BASALT)));

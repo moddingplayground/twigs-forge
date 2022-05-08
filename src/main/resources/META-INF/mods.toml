@@ -4,7 +4,7 @@ license="MIT (Code), All Rights Reserved (Assets)"
 
 [[mods]]
   modId       = "twigs"
-  version     = "1.1.4-patch1+1.18.2"
+  version     = "1.1.4-patch4+1.18.2"
   displayName = "Twigs"
   logoFile    = "icon.png"
   description = "A Minecraft mod all about building, adding new and interesting materials, as well as extra renditions of vanilla blocks."
