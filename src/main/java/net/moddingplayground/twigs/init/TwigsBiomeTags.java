@@ -10,7 +10,6 @@ public class TwigsBiomeTags {
 
     public static final TagKey<Biome> SPAWNS_TWIG = create("spawns_twig");
     public static final TagKey<Biome> SPAWNS_PEBBLE = create("spawns_pebble");
-    public static final TagKey<Biome> SPAWNS_SEA_SHELL = create("spawns_sea_shell");
     public static final TagKey<Biome> SPAWNS_RHYOLITE = create("spawns_rhyolite");
     public static final TagKey<Biome> SPAWNS_BLOODSTONE = create("spawns_bloodstone");
     public static final TagKey<Biome> SPAWNS_SCHIST = create("spawns_schist");
