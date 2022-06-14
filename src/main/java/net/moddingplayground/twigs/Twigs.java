@@ -14,7 +14,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moddingplayground.twigs.config.TwigsConfig;
 import net.moddingplayground.twigs.crafting.conditions.QuarkCondition;
 import net.moddingplayground.twigs.events.MiscEvents;
-import net.moddingplayground.twigs.events.WorldEvents;
+import net.moddingplayground.twigs.init.TwigsBiomeModifiers;
 import net.moddingplayground.twigs.init.TwigsBlockEntities;
 import net.moddingplayground.twigs.init.TwigsBlocks;
 import net.moddingplayground.twigs.init.TwigsConfiguredFeatures;
@@ -22,6 +22,7 @@ import net.moddingplayground.twigs.init.TwigsEntityTypes;
 import net.moddingplayground.twigs.init.TwigsItems;
 import net.moddingplayground.twigs.init.TwigsPlacedFeatures;
 import net.moddingplayground.twigs.init.TwigsVanillaIntegration;
+import net.moddingplayground.twigs.world.TwigsBiomeModifier;
 
 @Mod(Twigs.MOD_ID)
 public class Twigs {
@@ -38,12 +39,12 @@ public class Twigs {
         modEventBus.addListener(this::setup);
 
         TwigsBlocks.BLOCKS.register(modEventBus);
+        TwigsBiomeModifiers.BIOME_MODIFIERS.register(modEventBus);
         TwigsItems.ITEMS.register(modEventBus);
         TwigsBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         TwigsEntityTypes.ENTITY_TYPES.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
-        MinecraftForge.EVENT_BUS.register(new WorldEvents());
 
         MinecraftForge.EVENT_BUS.register(this);
 

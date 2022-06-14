@@ -170,5 +170,7 @@
   "block.twigs.bloodstone_vertical_slab": "Bloodstone Vertical Slab",
   "block.twigs.polished_bloodstone_vertical_slab": "Polished Bloodstone Vertical Slab",
   "block.twigs.polished_bloodstone_brick_vertical_slab": "Polished Bloodstone Brick Vertical Slab",
-  "item.twigs.stripped_bamboo_boat": "Stripped Bamboo Boat"
+  "item.twigs.stripped_bamboo_boat": "Stripped Bamboo Boat",
+  "item.twigs.stripped_bamboo_chest_boat": "Stripped Bamboo Chest Boat",
+  "entity.twigs.stripped_bamboo_chest_boat": "Boat with Chest"
 }

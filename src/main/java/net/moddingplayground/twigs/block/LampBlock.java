@@ -6,6 +6,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,8 +18,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.moddingplayground.twigs.init.TwigsBlocks;
-
-import java.util.Random;
 
 
 @SuppressWarnings("deprecation")
@@ -32,7 +31,7 @@ public class LampBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        Random random = world.getRandom();
+        RandomSource random = world.getRandom();
         if (!world.isClientSide()) {
             boolean wasLit = !state.getValue(LIT);
             world.setBlockAndUpdate(pos, state.setValue(LIT, wasLit));

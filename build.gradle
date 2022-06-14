@@ -1,6 +1,7 @@
 /* Setup */
 
 buildscript {
+
   repositories {
     maven { url 'https://maven.minecraftforge.net/' }
     maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
@@ -71,8 +72,28 @@ minecraft {
 
       mods { twigs { source sourceSets.main } }
     }
+
+    data {
+      workingDirectory project.file('run')
+
+      property 'forge.logging.markers', 'REGISTRIES'
+
+      property 'forge.logging.console.level', 'debug'
+      property "mixin.env.remapRefMap", "true"
+      property "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
+
+      args '--mod', 'twigs', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+      mods {
+        twigs {
+          source sourceSets.main
+        }
+      }
+    }
   }
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 /* Jar */
 

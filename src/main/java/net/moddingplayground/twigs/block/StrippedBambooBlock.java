@@ -37,8 +37,4 @@ public class StrippedBambooBlock extends QuadPoleBlock {
         return super.getCollisionShape(state, world, pos, context).move(offset.x, offset.y, offset.z);
     }
 
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
 }

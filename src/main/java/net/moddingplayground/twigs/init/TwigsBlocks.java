@@ -36,7 +36,7 @@ public final class TwigsBlocks {
 
     //bamboo blocks
     public static final RegistryObject<Block> BAMBOO_LEAVES = registerBlockWithNoTab("bamboo_leaves", () -> new BambooLeavesBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES).sound(SoundType.AZALEA_LEAVES).instabreak().noCollission()));
-    public static final RegistryObject<Block> STRIPPED_BAMBOO = registerBlock("stripped_bamboo", () -> new StrippedBambooBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO)));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO = registerBlock("stripped_bamboo", () -> new StrippedBambooBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO).offsetType(BlockBehaviour.OffsetType.XZ)));
     public static final RegistryObject<Block> STRIPPED_BUNDLED_BAMBOO = registerBlock("stripped_bundled_bamboo", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.SCAFFOLDING)));
     public static final RegistryObject<Block> BUNDLED_BAMBOO = registerBlock("bundled_bamboo", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.SCAFFOLDING)));
     public static final RegistryObject<Block> BAMBOO_THATCH = registerBlock("bamboo_thatch", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES).sound(SoundType.AZALEA_LEAVES)));

@@ -7,6 +7,8 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -16,6 +18,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.moddingplayground.twigs.entity.StrippedBambooBoatEntity;
+import net.moddingplayground.twigs.entity.StrippedBambooChestBoatEntity;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,9 +26,11 @@ import java.util.function.Predicate;
 public class StrippedBambooBoatItem extends Item {
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     private final StrippedBambooBoatEntity.BoatType type;
+    private final boolean hasChest;
 
-    public StrippedBambooBoatItem(StrippedBambooBoatEntity.BoatType type, Item.Properties properties) {
+    public StrippedBambooBoatItem(boolean hasChest, StrippedBambooBoatEntity.BoatType type, Item.Properties properties) {
         super(properties);
+        this.hasChest = hasChest;
         this.type = type;
     }
 
@@ -37,7 +42,6 @@ public class StrippedBambooBoatItem extends Item {
             return InteractionResultHolder.pass(itemstack);
         } else {
             Vec3 vec3 = player.getViewVector(1.0F);
-            double d0 = 5.0D;
             List<Entity> list = world.getEntities(player, player.getBoundingBox().expandTowards(vec3.scale(5.0D)).inflate(1.0D), ENTITY_PREDICATE);
             if (!list.isEmpty()) {
                 Vec3 vec31 = player.getEyePosition();
@@ -50,7 +54,7 @@ public class StrippedBambooBoatItem extends Item {
                 }
             }
             if (hitresult.getType() == HitResult.Type.BLOCK) {
-                StrippedBambooBoatEntity boat = new StrippedBambooBoatEntity(world, hitresult.getLocation().x, hitresult.getLocation().y, hitresult.getLocation().z);
+                StrippedBambooBoatEntity boat = this.getBoat(world, hitresult);
                 boat.setBoatType(this.type);
                 boat.setYRot(player.getYRot());
                 if (!world.noCollision(boat, boat.getBoundingBox().inflate(-0.1D))) {
@@ -71,5 +75,9 @@ public class StrippedBambooBoatItem extends Item {
                 return InteractionResultHolder.pass(itemstack);
             }
         }
+    }
+
+    private StrippedBambooBoatEntity getBoat(Level world, HitResult hit) {
+        return this.hasChest ? new StrippedBambooChestBoatEntity(world, hit.getLocation().x, hit.getLocation().y, hit.getLocation().z) : new StrippedBambooBoatEntity(world, hit.getLocation().x, hit.getLocation().y, hit.getLocation().z);
     }
 }
