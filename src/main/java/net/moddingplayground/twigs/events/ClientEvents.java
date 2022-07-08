@@ -5,6 +5,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -49,6 +50,7 @@ public class ClientEvents {
     public static void registerEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(TwigsEntityTypes.STRIPPED_BAMBOO_BOAT.get(), context -> new StrippedBambooBoatRenderer(context, false));
         event.registerEntityRenderer(TwigsEntityTypes.STRIPPED_BAMBOO_CHEST_BOAT.get(), context -> new StrippedBambooBoatRenderer(context, true));
+        event.registerEntityRenderer(TwigsEntityTypes.PEBBLE.get(), ThrownItemRenderer::new);
         event.registerBlockEntityRenderer(TwigsBlockEntities.TWIGS_SIGN.get(), SignRenderer::new);
     }
 

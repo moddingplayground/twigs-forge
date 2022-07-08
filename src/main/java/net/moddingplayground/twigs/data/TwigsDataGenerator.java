@@ -14,6 +14,7 @@ public class TwigsDataGenerator {
     public static void onGatherData(GatherDataEvent event) {
         DataGenerator dataGenerator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
+        dataGenerator.addProvider(event.includeServer(), new TwigsLootTableProvider(dataGenerator));
         dataGenerator.addProvider(event.includeServer(), new TwigsItemTagsProvider(dataGenerator, helper));
         dataGenerator.addProvider(event.includeServer(), new TwigsBlockTagsProvider(dataGenerator, helper));
         dataGenerator.addProvider(event.includeServer(), new TwigsEntityTypeTagsProvider(dataGenerator, helper));

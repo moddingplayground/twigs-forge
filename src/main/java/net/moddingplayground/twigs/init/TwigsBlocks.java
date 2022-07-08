@@ -131,8 +131,8 @@ public final class TwigsBlocks {
 
     //miscellaneous blocks
     public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.WOOD)).instabreak().sound(SoundType.WOOD).noCollission()));
-    public static final RegistryObject<Block> PEBBLE = registerBlock("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterial.layerMaterial(MaterialColor.COLOR_GRAY)).instabreak().sound(SoundType.STONE).noCollission()));
+    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
+    public static final RegistryObject<Block> PEBBLE = registerBlockWithNoTab("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.STONE).instabreak().sound(SoundType.STONE).noCollission()));
 
     //tuff blocks
     public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.BASALT)));

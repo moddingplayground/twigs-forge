@@ -6,6 +6,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -20,9 +21,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 @SuppressWarnings("deprecation")
-public class BambooMatBlock extends Block {
-    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
+public class BambooMatBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
     public BambooMatBlock(Properties properties) {
         super(properties);
@@ -36,9 +37,9 @@ public class BambooMatBlock extends Block {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-        boolean bl = fluidState.getType() == Fluids.WATER;
-        return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
+        BlockPos pos = ctx.getClickedPos();
+        FluidState fluidState = ctx.getLevel().getFluidState(pos);
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override

@@ -1,0 +1,24 @@
+{
+  "block.lamp.light": {
+    "sounds": [ "minecraft:mob/ghast/fireball4" ],
+    "subtitle": "subtitles.block.twigs.lamp.light"
+  },
+  "block.lamp.extinguish": {
+    "sounds": [ "minecraft:random/fizz" ],
+    "subtitle": "subtitles.block.twigs.lamp.extinguish"
+  },
+
+  "block.flowering_azalea.shear": {
+    "sounds": [ "minecraft:mob/sheep/shear" ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
+  "block.bamboo.strip_shear": {
+    "sounds": [ "minecraft:mob/sheep/shear" ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
+
+  "entity.pebble.throw": {
+    "sounds": [ "minecraft:random/bow" ],
+    "subtitle": "subtitles.entity.twigs.pebble.throw"
+  }
+}

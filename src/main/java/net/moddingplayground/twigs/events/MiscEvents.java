@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BambooLeaves;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.LootTableLoadEvent;
@@ -34,8 +36,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.moddingplayground.twigs.Twigs;
 import net.moddingplayground.twigs.block.PillarOxidizableBlock;
 import net.moddingplayground.twigs.block.StrippedBambooBlock;
+import net.moddingplayground.twigs.entity.PebbleEntity;
 import net.moddingplayground.twigs.init.TwigsBlocks;
 import net.moddingplayground.twigs.init.TwigsItems;
+import net.moddingplayground.twigs.init.TwigsSoundEvents;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -61,7 +65,7 @@ public class MiscEvents {
         InteractionHand hand = event.getHand();
         if (state.is(Blocks.FLOWERING_AZALEA) && stack.is(Tags.Items.SHEARS)) {
             world.setBlockAndUpdate(blockPos, Blocks.AZALEA.defaultBlockState());
-            world.playSound(null, player, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+            world.playSound(null, player, TwigsSoundEvents.BLOCK_FLOWERING_AZALEA_SHEAR.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             Block.popResource(world, blockPos.above(), new ItemStack(TwigsBlocks.AZALEA_FLOWERS.get(), world.random.nextInt(2) + 1));
             stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             player.swing(hand);
@@ -96,9 +100,18 @@ public class MiscEvents {
                 world.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, blockPos, 0);
                 finalState = previousWaxed;
             }
-            if (state.is(Blocks.BAMBOO)) {
+            if (state.is(Blocks.BAMBOO) && stack.getItem() instanceof AxeItem) {
                 if (!world.getBlockState(blockPos.above()).is(Blocks.BAMBOO)) {
-                    world.playSound(player, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    int leaves = state.getValue(BlockStateProperties.BAMBOO_LEAVES).ordinal();
+                    if (leaves > 0) {
+                        int drop = world.random.nextInt(leaves * (leaves + 1));
+                        if (drop > 0) {
+                            Block.popResource(world, blockPos, new ItemStack(TwigsBlocks.BAMBOO_LEAVES.get().asItem(), drop));
+                            world.playSound(player, blockPos, TwigsSoundEvents.BLOCK_BAMBOO_STRIP_SHEAR.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                        }
+                    }
+
+                    world.playSound(player, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0f, 1.0f);
                     finalState = Optional.of(TwigsBlocks.STRIPPED_BAMBOO.get().defaultBlockState().setValue(StrippedBambooBlock.FROM_BAMBOO, true));
                 }
             }
@@ -132,6 +145,25 @@ public class MiscEvents {
                           .add(lootTableItem(TwigsBlocks.BAMBOO_LEAVES.get()))
                           .build()
             );
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemRightClick(PlayerInteractEvent.RightClickItem event) {
+        ItemStack stack = event.getItemStack();
+        Level world = event.getWorld();
+        Player player = event.getPlayer();
+        if (stack.is(TwigsBlocks.PEBBLE.get().asItem())) {
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+            if (!world.isClientSide()) {
+                PebbleEntity pebbleEntity = new PebbleEntity(world, player);
+                pebbleEntity.setItem(stack);
+                pebbleEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+                world.addFreshEntity(pebbleEntity);
+            }
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
         }
     }
 }

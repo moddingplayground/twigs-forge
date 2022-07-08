@@ -21,6 +21,7 @@ import net.moddingplayground.twigs.init.TwigsConfiguredFeatures;
 import net.moddingplayground.twigs.init.TwigsEntityTypes;
 import net.moddingplayground.twigs.init.TwigsItems;
 import net.moddingplayground.twigs.init.TwigsPlacedFeatures;
+import net.moddingplayground.twigs.init.TwigsSoundEvents;
 import net.moddingplayground.twigs.init.TwigsVanillaIntegration;
 import net.moddingplayground.twigs.world.TwigsBiomeModifier;
 
@@ -43,6 +44,7 @@ public class Twigs {
         TwigsItems.ITEMS.register(modEventBus);
         TwigsBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         TwigsEntityTypes.ENTITY_TYPES.register(modEventBus);
+        TwigsSoundEvents.SOUND_EVENTS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
 

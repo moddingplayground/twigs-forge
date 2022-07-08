@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.moddingplayground.twigs.init.TwigsBlocks;
-
+import net.moddingplayground.twigs.init.TwigsSoundEvents;
 
 @SuppressWarnings("deprecation")
 public class LampBlock extends Block {
@@ -35,7 +35,7 @@ public class LampBlock extends Block {
         if (!world.isClientSide()) {
             boolean wasLit = !state.getValue(LIT);
             world.setBlockAndUpdate(pos, state.setValue(LIT, wasLit));
-            world.playSound(null, pos, wasLit ? SoundEvents.FIRECHARGE_USE : SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 2.0F);
+            world.playSound(null, pos, wasLit ? TwigsSoundEvents.BLOCK_LAMP_LIGHT.get() : TwigsSoundEvents.BLOCK_LAMP_EXTINGUISH.get(), SoundSource.PLAYERS, 0.3F, 2.0F);
         } else {
             double d0 = pos.getX() + 0.5D;
             double d1 = pos.getY();
