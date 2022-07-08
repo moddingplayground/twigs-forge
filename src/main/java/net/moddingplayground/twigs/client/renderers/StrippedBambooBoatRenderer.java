@@ -1,4 +1,4 @@
-package net.moddingplayground.twigs.client;
+package net.moddingplayground.twigs.client.renderers;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.model.BoatModel;

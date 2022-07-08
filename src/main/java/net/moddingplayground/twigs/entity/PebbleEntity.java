@@ -17,8 +17,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.moddingplayground.twigs.init.TwigsBlocks;
 import net.moddingplayground.twigs.init.TwigsEntityTypes;
+import net.moddingplayground.twigs.init.TwigsParticleTypes;
 
 public class PebbleEntity extends ThrowableItemProjectile {
+
     public PebbleEntity(EntityType<? extends PebbleEntity> type, Level world) {
         super(type, world);
     }
@@ -43,8 +45,7 @@ public class PebbleEntity extends ThrowableItemProjectile {
         if (!this.level.isClientSide()) {
             ItemStack stack = this.getItem();
             RandomSource random = this.level.random;
-            ItemEntity itemEntity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stack.isEmpty() ? new ItemStack(this.getDefaultItem()) : stack, random.nextDouble() * 0.2D - 0.1D, this.isUnderWater() ? 0.0D : 0.2D, random.nextDouble() * 0.2D - 0.1D
-            );
+            ItemEntity itemEntity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stack.isEmpty() ? new ItemStack(this.getDefaultItem()) : stack, random.nextDouble() * 0.2D - 0.1D, this.isUnderWater() ? 0.0D : 0.2D, random.nextDouble() * 0.2D - 0.1D);
             itemEntity.setDefaultPickUpDelay();
             this.level.addFreshEntity(itemEntity);
 
@@ -76,7 +77,7 @@ public class PebbleEntity extends ThrowableItemProjectile {
 
     private ParticleOptions getParticle() {
         ItemStack itemstack = this.getItemRaw();
-        return itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, itemstack);
+        return itemstack.isEmpty() ? TwigsParticleTypes.ITEM_PEBBLE.get() : new ItemParticleOption(ParticleTypes.ITEM, itemstack);
     }
 
 }
