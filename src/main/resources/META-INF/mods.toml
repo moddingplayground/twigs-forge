@@ -1,23 +1,23 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[41,)"
 license="MIT (Code), All Rights Reserved (Assets)"
 
 [[mods]]
   modId       = "twigs"
-  version     = "1.2.0+1.19"
+  version     = "2.0.0+1.19"
   displayName = "Twigs"
   logoFile    = "icon.png"
-  description = "A Minecraft mod all about building, adding new and interesting materials, as well as extra renditions of vanilla blocks."
+  description = "A Minecraft mod all about building, adding new and interesting materials, as well as new renditions of current vanilla blocks."
 
 [[dependencies.twigs]]
   modId="forge"
   mandatory=true
-  versionRange="[40,)"
+  versionRange="[41,)"
   ordering="NONE"
   side="BOTH"
 [[dependencies.twigs]]
   modId="minecraft"
   mandatory=true
-  versionRange="[1.19,1.20)"
+  versionRange="[1.19,)"
   ordering="NONE"
   side="BOTH"
