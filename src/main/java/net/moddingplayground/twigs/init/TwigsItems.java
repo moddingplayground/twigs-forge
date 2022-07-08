@@ -1,7 +1,6 @@
 package net.moddingplayground.twigs.init;
 
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
 import net.minecraftforge.fml.common.Mod;
@@ -21,8 +20,8 @@ public class TwigsItems {
     public static final RegistryObject<Item> TWIG = ITEMS.register("twig", () -> new FlintAndSteelBlockItem(TwigsBlocks.TWIG.get(), new Item.Properties().tab(Twigs.ITEM_GROUP)));
     public static final RegistryObject<Item> PEBBLE = ITEMS.register("pebble", () -> new PebbleItem(TwigsBlocks.PEBBLE.get(), new Item.Properties().tab(Twigs.ITEM_GROUP)));
     public static final RegistryObject<Item> BAMBOO_LEAVES = ITEMS.register("bamboo_leaves", () -> new BlockItem(TwigsBlocks.BAMBOO_LEAVES.get(), new Item.Properties().tab(Twigs.ITEM_GROUP)));
-    public static final RegistryObject<Item> STRIPPED_BAMBOO_SIGN = ITEMS.register("stripped_bamboo_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), TwigsBlocks.STRIPPED_BAMBOO_SIGN.get(), TwigsBlocks.STRIPPED_BAMBOO_WALL_SIGN.get()));
-    public static final RegistryObject<Item> STRIPPED_BAMBOO_BOAT = ITEMS.register("stripped_bamboo_boat", () -> new StrippedBambooBoatItem(false, StrippedBambooBoatEntity.BoatType.STRIPPED_BAMBOO, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> STRIPPED_BAMBOO_CHEST_BOAT = ITEMS.register("stripped_bamboo_chest_boat", () -> new StrippedBambooBoatItem(true, StrippedBambooBoatEntity.BoatType.STRIPPED_BAMBOO, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> STRIPPED_BAMBOO_SIGN = ITEMS.register("stripped_bamboo_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Twigs.ITEM_GROUP), TwigsBlocks.STRIPPED_BAMBOO_SIGN.get(), TwigsBlocks.STRIPPED_BAMBOO_WALL_SIGN.get()));
+    public static final RegistryObject<Item> STRIPPED_BAMBOO_BOAT = ITEMS.register("stripped_bamboo_boat", () -> new StrippedBambooBoatItem(false, StrippedBambooBoatEntity.BoatType.STRIPPED_BAMBOO, new Item.Properties().stacksTo(1).tab(Twigs.ITEM_GROUP)));
+    public static final RegistryObject<Item> STRIPPED_BAMBOO_CHEST_BOAT = ITEMS.register("stripped_bamboo_chest_boat", () -> new StrippedBambooBoatItem(true, StrippedBambooBoatEntity.BoatType.STRIPPED_BAMBOO, new Item.Properties().stacksTo(1).tab(Twigs.ITEM_GROUP)));
 
 }
