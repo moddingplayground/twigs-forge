@@ -1,9 +1,13 @@
 package net.moddingplayground.twigs.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
@@ -12,10 +16,12 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.block.VerticalSlabBlock;
 import net.moddingplayground.twigs.init.TwigsBlockTags;
 import net.moddingplayground.twigs.init.TwigsBlocks;
 import net.moddingplayground.twigs.init.TwigsItemTags;
 import net.moddingplayground.twigs.init.TwigsItems;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TwigsItemTagsProvider extends ItemTagsProvider {
@@ -57,5 +63,16 @@ public class TwigsItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTags.WOODEN_SLABS).add(TwigsBlocks.STRIPPED_BAMBOO_SLAB.get().asItem());
         this.tag(ItemTags.WOODEN_STAIRS).add(TwigsBlocks.STRIPPED_BAMBOO_STAIRS.get().asItem());
         this.tag(ItemTags.WOODEN_TRAPDOORS).add(TwigsBlocks.STRIPPED_BAMBOO_TRAPDOOR.get().asItem());
+        this.tag(quarkTag("wooden_vertical_slabs")).add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get().asItem());
+        for (Block block : ForgeRegistries.BLOCKS) {
+            if (block instanceof VerticalSlabBlock) {
+                this.tag(quarkTag("vertical_slab")).add(block.asItem());
+            }
+        }
     }
+
+    private TagKey<Item> quarkTag(String id) {
+        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("quark", id));
+    }
+
 }

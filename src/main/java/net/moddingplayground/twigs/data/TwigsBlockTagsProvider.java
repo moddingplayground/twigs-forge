@@ -1,8 +1,11 @@
 package net.moddingplayground.twigs.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
@@ -13,8 +16,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.moddingplayground.twigs.Twigs;
 import net.moddingplayground.twigs.block.PaperLanternBlock;
 import net.moddingplayground.twigs.block.TableBlock;
+import net.moddingplayground.twigs.block.VerticalSlabBlock;
 import net.moddingplayground.twigs.init.TwigsBlockTags;
 import net.moddingplayground.twigs.init.TwigsBlocks;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TwigsBlockTagsProvider extends BlockTagsProvider {
@@ -67,5 +72,17 @@ public class TwigsBlockTagsProvider extends BlockTagsProvider {
                 }
             }
         }
+        for (Block block : ForgeRegistries.BLOCKS) {
+            if (block instanceof VerticalSlabBlock) {
+                this.tag(quarkTag("vertical_slabs")).add(block);
+            }
+        }
+        this.tag(quarkTag("wooden_vertical_slabs")).add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get());
+        this.tag(quarkTag("planks_vertical_slab")).add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get());
+    }
+
+    @NotNull
+    private TagKey<Block> quarkTag(String id) {
+        return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("quark", id));
     }
 }
