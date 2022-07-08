@@ -1,4 +1,5 @@
 {
+  "render_type": "cutout",
   "parent": "twigs:block/table_template",
   "textures": {
     "side": "twigs:block/acacia_table",
