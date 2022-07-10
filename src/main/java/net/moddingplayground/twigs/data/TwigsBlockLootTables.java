@@ -66,6 +66,7 @@ public class TwigsBlockLootTables extends BlockLoot {
         this.dropSelf(TwigsBlocks.CRIMSON_TABLE.get());
         this.dropSelf(TwigsBlocks.WARPED_TABLE.get());
         this.dropSelf(TwigsBlocks.STRIPPED_BAMBOO_TABLE.get());
+        this.dropSelf(TwigsBlocks.MANGROVE_TABLE.get());
         this.dropSelf(TwigsBlocks.CHISELED_BRICKS.get());
         this.dropSelf(TwigsBlocks.CRACKED_BRICKS.get());
         this.dropSelf(TwigsBlocks.MOSSY_BRICKS.get());
@@ -119,6 +120,7 @@ public class TwigsBlockLootTables extends BlockLoot {
         this.dropSelf(TwigsBlocks.ROCKY_DIRT.get());
         this.dropSelf(TwigsBlocks.TWIG.get());
         this.dropSelf(TwigsBlocks.PEBBLE.get());
+        this.dropSelf(TwigsBlocks.SEA_SHELL.get());
         this.dropSelf(TwigsBlocks.TUFF_STAIRS.get());
         this.dropSlab(TwigsBlocks.TUFF_SLAB.get());
         this.dropSelf(TwigsBlocks.TUFF_WALL.get());

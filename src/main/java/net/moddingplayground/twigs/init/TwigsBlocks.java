@@ -66,6 +66,7 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> CRIMSON_TABLE = registerBlock("crimson_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
     public static final RegistryObject<Block> WARPED_TABLE = registerBlock("warped_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
     public static final RegistryObject<Block> STRIPPED_BAMBOO_TABLE = registerBlock("stripped_bamboo_table", () -> new TableBlock(BlockBehaviour.Properties.copy(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get()).instabreak()));
+    public static final RegistryObject<Block> MANGROVE_TABLE = registerBlock("mangrove_table", () -> new TableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).instabreak()));
 
     //brick blocks
     public static final RegistryObject<Block> CHISELED_BRICKS = registerBlock("chiseled_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
@@ -133,6 +134,7 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
     public static final RegistryObject<Block> PEBBLE = registerBlockWithNoTab("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.STONE).instabreak().sound(SoundType.STONE).noCollission()));
+    public static final RegistryObject<Block> SEA_SHELL = registerBlock("sea_shell", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOL).instabreak().sound(SoundType.BONE_BLOCK).noCollission()));
 
     //tuff blocks
     public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.BASALT)));

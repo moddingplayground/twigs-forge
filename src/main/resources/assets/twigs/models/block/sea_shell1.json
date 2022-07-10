@@ -1,6 +1,7 @@
 {
+  "render_type": "cutout",
   "parent": "twigs:block/template_floor_layer",
   "textures": {
-    "texture": "twigs:block/pebble1"
+    "texture": "twigs:block/sea_shell1"
   }
 }

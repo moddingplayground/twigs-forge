@@ -16,6 +16,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.block.PaperLanternBlock;
+import net.moddingplayground.twigs.block.TableBlock;
 import net.moddingplayground.twigs.block.VerticalSlabBlock;
 import net.moddingplayground.twigs.init.TwigsBlockTags;
 import net.moddingplayground.twigs.init.TwigsBlocks;
@@ -53,6 +55,12 @@ public class TwigsItemTagsProvider extends ItemTagsProvider {
                 }
                 if (block instanceof WallBlock) {
                     this.tag(ItemTags.WALLS).add(block.asItem());
+                }
+                if (block instanceof TableBlock) {
+                    this.tag(TwigsItemTags.TABLES).add(block.asItem());
+                }
+                if (block instanceof PaperLanternBlock) {
+                    this.tag(TwigsItemTags.PAPER_LANTERNS).add(block.asItem());
                 }
             }
         }

@@ -1,0 +1,9 @@
+{
+  "render_type": "cutout",
+  "parent": "twigs:block/table_template",
+  "textures": {
+    "side": "twigs:block/mangrove_table",
+    "top": "twigs:block/mangrove_table_top",
+    "bottom": "twigs:block/mangrove_table_bottom"
+  }
+}

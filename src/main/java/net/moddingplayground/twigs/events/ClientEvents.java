@@ -2,6 +2,8 @@ package net.moddingplayground.twigs.events;
 
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +17,7 @@ import net.moddingplayground.twigs.Twigs;
 import net.moddingplayground.twigs.client.particles.TwigsBreakingItemParticle;
 import net.moddingplayground.twigs.client.renderers.StrippedBambooBoatRenderer;
 import net.moddingplayground.twigs.init.TwigsBlockEntities;
+import net.moddingplayground.twigs.init.TwigsBlocks;
 import net.moddingplayground.twigs.init.TwigsEntityTypes;
 import net.moddingplayground.twigs.init.TwigsParticleTypes;
 import net.moddingplayground.twigs.init.TwigsWoodType;
@@ -25,6 +28,10 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(TwigsWoodType::init);
+        ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.TWIG.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.PEBBLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.SEA_SHELL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.AZALEA_FLOWERS.get(), RenderType.cutout());
     }
 
     @SubscribeEvent
