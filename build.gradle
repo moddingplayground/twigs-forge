@@ -148,6 +148,7 @@ if (ENV.MODRINTH_TOKEN) modrinth {
   gameVersions = [ project.ver_minecraft ]
   dependencies = [
           // new ModDependency("presence-footsteps", DependencyType.OPTIONAL)
+          // new ModDependency("quark", DependencyType.OPTIONAL)
   ]
 }
 
@@ -166,6 +167,7 @@ if (ENV.CURSEFORGE_API_KEY) curseforge {
       displayName = VER_NAME
       relations {
         optionalDependency 'presence-footsteps-forge'
+        optionalDependency 'quark'
       }
     }
 
