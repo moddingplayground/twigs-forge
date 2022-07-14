@@ -2,10 +2,12 @@ package net.moddingplayground.twigs.data;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.Direction;
 import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
@@ -202,6 +204,27 @@ public class TwigsBlockLootTables extends BlockLoot {
         this.dropSelf(TwigsBlocks.POLISHED_BLOODSTONE_BRICK_WALL.get());
         this.add(TwigsBlocks.POLISHED_BLOODSTONE_BRICK_VERTICAL_SLAB.get(), this::verticalSlab);
         this.dropSelf(TwigsBlocks.CRACKED_POLISHED_BLOODSTONE_BRICKS.get());
+        this.dropSelf(TwigsBlocks.ENDER_MESH.get());
+        this.add(TwigsBlocks.PETRIFIED_LICHEN.get(), TwigsBlockLootTables::createMultifaceBlockDrops);
+    }
+
+    public static LootTable.Builder createMultifaceBlockDrops(Block block) {
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .add(
+                                        applyExplosionDecay(block,
+                                                LootItem.lootTableItem(block)
+                                                        .apply(Direction.values(), direction ->
+                                                                SetItemCountFunction.setCount(ConstantValue.exactly(1.0f), true)
+                                                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
+                                                                                StatePropertiesPredicate.Builder.properties()
+                                                                                        .hasProperty(MultifaceBlock.getFaceProperty(direction), true)
+                                                                        ))
+                                                        )
+                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(-1.0f), true)))
+                                )
+                );
     }
 
     @NotNull

@@ -31,7 +31,7 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> WARPED_SHROOMLAMP = registerBlock("warped_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
 
     //azalea blocks
-    public static final RegistryObject<Block> AZALEA_FLOWERS = registerBlock("azalea_flowers", () -> new GlowLichenBlock(BlockBehaviour.Properties.of(Material.PLANT).instabreak().sound(SoundType.AZALEA).noCollission()));
+    public static final RegistryObject<Block> AZALEA_FLOWERS = registerBlock("azalea_flowers", () -> new LichenBlock(BlockBehaviour.Properties.of(Material.PLANT).instabreak().sound(SoundType.AZALEA).noCollission()));
     public static final RegistryObject<Block> POTTED_AZALEA_FLOWERS = registerBlockWithNoTab("potted_azalea_flowers", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AZALEA_FLOWERS, BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
 
     //bamboo blocks
@@ -231,6 +231,9 @@ public final class TwigsBlocks {
 
     public static final RegistryObject<Block> STRIPPED_BAMBOO_SIGN = registerBlockWithNoTab("stripped_bamboo_sign", () -> new TwigsSignBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_WHITE).noCollission().strength(1.0F).sound(SoundType.SCAFFOLDING), TwigsWoodType.STRIPPED_BAMBOO));
     public static final RegistryObject<Block> STRIPPED_BAMBOO_WALL_SIGN = registerBlockWithNoTab("stripped_bamboo_wall_sign", () -> new TwigsWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.TERRACOTTA_WHITE).noCollission().strength(1.0F).sound(SoundType.SCAFFOLDING).lootFrom(STRIPPED_BAMBOO_SIGN), TwigsWoodType.STRIPPED_BAMBOO));
+
+    public static final RegistryObject<Block> ENDER_MESH = registerBlock("ender_mesh", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).strength(0.5F, 3.0F).requiresCorrectToolForDrops().lightLevel(state -> 4).sound(TwigsSoundEvents.ENDER_MESH)));
+    public static final RegistryObject<Block> PETRIFIED_LICHEN = registerBlock("petrified_lichen", () -> new LichenBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.STONE).lightLevel(LichenBlock.emission(7)).instabreak().noCollission().requiresCorrectToolForDrops().sound(TwigsSoundEvents.PETRIFIED_LICHEN)));
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> block) {
         RegistryObject<B> blocks = BLOCKS.register(name, block);

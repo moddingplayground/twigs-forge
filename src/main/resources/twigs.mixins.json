@@ -6,7 +6,9 @@
   "refmap": "twigs.refmap.json",
   "mixins": [
     "BlockStateBaseMixin",
-    "LightningBoltMixin"
+    "LightningBoltMixin",
+    "MultifaceGrowthFeatureMixin",
+    "access.FeatureContextAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

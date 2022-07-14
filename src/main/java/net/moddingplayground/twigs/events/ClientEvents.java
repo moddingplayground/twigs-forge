@@ -32,6 +32,7 @@ public class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.PEBBLE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.SEA_SHELL.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.AZALEA_FLOWERS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(TwigsBlocks.PETRIFIED_LICHEN.get(), RenderType.cutout());
     }
 
     @SubscribeEvent
