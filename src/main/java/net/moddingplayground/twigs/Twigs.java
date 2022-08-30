@@ -24,7 +24,6 @@ import net.moddingplayground.twigs.init.TwigsParticleTypes;
 import net.moddingplayground.twigs.init.TwigsPlacedFeatures;
 import net.moddingplayground.twigs.init.TwigsSoundEvents;
 import net.moddingplayground.twigs.init.TwigsVanillaIntegration;
-import net.moddingplayground.twigs.world.TwigsBiomeModifier;
 
 @Mod(Twigs.MOD_ID)
 public class Twigs {
@@ -56,9 +55,8 @@ public class Twigs {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        TwigsVanillaIntegration.init();
-
         event.enqueueWork(() -> {
+            TwigsVanillaIntegration.init();
             TwigsConfiguredFeatures.init();
             TwigsPlacedFeatures.init();
         });
