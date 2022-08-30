@@ -51,9 +51,8 @@ public class Twigs {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        TwigsVanillaIntegration.init();
-
         event.enqueueWork(() -> {
+            TwigsVanillaIntegration.init();
             TwigsConfiguredFeatures.init();
             TwigsPlacedFeatures.init();
         });

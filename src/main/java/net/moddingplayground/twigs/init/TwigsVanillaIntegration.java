@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 public class TwigsVanillaIntegration {
 
     public static void init() {
-        registerCompostable(0.5F, TwigsBlocks.BAMBOO_LEAVES.get());
+        registerCompostable(0.5F, TwigsItems.BAMBOO_LEAVES.get());
         registerFlammables(TwigsBlocks.AZALEA_FLOWERS.get(),30, 60);
         registerFlammables(TwigsBlocks.TWIG.get(),30, 60);
         registerFlammables(TwigsBlocks.BAMBOO_LEAVES.get(),30, 60);
