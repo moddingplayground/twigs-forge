@@ -27,13 +27,15 @@ apply plugin: 'org.spongepowered.mixin'
 
 java { toolchain.languageVersion = JavaLanguageVersion.of(17) }
 
+/* Setup Variables */
+
 def ENV = System.getenv()
-group = project.maven_group
 
-/* Versioning */
-
-String ver = "${project.version_id}+${project.github_branch}"
+String ver = "${project.version_id}+${project.major_version}-forge"
 version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
+
+archivesBaseName = project.mod_id
+group = project.maven_group
 
 /* Dependencies */
 
@@ -99,6 +101,7 @@ mixin { add sourceSets.main, "${project.mod_id}.refmap.json" }
 
 def VER_NAME = "[$project.major_version] $project.mod_name $project.version_id"
 def CHANGELOG = new File("./gradle", "CHANGELOG.md").text
+def SUPPORTED_VERSIONS = Arrays.asList(project.supported_versions.split(','))
 
 import org.kohsuke.github.*
 task github(dependsOn: build) {
@@ -111,7 +114,7 @@ task github(dependsOn: build) {
     builder.name(VER_NAME)
     builder.body(CHANGELOG)
     builder.commitish(project.github_branch)
-    builder.prerelease(project.release_type == 'alpha')
+    builder.prerelease(project.release_type != 'release')
     builder.create().uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
   }
 }
@@ -121,10 +124,10 @@ if (ENV.MODRINTH_TOKEN) modrinth {
   projectId = project.modrinth_id
   versionNumber = version
   versionName = VER_NAME
-  versionType = project.release_type == 'alpha' ? 'beta' : 'release'
+  versionType = project.release_type
   changelog = CHANGELOG
   uploadFile = jar
-  gameVersions = [ project.ver_minecraft ]
+  gameVersions = SUPPORTED_VERSIONS
 }
 
 if (ENV.CURSEFORGE_API_KEY) curseforge {
@@ -132,8 +135,8 @@ if (ENV.CURSEFORGE_API_KEY) curseforge {
 
   project {
     id = project.curseforge_id
-    addGameVersion project.curseforge_version
     addGameVersion 'Forge'
+    for (final def cf_ver in SUPPORTED_VERSIONS) addGameVersion cf_ver
 
     changelog = CHANGELOG
     releaseType = project.release_type
