@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#twigs:spawns_sea_shell",
+  "features": [
+    "twigs:patch_sea_shell"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "twigs:add_features_with_condition_biome_modifier",
+  "biomes": "#minecraft:is_overworld",
+  "omit": "#twigs:does_not_spawn_rhyolite",
+  "features": [
+    "twigs:ore_rhyolite_lower"
+  ],
+  "step": "underground_ores"
+}
