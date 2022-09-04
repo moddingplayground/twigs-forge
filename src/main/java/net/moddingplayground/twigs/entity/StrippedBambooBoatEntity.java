@@ -20,8 +20,8 @@ public class StrippedBambooBoatEntity extends Boat {
 
     private static final EntityDataAccessor<Integer> BOAT_TYPE = SynchedEntityData.defineId(StrippedBambooBoatEntity.class, EntityDataSerializers.INT);
 
-    public StrippedBambooBoatEntity(EntityType<? extends Boat> type, Level p_38291_) {
-        super(type, p_38291_);
+    public StrippedBambooBoatEntity(EntityType<? extends Boat> type, Level world) {
+        super(type, world);
         this.blocksBuilding = true;
     }
 

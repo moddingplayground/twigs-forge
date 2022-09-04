@@ -1,14 +1,6 @@
 {
-  "mod.twigs.name": "Twigs",
-  "mod.twigs.contact.discord": "Discord",
 
-  "itemGroup.twigs.item_group": "Twigs",
-  "itemGroup.twigs.item_group.tab": "§7Twigs > §8%s",
-  "itemGroup.twigs.item_group.tab.natural": "自然",
-  "itemGroup.twigs.item_group.tab.stones": "岩石",
-  "itemGroup.twigs.item_group.tab.decoration": "装饰方块",
-  "itemGroup.twigs.item_group.tab.miscellaneous": "杂项",
-
+  "itemGroup.twigs": "Twigs",
 
   "subtitles.block.twigs.lamp.light": "灯：点亮",
   "subtitles.block.twigs.lamp.extinguish": "灯：熄灭",

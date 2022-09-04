@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "twigs:stripped_bamboo_slab"
+  },
+  "result": "twigs:stripped_bamboo_planks_vertical_slab"
+}

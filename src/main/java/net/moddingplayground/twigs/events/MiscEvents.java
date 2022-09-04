@@ -58,9 +58,9 @@ public class MiscEvents {
     @SubscribeEvent
     public void onRightClick(PlayerInteractEvent.RightClickBlock event) {
         BlockPos blockPos = event.getPos();
-        Level world = event.getWorld();
+        Level world = event.getLevel();
         BlockState state = world.getBlockState(blockPos);
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
         InteractionHand hand = event.getHand();
         if (state.is(Blocks.FLOWERING_AZALEA) && stack.is(Tags.Items.SHEARS)) {
@@ -148,22 +148,4 @@ public class MiscEvents {
         }
     }
 
-    @SubscribeEvent
-    public void onItemRightClick(PlayerInteractEvent.RightClickItem event) {
-        ItemStack stack = event.getItemStack();
-        Level world = event.getWorld();
-        Player player = event.getPlayer();
-        if (stack.is(TwigsBlocks.PEBBLE.get().asItem())) {
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide()) {
-                PebbleEntity pebbleEntity = new PebbleEntity(world, player);
-                pebbleEntity.setItem(stack);
-                pebbleEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-                world.addFreshEntity(pebbleEntity);
-            }
-            if (!player.getAbilities().instabuild) {
-                stack.shrink(1);
-            }
-        }
-    }
 }

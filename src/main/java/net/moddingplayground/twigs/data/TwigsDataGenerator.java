@@ -2,9 +2,9 @@ package net.moddingplayground.twigs.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.moddingplayground.twigs.Twigs;
 
 @Mod.EventBusSubscriber(modid = Twigs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -19,6 +19,7 @@ public class TwigsDataGenerator {
         dataGenerator.addProvider(event.includeServer(), new TwigsBlockTagsProvider(dataGenerator, helper));
         dataGenerator.addProvider(event.includeServer(), new TwigsEntityTypeTagsProvider(dataGenerator, helper));
         dataGenerator.addProvider(event.includeServer(), new TwigsBiomeTagsProvider(dataGenerator, helper));
+        dataGenerator.addProvider(event.includeServer(), new TwigsRecipeProvider(dataGenerator));
     }
 
 }

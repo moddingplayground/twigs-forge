@@ -33,8 +33,8 @@ public class StrippedBambooChestBoatEntity extends StrippedBambooBoatEntity impl
     private ResourceLocation lootTable;
     private long lootTableSeed;
 
-    public StrippedBambooChestBoatEntity(EntityType<? extends Boat> p_219869_, Level p_219870_) {
-        super(p_219869_, p_219870_);
+    public StrippedBambooChestBoatEntity(EntityType<? extends Boat> type, Level world) {
+        super(type, world);
     }
 
     public StrippedBambooChestBoatEntity(Level world, double x, double y, double z) {

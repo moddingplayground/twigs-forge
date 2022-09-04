@@ -25,7 +25,7 @@ public final class TwigsBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Twigs.MOD_ID);
 
     //lamps
-    public static final RegistryObject<Block> LAMP = registerBlock("lamp", () -> new LampBlock(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(4.5F).sound(SoundType.LANTERN).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0)));
+    public static final RegistryObject<Block> LAMP = registerBlock("lamp", () -> new LampBlock(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(4.5F).sound(TwigsSoundEvents.LAMP).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0)));
     public static final RegistryObject<Block> SOUL_LAMP = registerBlock("soul_lamp", () -> new LampBlock(BlockBehaviour.Properties.copy(TwigsBlocks.LAMP.get())));
     public static final RegistryObject<Block> CRIMSON_SHROOMLAMP = registerBlock("crimson_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
     public static final RegistryObject<Block> WARPED_SHROOMLAMP = registerBlock("warped_shroomlamp", () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD).strength(3.5F).sound(SoundType.SHROOMLIGHT).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 15).noOcclusion()));
@@ -35,7 +35,7 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> POTTED_AZALEA_FLOWERS = registerBlockWithNoTab("potted_azalea_flowers", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AZALEA_FLOWERS, BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
 
     //bamboo blocks
-    public static final RegistryObject<Block> BAMBOO_LEAVES = registerBlockWithNoTab("bamboo_leaves", () -> new BambooLeavesBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES).sound(SoundType.AZALEA_LEAVES).instabreak().noCollission()));
+    public static final RegistryObject<Block> BAMBOO_LEAVES = registerBlockWithNoTab("bamboo_leaves", () -> new BambooLeavesBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES).sound(TwigsSoundEvents.BAMBOO_LEAVES).instabreak().noCollission()));
     public static final RegistryObject<Block> STRIPPED_BAMBOO = registerBlock("stripped_bamboo", () -> new StrippedBambooBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO).offsetType(BlockBehaviour.OffsetType.XZ)));
     public static final RegistryObject<Block> STRIPPED_BUNDLED_BAMBOO = registerBlock("stripped_bundled_bamboo", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.SCAFFOLDING)));
     public static final RegistryObject<Block> BUNDLED_BAMBOO = registerBlock("bundled_bamboo", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.SCAFFOLDING)));
@@ -45,7 +45,7 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> BAMBOO_THATCH_VERTICAL_SLAB = registerCompatBlock("quark", "bamboo_thatch_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(BAMBOO_THATCH.get())));
 
     public static final RegistryObject<Block> STRIPPED_BAMBOO_MAT = registerBlock("stripped_bamboo_mat", () -> new BambooMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_CARPET).sound(SoundType.SCAFFOLDING)));
-    public static final RegistryObject<Block> STRIPPED_BAMBOO_PLANKS = registerBlock("stripped_bamboo_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(1.0F, 1.5F).sound(SoundType.SCAFFOLDING)));
+    public static final RegistryObject<Block> STRIPPED_BAMBOO_PLANKS = registerBlock("stripped_bamboo_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(1.0F, 1.5F).sound(TwigsSoundEvents.STRIPPED_BAMBOO)));
     public static final RegistryObject<Block> STRIPPED_BAMBOO_STAIRS = registerBlock("stripped_bamboo_stairs", () -> new StairBlock(() -> STRIPPED_BAMBOO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
     public static final RegistryObject<Block> STRIPPED_BAMBOO_SLAB = registerBlock("stripped_bamboo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
     public static final RegistryObject<Block> STRIPPED_BAMBOO_FENCE = registerBlock("stripped_bamboo_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(STRIPPED_BAMBOO_PLANKS.get())));
@@ -124,17 +124,17 @@ public final class TwigsBlocks {
     public static final RegistryObject<Block> WEEPING_POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB = registerCompatBlock("quark", "weeping_polished_blackstone_brick_vertical_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.copy(WEEPING_POLISHED_BLACKSTONE_BRICKS.get())));
 
     //paper lanterns
-    public static final RegistryObject<Block> PAPER_LANTERN = registerBlock("paper_lantern", () -> new PaperLanternBlock(Blocks.AIR, BlockBehaviour.Properties.of(Material.WOOL).instabreak().sound(SoundType.BAMBOO).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
+    public static final RegistryObject<Block> PAPER_LANTERN = registerBlock("paper_lantern", () -> new PaperLanternBlock(Blocks.AIR, BlockBehaviour.Properties.of(Material.WOOL).instabreak().sound(TwigsSoundEvents.PAPER_LANTERN).isViewBlocking(BlockBehaviour.BlockStateBase::emissiveRendering).lightLevel(value -> 10).noOcclusion()));
     public static final RegistryObject<Block> ALLIUM_PAPER_LANTERN = registerBlock("allium_paper_lantern", () -> new PaperLanternBlock(Blocks.ALLIUM, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
     public static final RegistryObject<Block> BLUE_ORCHID_PAPER_LANTERN = registerBlock("blue_orchid_paper_lantern", () -> new PaperLanternBlock(Blocks.BLUE_ORCHID, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
     public static final RegistryObject<Block> CRIMSON_ROOTS_PAPER_LANTERN = registerBlock("crimson_roots_paper_lantern", () -> new PaperLanternBlock(Blocks.CRIMSON_ROOTS, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
     public static final RegistryObject<Block> DANDELION_PAPER_LANTERN = registerBlock("dandelion_paper_lantern", () -> new PaperLanternBlock(Blocks.DANDELION, BlockBehaviour.Properties.copy(TwigsBlocks.PAPER_LANTERN.get())));
 
     //miscellaneous blocks
-    public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(SoundType.TUFF).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOD).instabreak().sound(SoundType.WOOD).noCollission()));
-    public static final RegistryObject<Block> PEBBLE = registerBlockWithNoTab("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.STONE).instabreak().sound(SoundType.STONE).noCollission()));
-    public static final RegistryObject<Block> SEA_SHELL = registerBlock("sea_shell", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOL).instabreak().sound(SoundType.BONE_BLOCK).noCollission()));
+    public static final RegistryObject<Block> ROCKY_DIRT = registerBlock("rocky_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(2.5F).sound(TwigsSoundEvents.ROCKY_DIRT).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TWIG = registerBlockWithNoTab("twig", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOD).instabreak().sound(TwigsSoundEvents.TWIG).noCollission()));
+    public static final RegistryObject<Block> PEBBLE = registerBlockWithNoTab("pebble", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.STONE).instabreak().sound(TwigsSoundEvents.PEBBLE).noCollission()));
+    public static final RegistryObject<Block> SEA_SHELL = registerBlock("sea_shell", () -> new FloorLayerBlock(BlockBehaviour.Properties.of(TwigsMaterials.FLOOR_LAYER, MaterialColor.WOOL).instabreak().sound(TwigsSoundEvents.SEA_SHELL).noCollission()));
 
     //tuff blocks
     public static final RegistryObject<Block> TUFF_STAIRS = registerBlock("tuff_stairs", () -> new StairBlock(Blocks.TUFF::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.BASALT)));

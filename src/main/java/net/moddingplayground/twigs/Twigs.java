@@ -1,6 +1,5 @@
 package net.moddingplayground.twigs;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,7 +27,7 @@ import net.moddingplayground.twigs.init.TwigsVanillaIntegration;
 @Mod(Twigs.MOD_ID)
 public class Twigs {
     public static final String MOD_ID = "twigs";
-    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab(new ResourceLocation(MOD_ID, "item_group").toString()) {
+    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab(MOD_ID) {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(TwigsBlocks.TWIG.get());
