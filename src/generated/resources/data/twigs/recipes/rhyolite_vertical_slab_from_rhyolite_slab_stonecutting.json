@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "twigs:rhyolite_slab"
-  },
-  "result": "twigs:rhyolite_vertical_slab"
-}

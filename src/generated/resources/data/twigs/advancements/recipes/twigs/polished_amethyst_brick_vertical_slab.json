@@ -1,34 +1,46 @@
 {
-  "parent": "minecraft:recipes/root",
-  "criteria": {
-    "has_polished_amethyst_brick_slab": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "twigs:polished_amethyst_brick_slab"
-            ]
+  "advancements": [
+    {
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "criteria": {
+          "has_polished_amethyst_brick_slab": {
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "twigs:polished_amethyst_brick_slab"
+                  ]
+                }
+              ]
+            },
+            "trigger": "minecraft:inventory_changed"
+          },
+          "has_the_recipe": {
+            "conditions": {
+              "recipe": "twigs:polished_amethyst_brick_vertical_slab"
+            },
+            "trigger": "minecraft:recipe_unlocked"
           }
-        ]
+        },
+        "requirements": [
+          [
+            "has_polished_amethyst_brick_slab",
+            "has_the_recipe"
+          ]
+        ],
+        "rewards": {
+          "recipes": [
+            "twigs:polished_amethyst_brick_vertical_slab"
+          ]
+        }
       },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "twigs:polished_amethyst_brick_vertical_slab"
-      },
-      "trigger": "minecraft:recipe_unlocked"
+      "conditions": [
+        {
+          "type": "twigs:quark_flag",
+          "flag": "vertical_slabs"
+        }
+      ]
     }
-  },
-  "requirements": [
-    [
-      "has_polished_amethyst_brick_slab",
-      "has_the_recipe"
-    ]
-  ],
-  "rewards": {
-    "recipes": [
-      "twigs:polished_amethyst_brick_vertical_slab"
-    ]
-  }
+  ]
 }

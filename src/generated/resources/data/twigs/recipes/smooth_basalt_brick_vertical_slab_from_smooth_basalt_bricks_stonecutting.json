@@ -1,0 +1,21 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "twigs:quark_flag",
+          "flag": "vertical_slabs"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:stonecutting",
+        "count": 2,
+        "ingredient": {
+          "item": "twigs:smooth_basalt_bricks"
+        },
+        "result": "twigs:smooth_basalt_brick_vertical_slab"
+      }
+    }
+  ]
+}

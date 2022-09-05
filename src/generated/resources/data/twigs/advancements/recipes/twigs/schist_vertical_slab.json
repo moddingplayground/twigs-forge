@@ -1,34 +1,46 @@
 {
-  "parent": "minecraft:recipes/root",
-  "criteria": {
-    "has_schist_slab": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "twigs:schist_slab"
-            ]
+  "advancements": [
+    {
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "criteria": {
+          "has_schist_slab": {
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "twigs:schist_slab"
+                  ]
+                }
+              ]
+            },
+            "trigger": "minecraft:inventory_changed"
+          },
+          "has_the_recipe": {
+            "conditions": {
+              "recipe": "twigs:schist_vertical_slab"
+            },
+            "trigger": "minecraft:recipe_unlocked"
           }
-        ]
+        },
+        "requirements": [
+          [
+            "has_schist_slab",
+            "has_the_recipe"
+          ]
+        ],
+        "rewards": {
+          "recipes": [
+            "twigs:schist_vertical_slab"
+          ]
+        }
       },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "twigs:schist_vertical_slab"
-      },
-      "trigger": "minecraft:recipe_unlocked"
+      "conditions": [
+        {
+          "type": "twigs:quark_flag",
+          "flag": "vertical_slabs"
+        }
+      ]
     }
-  },
-  "requirements": [
-    [
-      "has_schist_slab",
-      "has_the_recipe"
-    ]
-  ],
-  "rewards": {
-    "recipes": [
-      "twigs:schist_vertical_slab"
-    ]
-  }
+  ]
 }

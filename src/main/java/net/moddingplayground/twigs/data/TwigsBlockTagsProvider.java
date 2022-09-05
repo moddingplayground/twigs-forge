@@ -74,11 +74,13 @@ public class TwigsBlockTagsProvider extends BlockTagsProvider {
         }
         for (Block block : ForgeRegistries.BLOCKS) {
             if (block instanceof VerticalSlabBlock) {
-                this.tag(quarkTag("vertical_slabs")).add(block);
+                this.tag(quarkTag("vertical_slab")).add(block);
+                if (block != TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get() && block != TwigsBlocks.BAMBOO_THATCH_VERTICAL_SLAB.get()) {
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+                }
             }
         }
         this.tag(quarkTag("wooden_vertical_slabs")).add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get());
-        this.tag(quarkTag("planks_vertical_slab")).add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get());
     }
 
     @NotNull

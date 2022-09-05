@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.moddingplayground.twigs.config.TwigsConfig;
 import net.moddingplayground.twigs.crafting.conditions.QuarkCondition;
 import net.moddingplayground.twigs.events.MiscEvents;
@@ -46,6 +48,8 @@ public class Twigs {
         TwigsParticleTypes.PARTICLE_TYPES.register(modEventBus);
         TwigsSoundEvents.SOUND_EVENTS.register(modEventBus);
 
+        CraftingHelper.register(new QuarkCondition.Serializer());
+
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -59,8 +63,6 @@ public class Twigs {
             TwigsConfiguredFeatures.init();
             TwigsPlacedFeatures.init();
         });
-
-        CraftingHelper.register(new QuarkCondition.Serializer());
     }
 
 }

@@ -2,6 +2,7 @@ package net.moddingplayground.twigs.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -15,7 +16,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.moddingplayground.twigs.Twigs;
+import net.moddingplayground.twigs.crafting.conditions.QuarkCondition;
 import net.moddingplayground.twigs.init.TwigsBlocks;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,36 +41,31 @@ public class TwigsRecipeProvider extends RecipeProvider {
         azaleaConversion(Items.AZALEA, Items.FLOWERING_AZALEA).save(consumer, conversionFileName(Items.FLOWERING_AZALEA, TwigsBlocks.AZALEA_FLOWERS.get()));
         azaleaConversion(Items.AZALEA_LEAVES, Items.FLOWERING_AZALEA_LEAVES).save(consumer, conversionFileName(Items.FLOWERING_AZALEA_LEAVES, TwigsBlocks.AZALEA_FLOWERS.get()));
 
-        // mossy bricks
         shapeless(Items.VINE, Items.BRICKS, TwigsBlocks.MOSSY_BRICKS.get(), 2).save(consumer);
         shapeless(Items.VINE, TwigsBlocks.COBBLESTONE_BRICKS.get(), TwigsBlocks.MOSSY_COBBLESTONE_BRICKS.get(), 2).save(consumer);
 
-        // blackstone bricks
         shapeless(Items.POLISHED_BLACKSTONE_BRICKS, Items.TWISTING_VINES, TwigsBlocks.TWISTING_POLISHED_BLACKSTONE_BRICKS.get(), 1).save(consumer);
         shapeless(Items.POLISHED_BLACKSTONE_BRICKS, Items.WEEPING_VINES, TwigsBlocks.WEEPING_POLISHED_BLACKSTONE_BRICKS.get(), 1).save(consumer);
 
-        // stones
         chequer2x2(Items.RED_SAND, Items.QUARTZ, TwigsBlocks.RHYOLITE.get(), 2).save(consumer);
         chequer2x2(Items.CLAY_BALL, Items.QUARTZ, TwigsBlocks.SCHIST.get(), 2).save(consumer);
         chequer2x2(Items.IRON_NUGGET, Items.QUARTZ, TwigsBlocks.BLOODSTONE.get(), 2).save(consumer);
 
-        // paper lantern
         ringSurrounding(Items.PAPER, Items.TORCH, TwigsBlocks.PAPER_LANTERN.get(), 2).group("paper_lantern").save(consumer);
         paperLantern(Items.ALLIUM, TwigsBlocks.ALLIUM_PAPER_LANTERN.get().asItem()).save(consumer);
         paperLantern(Items.BLUE_ORCHID, TwigsBlocks.BLUE_ORCHID_PAPER_LANTERN.get().asItem()).save(consumer);
         paperLantern(Items.CRIMSON_ROOTS, TwigsBlocks.CRIMSON_ROOTS_PAPER_LANTERN.get().asItem()).save(consumer);
         paperLantern(Items.DANDELION, TwigsBlocks.DANDELION_PAPER_LANTERN.get().asItem()).save(consumer);
 
-        // lamps
         lamp(Items.TORCH, TwigsBlocks.LAMP.get().asItem()).save(consumer);
         lamp(Items.SOUL_TORCH, TwigsBlocks.SOUL_LAMP.get().asItem()).save(consumer);
 
-        // shroomlamps
         sandwich(Items.CRIMSON_PLANKS, Items.SHROOMLIGHT, TwigsBlocks.CRIMSON_SHROOMLAMP.get(), 3).group("shroomlamp").save(consumer);
         sandwich(Items.WARPED_PLANKS, Items.SHROOMLIGHT, TwigsBlocks.WARPED_SHROOMLAMP.get(), 3).group("shroomlamp").save(consumer);
 
-        // bamboo
         generic2x2(TwigsBlocks.BAMBOO_LEAVES.get(), TwigsBlocks.BAMBOO_THATCH.get(), 2).save(consumer);
+        stairBuilder(TwigsBlocks.BAMBOO_THATCH_STAIRS.get(), Ingredient.of(TwigsBlocks.BAMBOO_THATCH.get())).unlockedBy(getHasName(TwigsBlocks.BAMBOO_THATCH.get()), has(TwigsBlocks.BAMBOO_THATCH.get())).save(consumer);
+        slab(consumer, TwigsBlocks.BAMBOO_THATCH_SLAB.get(), TwigsBlocks.BAMBOO_THATCH.get());
         generic3x3(Items.BAMBOO, TwigsBlocks.BUNDLED_BAMBOO.get(), 3).save(consumer);
         shapeless(TwigsBlocks.BUNDLED_BAMBOO.get(), Items.BAMBOO, 3).save(consumer);
         stonecutting(consumer, TwigsBlocks.BUNDLED_BAMBOO.get(), TwigsBlocks.STRIPPED_BUNDLED_BAMBOO.get());
@@ -87,7 +86,6 @@ public class TwigsRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(TwigsBlocks.STRIPPED_BAMBOO_PRESSURE_PLATE.get()).define('#', TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get()).pattern("##").unlockedBy(getHasName(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get()), has(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(TwigsBlocks.STRIPPED_BAMBOO_BUTTON.get()).requires(Ingredient.of(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get())).group("wooden_button").unlockedBy(getHasName(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get()), has(TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get())).save(consumer);
 
-        // tables
         table(TwigsBlocks.OAK_TABLE.get().asItem(), Blocks.OAK_PLANKS.asItem(), Blocks.OAK_SLAB.asItem()).save(consumer);
         table(TwigsBlocks.SPRUCE_TABLE.get().asItem(), Blocks.SPRUCE_PLANKS.asItem(), Blocks.SPRUCE_SLAB.asItem()).save(consumer);
         table(TwigsBlocks.BIRCH_TABLE.get().asItem(), Blocks.BIRCH_PLANKS.asItem(), Blocks.BIRCH_SLAB.asItem()).save(consumer);
@@ -99,7 +97,6 @@ public class TwigsRecipeProvider extends RecipeProvider {
         table(TwigsBlocks.WARPED_TABLE.get().asItem(), Blocks.WARPED_PLANKS.asItem(), Blocks.WARPED_SLAB.asItem()).save(consumer);
         table(TwigsBlocks.STRIPPED_BAMBOO_TABLE.get().asItem(), TwigsBlocks.STRIPPED_BAMBOO_PLANKS.get().asItem(), TwigsBlocks.STRIPPED_BAMBOO_SLAB.get().asItem()).save(consumer);
 
-        // ender mesh
         eye(TwigsBlocks.ENDER_MESH.get().asItem(), Items.ENDER_PEARL, Items.OBSIDIAN, 16).save(consumer);
 
         stairBuilder(TwigsBlocks.MOSSY_BRICK_STAIRS.get(), Ingredient.of(TwigsBlocks.MOSSY_BRICKS.get())).unlockedBy(getHasName(TwigsBlocks.MOSSY_BRICKS.get()), has(TwigsBlocks.MOSSY_BRICKS.get())).save(consumer);
@@ -427,11 +424,106 @@ public class TwigsRecipeProvider extends RecipeProvider {
         verticalSlab(consumer, TwigsBlocks.BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.BLOODSTONE_SLAB.get());
         verticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE_SLAB.get());
         verticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE_BRICK_SLAB.get());
+
+        stonecutVerticalSlab(consumer, TwigsBlocks.MOSSY_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.MOSSY_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.SMOOTH_BASALT_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.SMOOTH_BASALT_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.COBBLESTONE_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.MOSSY_COBBLESTONE_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_BRICK_VERTICAL_SLAB.get(), Blocks.AMETHYST_BLOCK);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_AMETHYST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_AMETHYST_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_VERTICAL_SLAB.get(), Blocks.AMETHYST_BLOCK);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_AMETHYST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.TWISTING_POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.TWISTING_POLISHED_BLACKSTONE_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.WEEPING_POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.WEEPING_POLISHED_BLACKSTONE_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.TUFF_VERTICAL_SLAB.get(), Blocks.TUFF);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_VERTICAL_SLAB.get(), Blocks.TUFF);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_TUFF.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_BRICK_VERTICAL_SLAB.get(), Blocks.TUFF);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_TUFF.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_TUFF_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.CALCITE_VERTICAL_SLAB.get(), Blocks.CALCITE);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get(), Blocks.CALCITE);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_CALCITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_BRICK_VERTICAL_SLAB.get(), Blocks.CALCITE);
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_CALCITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_CALCITE_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.RHYOLITE_VERTICAL_SLAB.get(), TwigsBlocks.RHYOLITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_VERTICAL_SLAB.get(), TwigsBlocks.RHYOLITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_RHYOLITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.RHYOLITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_RHYOLITE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_RHYOLITE_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.SCHIST_VERTICAL_SLAB.get(), TwigsBlocks.SCHIST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_VERTICAL_SLAB.get(), TwigsBlocks.SCHIST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_SCHIST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.SCHIST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_SCHIST.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_SCHIST_BRICKS.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.BLOODSTONE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.BLOODSTONE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.BLOODSTONE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE.get());
+        stonecutVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE_BRICKS.get());
+
+        revertVerticalSlab(consumer, TwigsBlocks.BAMBOO_THATCH_VERTICAL_SLAB.get(), TwigsBlocks.BAMBOO_THATCH_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get(), TwigsBlocks.STRIPPED_BAMBOO_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.MOSSY_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.MOSSY_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.SMOOTH_BASALT_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.SMOOTH_BASALT_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.COBBLESTONE_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.MOSSY_COBBLESTONE_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_AMETHYST_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_AMETHYST_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_AMETHYST_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.TWISTING_POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.TWISTING_POLISHED_BLACKSTONE_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.WEEPING_POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.WEEPING_POLISHED_BLACKSTONE_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.TUFF_VERTICAL_SLAB.get(), TwigsBlocks.TUFF_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_TUFF_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_TUFF_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_TUFF_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.CALCITE_VERTICAL_SLAB.get(), TwigsBlocks.CALCITE_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_CALCITE_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_CALCITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_CALCITE_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.RHYOLITE_VERTICAL_SLAB.get(), TwigsBlocks.RHYOLITE_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_RHYOLITE_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_RHYOLITE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_RHYOLITE_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.SCHIST_VERTICAL_SLAB.get(), TwigsBlocks.SCHIST_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_SCHIST_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_SCHIST_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_SCHIST_BRICK_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.BLOODSTONE_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE_SLAB.get());
+        revertVerticalSlab(consumer, TwigsBlocks.POLISHED_BLOODSTONE_BRICK_VERTICAL_SLAB.get(), TwigsBlocks.POLISHED_BLOODSTONE_BRICK_SLAB.get());
     }
 
     private void verticalSlab(Consumer<FinishedRecipe> consumer, Block verticalSlab, Block ingredient) {
-        ShapedRecipeBuilder.shaped(verticalSlab, 3).define('#', ingredient).pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer);
-        stonecutting(consumer, ingredient, verticalSlab);
+        RecipeBuilder recipe = ShapedRecipeBuilder.shaped(verticalSlab, 3).define('#', ingredient).pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(ingredient), has(ingredient));
+        ResourceLocation id = RecipeBuilder.getDefaultRecipeId(recipe.getResult());
+        QuarkCondition condition = new QuarkCondition(new ResourceLocation(Twigs.MOD_ID, "quark_flag"), "vertical_slabs");
+        ConditionalRecipe.builder()
+                .addCondition(condition)
+                .addRecipe(consumer1 -> recipe.save(consumer1, id))
+                .generateAdvancement(new ResourceLocation(id.getNamespace(), "recipes/" + recipe.getResult().getItemCategory().getRecipeFolderName() + "/" + id.getPath()))
+                .build(consumer, id);
+    }
+
+    private void stonecutVerticalSlab(Consumer<FinishedRecipe> consumer, Block verticalSlab, Block ingredient) {
+        RecipeBuilder stonecuttingRecipe = SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingredient), verticalSlab, 2).unlockedBy(getHasName(ingredient), has(ingredient));
+        ResourceLocation stonecuttingId = new ResourceLocation(Twigs.MOD_ID, getConversionRecipeName(verticalSlab, ingredient) + "_stonecutting");
+        QuarkCondition condition = new QuarkCondition(new ResourceLocation(Twigs.MOD_ID, "quark_flag"), "vertical_slabs");
+        ConditionalRecipe.builder()
+                .addCondition(condition)
+                .addRecipe(consumer1 -> stonecuttingRecipe.save(consumer1, stonecuttingId))
+                .generateAdvancement(new ResourceLocation(stonecuttingId.getNamespace(), "recipes/" + stonecuttingRecipe.getResult().getItemCategory().getRecipeFolderName() + "/" + stonecuttingId.getPath()))
+                .build(consumer, stonecuttingId);
+    }
+
+    private void revertVerticalSlab(Consumer<FinishedRecipe> consumer, Block verticalSlab, Block block) {
+        ResourceLocation id = new ResourceLocation(RecipeBuilder.getDefaultRecipeId(verticalSlab) + "_revert");
+        RecipeBuilder recipe = ShapelessRecipeBuilder.shapeless(block).requires(verticalSlab).unlockedBy(getHasName(verticalSlab), has(verticalSlab));
+        ConditionalRecipe.builder()
+                .addCondition(new QuarkCondition(new ResourceLocation(Twigs.MOD_ID, "quark_flag"), "vertical_slabs"))
+                .addRecipe(consumer1 -> recipe.save(consumer1, id))
+                .generateAdvancement(new ResourceLocation(id.getNamespace(), "recipes/" + recipe.getResult().getItemCategory().getRecipeFolderName() + "/" + id.getPath()))
+                .build(consumer, id);
     }
 
     private void wall(Consumer<FinishedRecipe> consumer, Block wall, Block ingredient) {
