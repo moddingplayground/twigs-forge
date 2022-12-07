@@ -1,4 +1,5 @@
 {
+  "render_type": "cutout",
   "parent": "twigs:block/template_floor_layer",
   "textures": {
     "texture": "twigs:block/pebble0"
