@@ -148,7 +148,7 @@ if (ENV.MODRINTH_TOKEN) modrinth {
   gameVersions = [ project.ver_minecraft ]
   dependencies = [
           // new ModDependency("presence-footsteps", DependencyType.OPTIONAL)
-          // new ModDependency("quark", DependencyType.OPTIONAL)
+           new ModDependency("quark", DependencyType.OPTIONAL)
   ]
 }
 

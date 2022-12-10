@@ -11,8 +11,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import net.moddingplayground.twigs.Twigs;
 import net.moddingplayground.twigs.block.PaperLanternBlock;
 import net.moddingplayground.twigs.block.TableBlock;
@@ -53,33 +52,29 @@ public class TwigsBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.FOXES_SPAWNABLE_ON).add(TwigsBlocks.ROCKY_DIRT.get());
         this.tag(BlockTags.ENDERMAN_HOLDABLE).add(TwigsBlocks.ROCKY_DIRT.get());
         this.tag(BlockTags.BAMBOO_PLANTABLE_ON).add(TwigsBlocks.ROCKY_DIRT.get());
-        for (Block block : ForgeRegistries.BLOCKS) {
-            if (ModList.get().isLoaded(Twigs.MOD_ID)) {
-                if (block instanceof WallBlock) {
-                    this.tag(BlockTags.WALLS).add(block);
-                }
-                if (block instanceof SlabBlock) {
-                    this.tag(BlockTags.SLABS).add(block);
-                }
-                if (block instanceof StairBlock) {
-                    this.tag(BlockTags.STAIRS).add(block);
-                }
-                if (block instanceof TableBlock) {
-                    this.tag(TwigsBlockTags.TABLES).add(block);
-                }
-                if (block instanceof PaperLanternBlock) {
-                    this.tag(TwigsBlockTags.PAPER_LANTERN).add(block);
-                }
+        for (Block block : TwigsBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).toList()) {
+            if (block instanceof WallBlock) {
+                this.tag(BlockTags.WALLS).add(block);
+            }
+            if (block instanceof SlabBlock) {
+                this.tag(BlockTags.SLABS).add(block);
+            }
+            if (block instanceof StairBlock) {
+                this.tag(BlockTags.STAIRS).add(block);
+            }
+            if (block instanceof TableBlock) {
+                this.tag(TwigsBlockTags.TABLES).add(block);
+            }
+            if (block instanceof PaperLanternBlock) {
+                this.tag(TwigsBlockTags.PAPER_LANTERN).add(block);
             }
         }
-        for (Block block : ForgeRegistries.BLOCKS) {
-            if (block instanceof VerticalSlabBlock) {
-                this.tag(quarkTag("vertical_slab")).add(block);
-                if (block != TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get() && block != TwigsBlocks.BAMBOO_THATCH_VERTICAL_SLAB.get()) {
-                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
-                }
+        TwigsBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(VerticalSlabBlock.class::isInstance).forEach(block -> {
+            this.tag(quarkTag("vertical_slab")).add(block);
+            if (block != TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get() && block != TwigsBlocks.BAMBOO_THATCH_VERTICAL_SLAB.get()) {
+                this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
             }
-        }
+        });
         this.tag(quarkTag("wooden_vertical_slabs")).add(TwigsBlocks.STRIPPED_BAMBOO_PLANKS_VERTICAL_SLAB.get());
     }
 
